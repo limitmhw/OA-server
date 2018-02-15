@@ -34,6 +34,14 @@ import cn.itcast.mybatis.po.User;
 @Controller
 @RequestMapping("/excel")
 public class TableServ {
+	private SqlSession sqlSession;
+	TableServ()throws IOException{
+		String res = "SqlMapConfig.xml";
+		InputStream inputStream = Resources.getResourceAsStream(res);
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		sqlSession = sqlSessionFactory.openSession();
+	}
+	
 	public List<String> getTableForExcel(String tem_excelType) {
 		List<String> subTable = new ArrayList<String>();
 		switch (tem_excelType) {
@@ -115,27 +123,21 @@ public class TableServ {
 		return subTable;
 	}
 
-	public SqlSession getSession() throws IOException{
-		String res = "SqlMapConfig.xml";
-		InputStream inputStream = Resources.getResourceAsStream(res);
-		// 创建SqlSessionFcatory
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		return sqlSession;
-	}
 
 	public void createExcelSubTable(int excel_id, String excelType)
 			throws Exception {
+		
+		
 		List<String> subTable = getTableForExcel(excelType);
 		for (String i : subTable) {
-			SqlSession sqlSession = getSession();
+
 			// 创建Usermapper对象，mybatis自动生成mapper代理对象
 			WtableMapper mapper = sqlSession.getMapper(WtableMapper.class);
 			Wtable tt = new Wtable();
 			tt.setTabletype(i);
 			tt.setExcelId(excel_id);
 			mapper.insert(tt);
-			sqlSession.close();
+
 		}
 	}
 
@@ -153,7 +155,7 @@ public class TableServ {
 		String pexcelType = request.getParameter("excelType");
 		String pgong_cheng_id = request.getParameter("gong_cheng_id");
 		// /////////////////////////////////
-		SqlSession sqlSession = getSession();
+
 		// 创建Usermapper对象，mybatis自动生成mapper代理对象
 		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
 		Wexcel record = new Wexcel();
@@ -166,7 +168,7 @@ public class TableServ {
 		record.setCreatedate(createDate);
 
 		mapper.insert(record);
-		sqlSession.close();
+		System.out.println(record.getId());
 		createExcelSubTable(record.getId(), pexcelType);
 		return;
 	}
@@ -177,10 +179,10 @@ public class TableServ {
 	public void table3(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String pexcel_id= request.getParameter("excel_id");
-		SqlSession sqlSession = getSession();
+
 		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
 		mapper.deleteByPrimaryKey(Integer.parseInt(pexcel_id));
-		sqlSession.close();
+
 		deleteExcelSubTable(Integer.parseInt(pexcel_id));
 		return;
 	}
@@ -192,14 +194,14 @@ public class TableServ {
 		String pexcelType = request.getParameter("excelType");
 		String pgong_cheng_id = request.getParameter("gong_cheng_id");
 
-		SqlSession sqlSession = getSession();
+
 		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
 		WexcelExample ee=new WexcelExample();
 		ee.setOrderByClause("createdate");
 		ee.or().andExceltypeEqualTo(pexcelType).andGongChengIdEqualTo(Integer.parseInt(pgong_cheng_id));	
 
 		List<Wexcel> lee=mapper.selectByExample(ee);
-		sqlSession.close();
+
 		String ss="[";
 		for(Wexcel it : lee) {
 			ss+="{"
@@ -222,12 +224,12 @@ public class TableServ {
 			throws Exception {
 
 		String pexcel_id= request.getParameter("excel_id");
-		SqlSession sqlSession = getSession();
+
 		WtableMapper mapper = sqlSession.getMapper(WtableMapper.class);
 		WtableExample ee=new WtableExample();
 		ee.or().andExcelIdEqualTo(Integer.parseInt(pexcel_id));	
 		List<Wtable>  lee=mapper.selectByExample(ee);
-		sqlSession.close();
+
 		String ss="[";
 		for(Wtable it:lee){
 			ss+="{"
@@ -248,23 +250,12 @@ public class TableServ {
 			throws Exception {
 
 		String ptable_id= request.getParameter("id");
-		SqlSession sqlSession = getSession();
+
 		WtableMapper mapper = sqlSession.getMapper(WtableMapper.class);
 		Wtable tt=mapper.selectByPrimaryKey(Integer.parseInt(ptable_id));
 		String ptableType=tt.getTabletype();
 
-
-
-
-
-
-
-
-
-
-
-
-
+		String ss="[";
 
 		switch(ptableType){
 		case "151_002":{
@@ -274,14 +265,14 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T151002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T151002 it : lee) {
 				String tr_data="["	
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;
 		}
 		case "152_002":{
@@ -291,7 +282,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T152002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T152002 it : lee) {
 				String tr_data="["
 						+"\""+String.valueOf(it.getBianMa())+"\","
@@ -305,8 +296,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;
 		}
 		case "152_004":{
@@ -316,7 +307,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T152004> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T152004 it : lee) {
 				String tr_data="["
 						+"\""+String.valueOf(it.getChengBenBianMa())+"\","
@@ -329,8 +320,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 
@@ -342,7 +333,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T152005> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T152005 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getBianHao())+"\","
@@ -360,8 +351,8 @@ public class TableServ {
 					+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "152_006":{
@@ -371,7 +362,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T152006> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T152006 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getChengBenBianMa())+"\","
@@ -384,8 +375,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "152_007":{
@@ -395,7 +386,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T152007> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T152007 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getChengBenBianMa())+"\","
@@ -408,8 +399,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "153_002":{
@@ -419,7 +410,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T153002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T153002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getChengBenBianMa())+"\","
@@ -436,8 +427,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "154_002":{
@@ -447,7 +438,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T154002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T154002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getChengBenBianMa())+"\","
@@ -460,8 +451,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 
@@ -472,7 +463,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T155002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T155002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getBianMa())+"\","
@@ -490,8 +481,8 @@ public class TableServ {
 					+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 
@@ -502,7 +493,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T155004> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T155004 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getChengBenBianMa())+"\","
@@ -522,8 +513,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "155_005":{
@@ -536,7 +527,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T155005> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T155005 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getChengBenBianHao())+"\","
@@ -556,8 +547,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "156_002":{
@@ -567,7 +558,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T156002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T156002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getXuHao())+"\","
@@ -585,8 +576,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "157_002":{
@@ -596,7 +587,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T157002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T157002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getBianMa())+"\","
@@ -613,8 +604,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 
@@ -625,7 +616,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T158002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T158002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getChengBenBianMa())+"\","
@@ -637,8 +628,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "158_003":{
@@ -648,7 +639,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T158003> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T158003 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getXuHao())+"\","
@@ -667,8 +658,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "158_004":{
@@ -678,7 +669,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T158004> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T158004 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getXuHao())+"\","
@@ -699,8 +690,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "159_002":{
@@ -710,7 +701,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T159002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T159002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getXuHao())+"\","
@@ -728,8 +719,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "160_002":{
@@ -739,7 +730,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T160002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T160002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getBianMa())+"\","
@@ -758,8 +749,8 @@ public class TableServ {
 					+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 
@@ -770,7 +761,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T161002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T161002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getXuHao())+"\","
@@ -791,8 +782,8 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "161_003":{
@@ -802,7 +793,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T161003> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T161003 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getXuHao())+"\","
@@ -826,8 +817,8 @@ public class TableServ {
 					+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		case "162_002":{
@@ -837,7 +828,7 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T162002> lee=t_mapper.selectByExample(ee);
-			String ss="[";
+			
 			for(T162002 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getXuHao())+"\","
@@ -851,18 +842,16 @@ public class TableServ {
 						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-			ss+="]";
-			ss=ss.replace("},]","}]");
+			
+			
 			break;				
 		}
 		}
-
-
-
-
+		ss+="]";
+		ss=ss.replace("},]","}]");
 		///**************
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
-		response.getWriter().write("[]");
+		response.getWriter().write(ss);
 		return;
 	}
 
@@ -884,7 +873,7 @@ public class TableServ {
 		String ptableCtx= request.getParameter("tableCtx");
 
 
-		SqlSession sqlSession = getSession();
+
 		// 创建Usermapper对象，mybatis自动生成mapper代理对象
 		JSONObject json;
 		Map<String, Object> itemMap;
@@ -1481,7 +1470,7 @@ public class TableServ {
 		}
 
 
-		sqlSession.close();
+
 		System.out.println(ptableType+ptableCtx);
 		System.out.println(ptable_id);
 		response.setHeader("Content-type", "text/html;charset=UTF-8");

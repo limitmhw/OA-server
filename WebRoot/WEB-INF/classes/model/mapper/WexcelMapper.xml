@@ -100,6 +100,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.Wexcel" >
+     <selectKey keyProperty="id" resultType="int">  
+            select LAST_INSERT_ID()  
+    </selectKey> 
     insert into wexcel (id, name, gong_cheng_id, 
       excelType, createDate)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gongChengId,jdbcType=INTEGER}, 
