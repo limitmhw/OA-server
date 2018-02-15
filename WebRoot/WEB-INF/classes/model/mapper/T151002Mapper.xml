@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="model.mapper.T151002Mapper" >
+  <resultMap id="BaseResultMap" type="model.po.T151002" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="table_id" property="tableId" jdbcType="INTEGER" />
+    <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="ji_hua_xiang_mu_" property="jiHuaXiangMu" jdbcType="VARCHAR" />
+    <result column="cheng_ben_jiang_di_lv_" property="chengBenJiangDiLv" jdbcType="VARCHAR" />
+    <result column="cheng_ben_ze_ren_ren_" property="chengBenZeRenRen" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, table_id, tr_order, ji_hua_xiang_mu_, cheng_ben_jiang_di_lv_, cheng_ben_ze_ren_ren_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.T151002Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t151_002
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t151_002
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t151_002
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="model.po.T151002Example" >
+    delete from t151_002
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.po.T151002" >
+    insert into t151_002 (id, table_id, tr_order, 
+      ji_hua_xiang_mu_, cheng_ben_jiang_di_lv_, cheng_ben_ze_ren_ren_
+      )
+    values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
+      #{jiHuaXiangMu,jdbcType=VARCHAR}, #{chengBenJiangDiLv,jdbcType=VARCHAR}, #{chengBenZeRenRen,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="model.po.T151002" >
+    insert into t151_002
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tableId != null" >
+        table_id,
+      </if>
+      <if test="trOrder != null" >
+        tr_order,
+      </if>
+      <if test="jiHuaXiangMu != null" >
+        ji_hua_xiang_mu_,
+      </if>
+      <if test="chengBenJiangDiLv != null" >
+        cheng_ben_jiang_di_lv_,
+      </if>
+      <if test="chengBenZeRenRen != null" >
+        cheng_ben_ze_ren_ren_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null" >
+        #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="trOrder != null" >
+        #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="jiHuaXiangMu != null" >
+        #{jiHuaXiangMu,jdbcType=VARCHAR},
+      </if>
+      <if test="chengBenJiangDiLv != null" >
+        #{chengBenJiangDiLv,jdbcType=VARCHAR},
+      </if>
+      <if test="chengBenZeRenRen != null" >
+        #{chengBenZeRenRen,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.po.T151002Example" resultType="java.lang.Integer" >
+    select count(*) from t151_002
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t151_002
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tableId != null" >
+        table_id = #{record.tableId,jdbcType=INTEGER},
+      </if>
+      <if test="record.trOrder != null" >
+        tr_order = #{record.trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.jiHuaXiangMu != null" >
+        ji_hua_xiang_mu_ = #{record.jiHuaXiangMu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chengBenJiangDiLv != null" >
+        cheng_ben_jiang_di_lv_ = #{record.chengBenJiangDiLv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chengBenZeRenRen != null" >
+        cheng_ben_ze_ren_ren_ = #{record.chengBenZeRenRen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t151_002
+    set id = #{record.id,jdbcType=INTEGER},
+      table_id = #{record.tableId,jdbcType=INTEGER},
+      tr_order = #{record.trOrder,jdbcType=INTEGER},
+      ji_hua_xiang_mu_ = #{record.jiHuaXiangMu,jdbcType=VARCHAR},
+      cheng_ben_jiang_di_lv_ = #{record.chengBenJiangDiLv,jdbcType=VARCHAR},
+      cheng_ben_ze_ren_ren_ = #{record.chengBenZeRenRen,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="model.po.T151002" >
+    update t151_002
+    <set >
+      <if test="tableId != null" >
+        table_id = #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="trOrder != null" >
+        tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="jiHuaXiangMu != null" >
+        ji_hua_xiang_mu_ = #{jiHuaXiangMu,jdbcType=VARCHAR},
+      </if>
+      <if test="chengBenJiangDiLv != null" >
+        cheng_ben_jiang_di_lv_ = #{chengBenJiangDiLv,jdbcType=VARCHAR},
+      </if>
+      <if test="chengBenZeRenRen != null" >
+        cheng_ben_ze_ren_ren_ = #{chengBenZeRenRen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.po.T151002" >
+    update t151_002
+    set table_id = #{tableId,jdbcType=INTEGER},
+      tr_order = #{trOrder,jdbcType=INTEGER},
+      ji_hua_xiang_mu_ = #{jiHuaXiangMu,jdbcType=VARCHAR},
+      cheng_ben_jiang_di_lv_ = #{chengBenJiangDiLv,jdbcType=VARCHAR},
+      cheng_ben_ze_ren_ren_ = #{chengBenZeRenRen,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="model.mapper.T155002Mapper" >
+  <resultMap id="BaseResultMap" type="model.po.T155002" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="table_id" property="tableId" jdbcType="INTEGER" />
+    <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="bian_ma_" property="bianMa" jdbcType="VARCHAR" />
+    <result column="cheng_ben_xiang_mu_" property="chengBenXiangMu" jdbcType="VARCHAR" />
+    <result column="na_rong_fan_wei_miao_shu_" property="naRongFanWeiMiaoShu" jdbcType="VARCHAR" />
+    <result column="yu_suan_cheng_ben_" property="yuSuanChengBen" jdbcType="VARCHAR" />
+    <result column="ji_hua_cheng_ben_" property="jiHuaChengBen" jdbcType="VARCHAR" />
+    <result column="shi_ji_yu_ji_cheng_ben_" property="shiJiYuJiChengBen" jdbcType="VARCHAR" />
+    <result column="yu_suan_shi_ji_jin_e_" property="yuSuanShiJiJinE" jdbcType="VARCHAR" />
+    <result column="yu_suan_shi_ji_bi_li_" property="yuSuanShiJiBiLi" jdbcType="VARCHAR" />
+    <result column="ji_hua_shi_ji_jin_e_" property="jiHuaShiJiJinE" jdbcType="VARCHAR" />
+    <result column="ji_hua_shi_ji_bi_li_" property="jiHuaShiJiBiLi" jdbcType="VARCHAR" />
+    <result column="zhuang_tai_" property="zhuangTai" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, table_id, tr_order, bian_ma_, cheng_ben_xiang_mu_, na_rong_fan_wei_miao_shu_, 
+    yu_suan_cheng_ben_, ji_hua_cheng_ben_, shi_ji_yu_ji_cheng_ben_, yu_suan_shi_ji_jin_e_, 
+    yu_suan_shi_ji_bi_li_, ji_hua_shi_ji_jin_e_, ji_hua_shi_ji_bi_li_, zhuang_tai_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.T155002Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t155_002
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t155_002
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t155_002
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="model.po.T155002Example" >
+    delete from t155_002
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.po.T155002" >
+    insert into t155_002 (id, table_id, tr_order, 
+      bian_ma_, cheng_ben_xiang_mu_, na_rong_fan_wei_miao_shu_, 
+      yu_suan_cheng_ben_, ji_hua_cheng_ben_, shi_ji_yu_ji_cheng_ben_, 
+      yu_suan_shi_ji_jin_e_, yu_suan_shi_ji_bi_li_, ji_hua_shi_ji_jin_e_, 
+      ji_hua_shi_ji_bi_li_, zhuang_tai_)
+    values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
+      #{bianMa,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, #{naRongFanWeiMiaoShu,jdbcType=VARCHAR}, 
+      #{yuSuanChengBen,jdbcType=VARCHAR}, #{jiHuaChengBen,jdbcType=VARCHAR}, #{shiJiYuJiChengBen,jdbcType=VARCHAR}, 
+      #{yuSuanShiJiJinE,jdbcType=VARCHAR}, #{yuSuanShiJiBiLi,jdbcType=VARCHAR}, #{jiHuaShiJiJinE,jdbcType=VARCHAR}, 
+      #{jiHuaShiJiBiLi,jdbcType=VARCHAR}, #{zhuangTai,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.po.T155002" >
+    insert into t155_002
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tableId != null" >
+        table_id,
+      </if>
+      <if test="trOrder != null" >
+        tr_order,
+      </if>
+      <if test="bianMa != null" >
+        bian_ma_,
+      </if>
+      <if test="chengBenXiangMu != null" >
+        cheng_ben_xiang_mu_,
+      </if>
+      <if test="naRongFanWeiMiaoShu != null" >
+        na_rong_fan_wei_miao_shu_,
+      </if>
+      <if test="yuSuanChengBen != null" >
+        yu_suan_cheng_ben_,
+      </if>
+      <if test="jiHuaChengBen != null" >
+        ji_hua_cheng_ben_,
+      </if>
+      <if test="shiJiYuJiChengBen != null" >
+        shi_ji_yu_ji_cheng_ben_,
+      </if>
+      <if test="yuSuanShiJiJinE != null" >
+        yu_suan_shi_ji_jin_e_,
+      </if>
+      <if test="yuSuanShiJiBiLi != null" >
+        yu_suan_shi_ji_bi_li_,
+      </if>
+      <if test="jiHuaShiJiJinE != null" >
+        ji_hua_shi_ji_jin_e_,
+      </if>
+      <if test="jiHuaShiJiBiLi != null" >
+        ji_hua_shi_ji_bi_li_,
+      </if>
+      <if test="zhuangTai != null" >
+        zhuang_tai_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null" >
+        #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="trOrder != null" >
+        #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="bianMa != null" >
+        #{bianMa,jdbcType=VARCHAR},
+      </if>
+      <if test="chengBenXiangMu != null" >
+        #{chengBenXiangMu,jdbcType=VARCHAR},
+      </if>
+      <if test="naRongFanWeiMiaoShu != null" >
+        #{naRongFanWeiMiaoShu,jdbcType=VARCHAR},
+      </if>
+      <if test="yuSuanChengBen != null" >
+        #{yuSuanChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="jiHuaChengBen != null" >
+        #{jiHuaChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="shiJiYuJiChengBen != null" >
+        #{shiJiYuJiChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="yuSuanShiJiJinE != null" >
+        #{yuSuanShiJiJinE,jdbcType=VARCHAR},
+      </if>
+      <if test="yuSuanShiJiBiLi != null" >
+        #{yuSuanShiJiBiLi,jdbcType=VARCHAR},
+      </if>
+      <if test="jiHuaShiJiJinE != null" >
+        #{jiHuaShiJiJinE,jdbcType=VARCHAR},
+      </if>
+      <if test="jiHuaShiJiBiLi != null" >
+        #{jiHuaShiJiBiLi,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuangTai != null" >
+        #{zhuangTai,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.po.T155002Example" resultType="java.lang.Integer" >
+    select count(*) from t155_002
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t155_002
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tableId != null" >
+        table_id = #{record.tableId,jdbcType=INTEGER},
+      </if>
+      <if test="record.trOrder != null" >
+        tr_order = #{record.trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.bianMa != null" >
+        bian_ma_ = #{record.bianMa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chengBenXiangMu != null" >
+        cheng_ben_xiang_mu_ = #{record.chengBenXiangMu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.naRongFanWeiMiaoShu != null" >
+        na_rong_fan_wei_miao_shu_ = #{record.naRongFanWeiMiaoShu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yuSuanChengBen != null" >
+        yu_suan_cheng_ben_ = #{record.yuSuanChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiHuaChengBen != null" >
+        ji_hua_cheng_ben_ = #{record.jiHuaChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shiJiYuJiChengBen != null" >
+        shi_ji_yu_ji_cheng_ben_ = #{record.shiJiYuJiChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yuSuanShiJiJinE != null" >
+        yu_suan_shi_ji_jin_e_ = #{record.yuSuanShiJiJinE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yuSuanShiJiBiLi != null" >
+        yu_suan_shi_ji_bi_li_ = #{record.yuSuanShiJiBiLi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiHuaShiJiJinE != null" >
+        ji_hua_shi_ji_jin_e_ = #{record.jiHuaShiJiJinE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiHuaShiJiBiLi != null" >
+        ji_hua_shi_ji_bi_li_ = #{record.jiHuaShiJiBiLi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhuangTai != null" >
+        zhuang_tai_ = #{record.zhuangTai,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t155_002
+    set id = #{record.id,jdbcType=INTEGER},
+      table_id = #{record.tableId,jdbcType=INTEGER},
+      tr_order = #{record.trOrder,jdbcType=INTEGER},
+      bian_ma_ = #{record.bianMa,jdbcType=VARCHAR},
+      cheng_ben_xiang_mu_ = #{record.chengBenXiangMu,jdbcType=VARCHAR},
+      na_rong_fan_wei_miao_shu_ = #{record.naRongFanWeiMiaoShu,jdbcType=VARCHAR},
+      yu_suan_cheng_ben_ = #{record.yuSuanChengBen,jdbcType=VARCHAR},
+      ji_hua_cheng_ben_ = #{record.jiHuaChengBen,jdbcType=VARCHAR},
+      shi_ji_yu_ji_cheng_ben_ = #{record.shiJiYuJiChengBen,jdbcType=VARCHAR},
+      yu_suan_shi_ji_jin_e_ = #{record.yuSuanShiJiJinE,jdbcType=VARCHAR},
+      yu_suan_shi_ji_bi_li_ = #{record.yuSuanShiJiBiLi,jdbcType=VARCHAR},
+      ji_hua_shi_ji_jin_e_ = #{record.jiHuaShiJiJinE,jdbcType=VARCHAR},
+      ji_hua_shi_ji_bi_li_ = #{record.jiHuaShiJiBiLi,jdbcType=VARCHAR},
+      zhuang_tai_ = #{record.zhuangTai,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="model.po.T155002" >
+    update t155_002
+    <set >
+      <if test="tableId != null" >
+        table_id = #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="trOrder != null" >
+        tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="bianMa != null" >
+        bian_ma_ = #{bianMa,jdbcType=VARCHAR},
+      </if>
+      <if test="chengBenXiangMu != null" >
+        cheng_ben_xiang_mu_ = #{chengBenXiangMu,jdbcType=VARCHAR},
+      </if>
+      <if test="naRongFanWeiMiaoShu != null" >
+        na_rong_fan_wei_miao_shu_ = #{naRongFanWeiMiaoShu,jdbcType=VARCHAR},
+      </if>
+      <if test="yuSuanChengBen != null" >
+        yu_suan_cheng_ben_ = #{yuSuanChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="jiHuaChengBen != null" >
+        ji_hua_cheng_ben_ = #{jiHuaChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="shiJiYuJiChengBen != null" >
+        shi_ji_yu_ji_cheng_ben_ = #{shiJiYuJiChengBen,jdbcType=VARCHAR},
+      </if>
+      <if test="yuSuanShiJiJinE != null" >
+        yu_suan_shi_ji_jin_e_ = #{yuSuanShiJiJinE,jdbcType=VARCHAR},
+      </if>
+      <if test="yuSuanShiJiBiLi != null" >
+        yu_suan_shi_ji_bi_li_ = #{yuSuanShiJiBiLi,jdbcType=VARCHAR},
+      </if>
+      <if test="jiHuaShiJiJinE != null" >
+        ji_hua_shi_ji_jin_e_ = #{jiHuaShiJiJinE,jdbcType=VARCHAR},
+      </if>
+      <if test="jiHuaShiJiBiLi != null" >
+        ji_hua_shi_ji_bi_li_ = #{jiHuaShiJiBiLi,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuangTai != null" >
+        zhuang_tai_ = #{zhuangTai,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.po.T155002" >
+    update t155_002
+    set table_id = #{tableId,jdbcType=INTEGER},
+      tr_order = #{trOrder,jdbcType=INTEGER},
+      bian_ma_ = #{bianMa,jdbcType=VARCHAR},
+      cheng_ben_xiang_mu_ = #{chengBenXiangMu,jdbcType=VARCHAR},
+      na_rong_fan_wei_miao_shu_ = #{naRongFanWeiMiaoShu,jdbcType=VARCHAR},
+      yu_suan_cheng_ben_ = #{yuSuanChengBen,jdbcType=VARCHAR},
+      ji_hua_cheng_ben_ = #{jiHuaChengBen,jdbcType=VARCHAR},
+      shi_ji_yu_ji_cheng_ben_ = #{shiJiYuJiChengBen,jdbcType=VARCHAR},
+      yu_suan_shi_ji_jin_e_ = #{yuSuanShiJiJinE,jdbcType=VARCHAR},
+      yu_suan_shi_ji_bi_li_ = #{yuSuanShiJiBiLi,jdbcType=VARCHAR},
+      ji_hua_shi_ji_jin_e_ = #{jiHuaShiJiJinE,jdbcType=VARCHAR},
+      ji_hua_shi_ji_bi_li_ = #{jiHuaShiJiBiLi,jdbcType=VARCHAR},
+      zhuang_tai_ = #{zhuangTai,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
