@@ -7,6 +7,18 @@
     <result column="wen_dang_bian_hao_" property="wenDangBianHao" jdbcType="VARCHAR" />
     <result column="excel_id" property="excelId" jdbcType="INTEGER" />
     <result column="biao_dan_bian_hao_" property="biaoDanBianHao" jdbcType="VARCHAR" />
+    <result column="xiang_mu_ming_chen_" property="xiangMuMingChen" jdbcType="VARCHAR" />
+    <result column="xiang_mu_ming_chen_dan_xiang_gong_cheng_" property="xiangMuMingChenDanXiangGongCheng" jdbcType="VARCHAR" />
+    <result column="xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_" property="xiangMuMingChenDanXiangGongChengZhuanYeLeiBie" jdbcType="VARCHAR" />
+    <result column="tong_ji_yue_fen_" property="tongJiYueFen" jdbcType="VARCHAR" />
+    <result column="tong_ji_ri_qi_" property="tongJiRiQi" jdbcType="VARCHAR" />
+    <result column="dan_wei_" property="danWei" jdbcType="VARCHAR" />
+    <result column="bian_zhi_ren_" property="bianZhiRen" jdbcType="VARCHAR" />
+    <result column="shen_he_ren_" property="shenHeRen" jdbcType="VARCHAR" />
+    <result column="shen_pi_ren_" property="shenPiRen" jdbcType="VARCHAR" />
+    <result column="bian_zhi_ri_qi_" property="bianZhiRiQi" jdbcType="VARCHAR" />
+    <result column="shen_he_ri_qi_" property="shenHeRiQi" jdbcType="VARCHAR" />
+    <result column="shen_pi_ri_qi_" property="shenPiRiQi" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +79,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, tableType, wen_dang_bian_hao_, excel_id, biao_dan_bian_hao_
+    id, tableType, wen_dang_bian_hao_, excel_id, biao_dan_bian_hao_, xiang_mu_ming_chen_, 
+    xiang_mu_ming_chen_dan_xiang_gong_cheng_, xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_, 
+    tong_ji_yue_fen_, tong_ji_ri_qi_, dan_wei_, bian_zhi_ren_, shen_he_ren_, shen_pi_ren_, 
+    bian_zhi_ri_qi_, shen_he_ri_qi_, shen_pi_ri_qi_
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.WtableExample" >
     select
@@ -101,9 +116,19 @@
   </delete>
   <insert id="insert" parameterType="model.po.Wtable" >
     insert into wtable (id, tableType, wen_dang_bian_hao_, 
-      excel_id, biao_dan_bian_hao_)
+      excel_id, biao_dan_bian_hao_, xiang_mu_ming_chen_, 
+      xiang_mu_ming_chen_dan_xiang_gong_cheng_, xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_, 
+      tong_ji_yue_fen_, tong_ji_ri_qi_, dan_wei_, 
+      bian_zhi_ren_, shen_he_ren_, shen_pi_ren_, 
+      bian_zhi_ri_qi_, shen_he_ri_qi_, shen_pi_ri_qi_
+      )
     values (#{id,jdbcType=INTEGER}, #{tabletype,jdbcType=VARCHAR}, #{wenDangBianHao,jdbcType=VARCHAR}, 
-      #{excelId,jdbcType=INTEGER}, #{biaoDanBianHao,jdbcType=VARCHAR})
+      #{excelId,jdbcType=INTEGER}, #{biaoDanBianHao,jdbcType=VARCHAR}, #{xiangMuMingChen,jdbcType=VARCHAR}, 
+      #{xiangMuMingChenDanXiangGongCheng,jdbcType=VARCHAR}, #{xiangMuMingChenDanXiangGongChengZhuanYeLeiBie,jdbcType=VARCHAR}, 
+      #{tongJiYueFen,jdbcType=VARCHAR}, #{tongJiRiQi,jdbcType=VARCHAR}, #{danWei,jdbcType=VARCHAR}, 
+      #{bianZhiRen,jdbcType=VARCHAR}, #{shenHeRen,jdbcType=VARCHAR}, #{shenPiRen,jdbcType=VARCHAR}, 
+      #{bianZhiRiQi,jdbcType=VARCHAR}, #{shenHeRiQi,jdbcType=VARCHAR}, #{shenPiRiQi,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="model.po.Wtable" >
     insert into wtable
@@ -123,6 +148,42 @@
       <if test="biaoDanBianHao != null" >
         biao_dan_bian_hao_,
       </if>
+      <if test="xiangMuMingChen != null" >
+        xiang_mu_ming_chen_,
+      </if>
+      <if test="xiangMuMingChenDanXiangGongCheng != null" >
+        xiang_mu_ming_chen_dan_xiang_gong_cheng_,
+      </if>
+      <if test="xiangMuMingChenDanXiangGongChengZhuanYeLeiBie != null" >
+        xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_,
+      </if>
+      <if test="tongJiYueFen != null" >
+        tong_ji_yue_fen_,
+      </if>
+      <if test="tongJiRiQi != null" >
+        tong_ji_ri_qi_,
+      </if>
+      <if test="danWei != null" >
+        dan_wei_,
+      </if>
+      <if test="bianZhiRen != null" >
+        bian_zhi_ren_,
+      </if>
+      <if test="shenHeRen != null" >
+        shen_he_ren_,
+      </if>
+      <if test="shenPiRen != null" >
+        shen_pi_ren_,
+      </if>
+      <if test="bianZhiRiQi != null" >
+        bian_zhi_ri_qi_,
+      </if>
+      <if test="shenHeRiQi != null" >
+        shen_he_ri_qi_,
+      </if>
+      <if test="shenPiRiQi != null" >
+        shen_pi_ri_qi_,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,6 +200,42 @@
       </if>
       <if test="biaoDanBianHao != null" >
         #{biaoDanBianHao,jdbcType=VARCHAR},
+      </if>
+      <if test="xiangMuMingChen != null" >
+        #{xiangMuMingChen,jdbcType=VARCHAR},
+      </if>
+      <if test="xiangMuMingChenDanXiangGongCheng != null" >
+        #{xiangMuMingChenDanXiangGongCheng,jdbcType=VARCHAR},
+      </if>
+      <if test="xiangMuMingChenDanXiangGongChengZhuanYeLeiBie != null" >
+        #{xiangMuMingChenDanXiangGongChengZhuanYeLeiBie,jdbcType=VARCHAR},
+      </if>
+      <if test="tongJiYueFen != null" >
+        #{tongJiYueFen,jdbcType=VARCHAR},
+      </if>
+      <if test="tongJiRiQi != null" >
+        #{tongJiRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="danWei != null" >
+        #{danWei,jdbcType=VARCHAR},
+      </if>
+      <if test="bianZhiRen != null" >
+        #{bianZhiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="shenHeRen != null" >
+        #{shenHeRen,jdbcType=VARCHAR},
+      </if>
+      <if test="shenPiRen != null" >
+        #{shenPiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="bianZhiRiQi != null" >
+        #{bianZhiRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="shenHeRiQi != null" >
+        #{shenHeRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="shenPiRiQi != null" >
+        #{shenPiRiQi,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +263,42 @@
       <if test="record.biaoDanBianHao != null" >
         biao_dan_bian_hao_ = #{record.biaoDanBianHao,jdbcType=VARCHAR},
       </if>
+      <if test="record.xiangMuMingChen != null" >
+        xiang_mu_ming_chen_ = #{record.xiangMuMingChen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiangMuMingChenDanXiangGongCheng != null" >
+        xiang_mu_ming_chen_dan_xiang_gong_cheng_ = #{record.xiangMuMingChenDanXiangGongCheng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xiangMuMingChenDanXiangGongChengZhuanYeLeiBie != null" >
+        xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_ = #{record.xiangMuMingChenDanXiangGongChengZhuanYeLeiBie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tongJiYueFen != null" >
+        tong_ji_yue_fen_ = #{record.tongJiYueFen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tongJiRiQi != null" >
+        tong_ji_ri_qi_ = #{record.tongJiRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.danWei != null" >
+        dan_wei_ = #{record.danWei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bianZhiRen != null" >
+        bian_zhi_ren_ = #{record.bianZhiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenHeRen != null" >
+        shen_he_ren_ = #{record.shenHeRen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenPiRen != null" >
+        shen_pi_ren_ = #{record.shenPiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bianZhiRiQi != null" >
+        bian_zhi_ri_qi_ = #{record.bianZhiRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenHeRiQi != null" >
+        shen_he_ri_qi_ = #{record.shenHeRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenPiRiQi != null" >
+        shen_pi_ri_qi_ = #{record.shenPiRiQi,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +310,19 @@
       tableType = #{record.tabletype,jdbcType=VARCHAR},
       wen_dang_bian_hao_ = #{record.wenDangBianHao,jdbcType=VARCHAR},
       excel_id = #{record.excelId,jdbcType=INTEGER},
-      biao_dan_bian_hao_ = #{record.biaoDanBianHao,jdbcType=VARCHAR}
+      biao_dan_bian_hao_ = #{record.biaoDanBianHao,jdbcType=VARCHAR},
+      xiang_mu_ming_chen_ = #{record.xiangMuMingChen,jdbcType=VARCHAR},
+      xiang_mu_ming_chen_dan_xiang_gong_cheng_ = #{record.xiangMuMingChenDanXiangGongCheng,jdbcType=VARCHAR},
+      xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_ = #{record.xiangMuMingChenDanXiangGongChengZhuanYeLeiBie,jdbcType=VARCHAR},
+      tong_ji_yue_fen_ = #{record.tongJiYueFen,jdbcType=VARCHAR},
+      tong_ji_ri_qi_ = #{record.tongJiRiQi,jdbcType=VARCHAR},
+      dan_wei_ = #{record.danWei,jdbcType=VARCHAR},
+      bian_zhi_ren_ = #{record.bianZhiRen,jdbcType=VARCHAR},
+      shen_he_ren_ = #{record.shenHeRen,jdbcType=VARCHAR},
+      shen_pi_ren_ = #{record.shenPiRen,jdbcType=VARCHAR},
+      bian_zhi_ri_qi_ = #{record.bianZhiRiQi,jdbcType=VARCHAR},
+      shen_he_ri_qi_ = #{record.shenHeRiQi,jdbcType=VARCHAR},
+      shen_pi_ri_qi_ = #{record.shenPiRiQi,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +342,42 @@
       <if test="biaoDanBianHao != null" >
         biao_dan_bian_hao_ = #{biaoDanBianHao,jdbcType=VARCHAR},
       </if>
+      <if test="xiangMuMingChen != null" >
+        xiang_mu_ming_chen_ = #{xiangMuMingChen,jdbcType=VARCHAR},
+      </if>
+      <if test="xiangMuMingChenDanXiangGongCheng != null" >
+        xiang_mu_ming_chen_dan_xiang_gong_cheng_ = #{xiangMuMingChenDanXiangGongCheng,jdbcType=VARCHAR},
+      </if>
+      <if test="xiangMuMingChenDanXiangGongChengZhuanYeLeiBie != null" >
+        xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_ = #{xiangMuMingChenDanXiangGongChengZhuanYeLeiBie,jdbcType=VARCHAR},
+      </if>
+      <if test="tongJiYueFen != null" >
+        tong_ji_yue_fen_ = #{tongJiYueFen,jdbcType=VARCHAR},
+      </if>
+      <if test="tongJiRiQi != null" >
+        tong_ji_ri_qi_ = #{tongJiRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="danWei != null" >
+        dan_wei_ = #{danWei,jdbcType=VARCHAR},
+      </if>
+      <if test="bianZhiRen != null" >
+        bian_zhi_ren_ = #{bianZhiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="shenHeRen != null" >
+        shen_he_ren_ = #{shenHeRen,jdbcType=VARCHAR},
+      </if>
+      <if test="shenPiRen != null" >
+        shen_pi_ren_ = #{shenPiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="bianZhiRiQi != null" >
+        bian_zhi_ri_qi_ = #{bianZhiRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="shenHeRiQi != null" >
+        shen_he_ri_qi_ = #{shenHeRiQi,jdbcType=VARCHAR},
+      </if>
+      <if test="shenPiRiQi != null" >
+        shen_pi_ri_qi_ = #{shenPiRiQi,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +386,19 @@
     set tableType = #{tabletype,jdbcType=VARCHAR},
       wen_dang_bian_hao_ = #{wenDangBianHao,jdbcType=VARCHAR},
       excel_id = #{excelId,jdbcType=INTEGER},
-      biao_dan_bian_hao_ = #{biaoDanBianHao,jdbcType=VARCHAR}
+      biao_dan_bian_hao_ = #{biaoDanBianHao,jdbcType=VARCHAR},
+      xiang_mu_ming_chen_ = #{xiangMuMingChen,jdbcType=VARCHAR},
+      xiang_mu_ming_chen_dan_xiang_gong_cheng_ = #{xiangMuMingChenDanXiangGongCheng,jdbcType=VARCHAR},
+      xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_ = #{xiangMuMingChenDanXiangGongChengZhuanYeLeiBie,jdbcType=VARCHAR},
+      tong_ji_yue_fen_ = #{tongJiYueFen,jdbcType=VARCHAR},
+      tong_ji_ri_qi_ = #{tongJiRiQi,jdbcType=VARCHAR},
+      dan_wei_ = #{danWei,jdbcType=VARCHAR},
+      bian_zhi_ren_ = #{bianZhiRen,jdbcType=VARCHAR},
+      shen_he_ren_ = #{shenHeRen,jdbcType=VARCHAR},
+      shen_pi_ren_ = #{shenPiRen,jdbcType=VARCHAR},
+      bian_zhi_ri_qi_ = #{bianZhiRiQi,jdbcType=VARCHAR},
+      shen_he_ri_qi_ = #{shenHeRiQi,jdbcType=VARCHAR},
+      shen_pi_ri_qi_ = #{shenPiRiQi,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
