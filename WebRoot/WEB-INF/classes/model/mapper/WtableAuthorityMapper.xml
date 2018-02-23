@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="model.mapper.WexcelMapper" >
-  <resultMap id="BaseResultMap" type="model.po.Wexcel" >
+<mapper namespace="model.mapper.WtableAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="model.po.WtableAuthority" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="gong_cheng_id" property="gongChengId" jdbcType="INTEGER" />
-    <result column="excelType" property="exceltype" jdbcType="VARCHAR" />
-    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="bei_zhu_" property="beiZhu" jdbcType="VARCHAR" />
+    <result column="mtmask" property="mtmask" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, gong_cheng_id, excelType, createDate
+    id, name, bei_zhu_, mtmask
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.WexcelExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.WtableAuthorityExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from wexcel
+    from wtable_authority
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,27 +85,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from wexcel
+    from wtable_authority
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from wexcel
+    delete from wtable_authority
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="model.po.WexcelExample" >
-    delete from wexcel
+  <delete id="deleteByExample" parameterType="model.po.WtableAuthorityExample" >
+    delete from wtable_authority
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="model.po.Wexcel" >
-    insert into wexcel (id, name, gong_cheng_id, 
-      excelType, createDate)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gongChengId,jdbcType=INTEGER}, 
-      #{exceltype,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="model.po.WtableAuthority" >
+    insert into wtable_authority (id, name, bei_zhu_, 
+      mtmask)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{beiZhu,jdbcType=VARCHAR}, 
+      #{mtmask,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="model.po.Wexcel" >
-    insert into wexcel
+  <insert id="insertSelective" parameterType="model.po.WtableAuthority" >
+    insert into wtable_authority
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -114,14 +113,11 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="gongChengId != null" >
-        gong_cheng_id,
+      <if test="beiZhu != null" >
+        bei_zhu_,
       </if>
-      <if test="exceltype != null" >
-        excelType,
-      </if>
-      <if test="createdate != null" >
-        createDate,
+      <if test="mtmask != null" >
+        mtmask,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -131,25 +127,22 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="gongChengId != null" >
-        #{gongChengId,jdbcType=INTEGER},
+      <if test="beiZhu != null" >
+        #{beiZhu,jdbcType=VARCHAR},
       </if>
-      <if test="exceltype != null" >
-        #{exceltype,jdbcType=VARCHAR},
-      </if>
-      <if test="createdate != null" >
-        #{createdate,jdbcType=TIMESTAMP},
+      <if test="mtmask != null" >
+        #{mtmask,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="model.po.WexcelExample" resultType="java.lang.Integer" >
-    select count(*) from wexcel
+  <select id="countByExample" parameterType="model.po.WtableAuthorityExample" resultType="java.lang.Integer" >
+    select count(*) from wtable_authority
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update wexcel
+    update wtable_authority
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
@@ -157,14 +150,11 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.gongChengId != null" >
-        gong_cheng_id = #{record.gongChengId,jdbcType=INTEGER},
+      <if test="record.beiZhu != null" >
+        bei_zhu_ = #{record.beiZhu,jdbcType=VARCHAR},
       </if>
-      <if test="record.exceltype != null" >
-        excelType = #{record.exceltype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createdate != null" >
-        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      <if test="record.mtmask != null" >
+        mtmask = #{record.mtmask,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -172,40 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update wexcel
+    update wtable_authority
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      gong_cheng_id = #{record.gongChengId,jdbcType=INTEGER},
-      excelType = #{record.exceltype,jdbcType=VARCHAR},
-      createDate = #{record.createdate,jdbcType=TIMESTAMP}
+      bei_zhu_ = #{record.beiZhu,jdbcType=VARCHAR},
+      mtmask = #{record.mtmask,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="model.po.Wexcel" >
-    update wexcel
+  <update id="updateByPrimaryKeySelective" parameterType="model.po.WtableAuthority" >
+    update wtable_authority
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="gongChengId != null" >
-        gong_cheng_id = #{gongChengId,jdbcType=INTEGER},
+      <if test="beiZhu != null" >
+        bei_zhu_ = #{beiZhu,jdbcType=VARCHAR},
       </if>
-      <if test="exceltype != null" >
-        excelType = #{exceltype,jdbcType=VARCHAR},
-      </if>
-      <if test="createdate != null" >
-        createDate = #{createdate,jdbcType=TIMESTAMP},
+      <if test="mtmask != null" >
+        mtmask = #{mtmask,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="model.po.Wexcel" >
-    update wexcel
+  <update id="updateByPrimaryKey" parameterType="model.po.WtableAuthority" >
+    update wtable_authority
     set name = #{name,jdbcType=VARCHAR},
-      gong_cheng_id = #{gongChengId,jdbcType=INTEGER},
-      excelType = #{exceltype,jdbcType=VARCHAR},
-      createDate = #{createdate,jdbcType=TIMESTAMP}
+      bei_zhu_ = #{beiZhu,jdbcType=VARCHAR},
+      mtmask = #{mtmask,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

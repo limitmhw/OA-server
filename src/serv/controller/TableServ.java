@@ -28,8 +28,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import cn.itcast.mybatis.mapper.UserMapper;
-import cn.itcast.mybatis.po.User;
 
 @Controller
 @RequestMapping("/excel")
@@ -123,7 +121,6 @@ public class TableServ {
 		return subTable;
 	}
 
-
 	public void createExcelSubTable(int excel_id, String excelType)
 			throws Exception {
 
@@ -145,8 +142,6 @@ public class TableServ {
 		// String excelType
 
 	}
-
-
 
 	@RequestMapping("/createExcel")
 	public void table(HttpServletRequest request, HttpServletResponse response)
@@ -172,8 +167,6 @@ public class TableServ {
 		createExcelSubTable(record.getId(), pexcelType);
 		return;
 	}
-
-
 
 	@RequestMapping("deleteExcel")
 	public void table3(HttpServletRequest request, HttpServletResponse response)
@@ -251,45 +244,38 @@ public class TableServ {
 
 		String ptable_id= request.getParameter("id");
 
-		
-		
-		
-		
-		
-		
-		
 		WtableMapper mapper = sqlSession.getMapper(WtableMapper.class);
 		Wtable tt=mapper.selectByPrimaryKey(Integer.parseInt(ptable_id));
 		String ptableType=tt.getTabletype();
-		
-		
+
+
 		String ret="[{\"xiang_mu_ming_chen_\":\""+tt.getXiangMuMingChen()+"\""+
-		",\"biao_dan_bian_hao_\":\""+tt.getBiaoDanBianHao()+"\""+
-		",\"tong_ji_ri_qi_nian_\":\""+tt.getTongJiRiQi()+"\""+
-		",\"tong_ji_ri_qi_yue_\":\""+tt.getTongJiYueFen()+"\""+
-		",\"dan_wei_\":\""+tt.getDanWei()+"\""+
-		",\"bian_zhi_ren_\":\""+tt.getBianZhiRen()+"\""+
-		",\"bian_zhi_ren_nian_\":\""+tt.getBianZhiRiQi()+"\""+
-		",\"bian_zhi_ren_yue_\":\""+"\""+
-		",\"bian_zhi_ren_ri_\":\""+"\""+
-		",\"shen_he_ren_\":\""+tt.getShenHeRen()+"\""+
-		",\"shen_he_ren_nian_\":\""+tt.getShenHeRiQi()+"\""+
-		",\"shen_he_ren_yue_\":\""+"\""+
-		",\"shen_he_ren_ri_\":\""+"\""+
-		",\"shen_pi_ren_\":\""+tt.getShenPiRen()+"\""+
-		",\"shen_pi_ren_nian_\":\""+tt.getShenPiRiQi()+"\""+
-		",\"shen_pi_ren_yue_\":\""+"\""+
-		",\"shen_pi_ren_ri_\":\""+"\"";
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
+				",\"biao_dan_bian_hao_\":\""+tt.getBiaoDanBianHao()+"\""+
+				",\"tong_ji_ri_qi_nian_\":\""+tt.getTongJiRiQi()+"\""+
+				",\"tong_ji_ri_qi_yue_\":\""+tt.getTongJiYueFen()+"\""+
+				",\"dan_wei_\":\""+tt.getDanWei()+"\""+
+				",\"bian_zhi_ren_\":\""+tt.getBianZhiRen()+"\""+
+				",\"bian_zhi_ren_nian_\":\""+tt.getBianZhiRiQi()+"\""+
+				",\"bian_zhi_ren_yue_\":\""+"\""+
+				",\"bian_zhi_ren_ri_\":\""+"\""+
+				",\"shen_he_ren_\":\""+tt.getShenHeRen()+"\""+
+				",\"shen_he_ren_nian_\":\""+tt.getShenHeRiQi()+"\""+
+				",\"shen_he_ren_yue_\":\""+"\""+
+				",\"shen_he_ren_ri_\":\""+"\""+
+				",\"shen_pi_ren_\":\""+tt.getShenPiRen()+"\""+
+				",\"shen_pi_ren_nian_\":\""+tt.getShenPiRiQi()+"\""+
+				",\"shen_pi_ren_yue_\":\""+"\""+
+				",\"shen_pi_ren_ri_\":\""+"\"";
+
+
+
+
+
+
+
+
+
+
 
 		String ss="[";
 
@@ -369,7 +355,6 @@ public class TableServ {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T152005> lee=t_mapper.selectByExample(ee);
-
 			for(T152005 it : lee) {
 				String tr_data="["	
 						+"\""+String.valueOf(it.getBianHao())+"\","
@@ -382,9 +367,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getCeSuanDanJia())+"\","
 						+"\""+String.valueOf(it.getCeSuanHeJi())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
-
-
-					+"]";
+						+"]";
 				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
@@ -886,7 +869,7 @@ public class TableServ {
 		ss+="]";
 		ss=ss.replace("},]","}]");
 		///**************
-		
+
 		ret+=",\"tr_info\":"+ss+"}]";
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write(ret);
@@ -918,7 +901,7 @@ public class TableServ {
 
 
 		WtableMapper tmapper = sqlSession.getMapper(WtableMapper.class);
-		
+
 		//先查询
 		Wtable ttable = tmapper.selectByPrimaryKey(ptable_id);
 		//然后更新
@@ -930,23 +913,23 @@ public class TableServ {
 		ttable.setTongJiRiQi(tongJiRiQi);
 		ttable.setTongJiYueFen(tongJiRiQi);
 		ttable.setDanWei(tableItemMap.get("dan_wei_"));
-		
-		
+
+
 		ttable.setBianZhiRen(tableItemMap.get("bian_zhi_ren_"));		
 		String bianZhiRiQi=tableItemMap.get("bian_zhi_ren_nian_")
 				+tableItemMap.get("bian_zhi_ren_yue_")
 				+tableItemMap.get("bian_zhi_ren_ri_");
 		ttable.setBianZhiRiQi(bianZhiRiQi);
-		
-		
-		
+
+
+
 		ttable.setShenHeRen(tableItemMap.get("shen_he_ren_"));
 		String shenHeRiQi=tableItemMap.get("shen_he_ren_nian_")
 				+tableItemMap.get("shen_he_ren_yue_")
 				+tableItemMap.get("shen_he_ren_ri_");
 		ttable.setShenHeRiQi(shenHeRiQi);
-		
-		
+
+
 		ttable.setShenPiRen(tableItemMap.get("shen_he_ren_ri_"));
 		String shenPiRiQi=tableItemMap.get("shen_pi_ren_nian_")
 				+tableItemMap.get("shen_pi_ren_yue_")
@@ -977,6 +960,12 @@ public class TableServ {
 					tt.setTrOrder(Integer.parseInt(entry.getKey()));
 					mapper.insert(tt);
 				}
+				/*
+				else{
+					T151002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+
+				}
+				 */
 			}
 			break;
 		}
@@ -999,6 +988,18 @@ public class TableServ {
 					tt.setLeiJiShu(trMap.get("6"));
 					tt.setBeiZhu(trMap.get("7"));
 					mapper.insert(tt);
+				}else{
+					T152002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setChuShiYuSuanChengBen(trMap.get("3"));
+					tt.setDiaoZhengHouYuSuanChengBen(trMap.get("4"));
+					tt.setBenQiShu(trMap.get("5"));
+					tt.setLeiJiShu(trMap.get("6"));
+					tt.setBeiZhu(trMap.get("7"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;
@@ -1021,6 +1022,17 @@ public class TableServ {
 					tt.setYuSuanChengBen(trMap.get("5"));
 					tt.setBeiZhu(trMap.get("6"));
 					mapper.insert(tt);
+				}else{
+					T152004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.updateByPrimaryKey(tt);
+
 				}
 			}
 			break;				
@@ -1048,9 +1060,21 @@ public class TableServ {
 					tt.setCeSuanDanJia(trMap.get("7"));
 					tt.setCeSuanHeJi(trMap.get("8"));
 					tt.setBeiZhu(trMap.get("9"));
-
-
 					mapper.insert(tt);
+				}else{
+					T152005 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setBianHao(trMap.get("0"));
+					tt.setCaiLiaoMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setShuLiang(trMap.get("4"));
+					tt.setTouBiaoDanJia(trMap.get("5"));
+					tt.setTouBiaoHeJi(trMap.get("6"));
+					tt.setCeSuanDanJia(trMap.get("7"));
+					tt.setCeSuanHeJi(trMap.get("8"));
+					tt.setBeiZhu(trMap.get("9"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1074,6 +1098,17 @@ public class TableServ {
 					tt.setYuSuanChengBen(trMap.get("5"));
 					tt.setBeiZhu(trMap.get("6"));
 					mapper.insert(tt);
+				}else{
+					T152006 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1097,6 +1132,17 @@ public class TableServ {
 					tt.setYuSuanChengBen(trMap.get("5"));
 					tt.setBeiZhu(trMap.get("6"));
 					mapper.insert(tt);
+				}else{
+					T152007 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1124,6 +1170,21 @@ public class TableServ {
 					tt.setLeiJiShuQiTa(trMap.get("9"));
 					tt.setBeiZhu(trMap.get("10"));
 					mapper.insert(tt);
+				}else{
+					T153002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setBenQiShuDiaoZhengE(trMap.get("2"));
+					tt.setBenQiShuShuLiang(trMap.get("3"));
+					tt.setBenQiShuJiaGe(trMap.get("4"));
+					tt.setBenQiShuQiTa(trMap.get("5"));
+					tt.setLeiJiShuDiaoZhengE(trMap.get("6"));
+					tt.setLeiJiShuShuLiang(trMap.get("7"));
+					tt.setLeiJiShuJiaGe(trMap.get("8"));
+					tt.setLeiJiShuQiTa(trMap.get("9"));
+					tt.setBeiZhu(trMap.get("10"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1147,6 +1208,19 @@ public class TableServ {
 					tt.setChengBenJiangDiLv(trMap.get("5"));
 					tt.setBeiZhu(trMap.get("6"));
 					mapper.insert(tt);
+				}else{
+					T154002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setJiHuaChengBen(trMap.get("4"));
+					tt.setChengBenJiangDiLv(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.updateByPrimaryKey(tt);
+
 				}
 			}
 			break;				
@@ -1177,6 +1251,21 @@ public class TableServ {
 					tt.setZhuangTai(trMap.get("10"));
 
 					mapper.insert(tt);
+				}else{
+					T155002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setJiHuaChengBen(trMap.get("4"));
+					tt.setShiJiYuJiChengBen(trMap.get("5"));
+					tt.setYuSuanShiJiJinE(trMap.get("6"));
+					tt.setYuSuanShiJiBiLi(trMap.get("7"));
+					tt.setJiHuaShiJiJinE(trMap.get("8"));
+					tt.setJiHuaShiJiBiLi(trMap.get("9"));
+					tt.setZhuangTai(trMap.get("10"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1208,6 +1297,24 @@ public class TableServ {
 					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
 					tt.setShiJiYuJiChengBen(trMap.get("13"));
 					mapper.insert(tt);
+				}else{
+					T155004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setYuSuanChengBen(trMap.get("2"));
+					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
+					tt.setZuLinShiJianZongYuSuanShiJian(trMap.get("4"));
+					tt.setZuLinShiJianYiFaShengShiJian(trMap.get("5"));
+					tt.setZuLinShiJianYuSuanShengYuShiJian(trMap.get("6"));
+					tt.setZuLinShiJianHuaiXuYaoShiJian(trMap.get("7"));
+					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
+					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
+					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
+					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
+					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
+					tt.setShiJiYuJiChengBen(trMap.get("13"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1238,6 +1345,24 @@ public class TableServ {
 					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
 					tt.setShiJiYuJiChengBen(trMap.get("13"));
 					mapper.insert(tt);
+				}else{
+					T155005 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setChengBenBianHao(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setYuSuanChengBen(trMap.get("2"));
+					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
+					tt.setChengBenShiJianZongYuSuanShiJian(trMap.get("4"));
+					tt.setChengBenShiJianYiFaShengShiJian(trMap.get("5"));
+					tt.setChengBenShiJianYuSuanShengYuShiJian(trMap.get("6"));
+					tt.setChengBenShiJianHuaiXuYaoShiJian(trMap.get("7"));
+					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
+					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
+					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
+					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
+					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
+					tt.setShiJiYuJiChengBen(trMap.get("13"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1268,6 +1393,22 @@ public class TableServ {
 					tt.setWeiWanYuKongShuYuKongDanJia(trMap.get("11"));
 
 					mapper.insert(tt);
+				}else{
+					T156002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setZongYuSuanShuShuLiang(trMap.get("4"));
+					tt.setZongYuSuanShuDanJia(trMap.get("5"));
+					tt.setZongYuSuanShuJinE(trMap.get("6"));
+					tt.setYiWanCaiGouShuShuLiang(trMap.get("7"));
+					tt.setYiWanCaiGouShuJinE(trMap.get("8"));
+					tt.setWeiWanYuKongShuShengYuLiang(trMap.get("9"));
+					tt.setWeiWanYuKongShuYuCeDanJia(trMap.get("10"));
+					tt.setWeiWanYuKongShuYuKongDanJia(trMap.get("11"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1295,6 +1436,21 @@ public class TableServ {
 					tt.setLeiJiShuJiangDiLv(trMap.get("9"));
 					tt.setBeiZhu(trMap.get("10"));
 					mapper.insert(tt);
+				}else{
+					T157002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setBenQiShuYuSuanChengBen(trMap.get("2"));
+					tt.setBenQiShuShiJiChengBen(trMap.get("3"));
+					tt.setBenQiShuJiangDiE(trMap.get("4"));
+					tt.setBenQiShuJiangDiLv(trMap.get("5"));
+					tt.setLeiJiShuYuSuanChengBen(trMap.get("6"));
+					tt.setLeiJiShuShiJiChengBen(trMap.get("7"));
+					tt.setLeiJiShuJiangDiE(trMap.get("8"));
+					tt.setLeiJiShuJiangDiLv(trMap.get("9"));
+					tt.setBeiZhu(trMap.get("10"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1317,10 +1473,17 @@ public class TableServ {
 					tt.setYuSuanChengBen(trMap.get("3"));
 					tt.setShiJiChengBen(trMap.get("4"));
 					tt.setBeiZhu(trMap.get("5"));
-
-
-
 					mapper.insert(tt);
+				}else{
+					T158002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setShiJiChengBen(trMap.get("4"));
+					tt.setBeiZhu(trMap.get("5"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1350,11 +1513,24 @@ public class TableServ {
 					tt.setBenYueShiJiChengBenHeJia(trMap.get("10"));
 					tt.setSuoShuChengBenXiangMu(trMap.get("11"));
 					tt.setShiYongBuWei(trMap.get("12"));
-
-
-
-
 					mapper.insert(tt);
+				}else{
+					T158003 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setBenYueYuSuanChengBenYuSuanDanJia(trMap.get("4"));
+					tt.setBenYueYuSuanChengBenYuSuanYongLiang(trMap.get("5"));
+					tt.setBenYueYuSuanChengBenHeJia(trMap.get("6"));
+					tt.setSunHaoLv(trMap.get("7"));
+					tt.setBenYueShiJiChengBenCaiGouDanJia(trMap.get("8"));
+					tt.setBenYueShiJiChengBenShiJiYongLiang(trMap.get("9"));
+					tt.setBenYueShiJiChengBenHeJia(trMap.get("10"));
+					tt.setSuoShuChengBenXiangMu(trMap.get("11"));
+					tt.setShiYongBuWei(trMap.get("12"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1388,6 +1564,26 @@ public class TableServ {
 					tt.setShiJiChengBenHeJia(trMap.get("15"));
 					tt.setSuoShuChengBenXiangMu(trMap.get("16"));
 					mapper.insert(tt);
+				}else{
+					T158004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setZuLinDanJiaDanWei(trMap.get("3"));
+					tt.setZuLinDanJiaYuSuanShu(trMap.get("4"));
+					tt.setZuLinDanJiaShiJiShu(trMap.get("5"));
+					tt.setZuLinShuLiangDanWei(trMap.get("6"));
+					tt.setZuLinShuLiangYuSuanShu(trMap.get("7"));
+					tt.setZuLinShuLiangYuSuanShu(trMap.get("8"));
+					tt.setZuLinShiJianDanWei(trMap.get("11"));
+					tt.setZuLinShiJianYuSuanShu(trMap.get("12"));
+					tt.setZuLinShiJianShiJiShu(trMap.get("13"));
+					tt.setYuSuanChengBenHeJi(trMap.get("14"));
+					tt.setShiJiChengBenHeJia(trMap.get("15"));
+					tt.setSuoShuChengBenXiangMu(trMap.get("16"));
+					mapper.updateByPrimaryKey(tt);
+
 				}
 			}
 			break;				
@@ -1403,7 +1599,6 @@ public class TableServ {
 					T159002 tt=new T159002();
 					tt.setTableId(ptable_id);
 					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-
 					tt.setXuHao(trMap.get("0"));
 					tt.setJiHuaXiangMu(trMap.get("1"));
 					tt.setChengBenJiangDiLvMuBiaoZhi(trMap.get("2"));
@@ -1416,16 +1611,26 @@ public class TableServ {
 					tt.setLeiJiShuWeiDaBiao(trMap.get("9"));
 					tt.setLeiJiShuShiJiJiaQuanPingJunZhi(trMap.get("10"));
 					tt.setBeiZhu(trMap.get("11"));
-
-
-
-
-
-
 					mapper.insert(tt);
+				}else{
+					T159002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setXuHao(trMap.get("0"));
+					tt.setJiHuaXiangMu(trMap.get("1"));
+					tt.setChengBenJiangDiLvMuBiaoZhi(trMap.get("2"));
+					tt.setBenQiShuZongFen(trMap.get("3"));
+					tt.setBenQiShuDaBiao(trMap.get("4"));
+					tt.setBenQiShuWeiDaBiao(trMap.get("5"));
+					tt.setBenQiShuShiJiJiaQuanPingJunZhi(trMap.get("6"));
+					tt.setLeiJiShuZongFen(trMap.get("7"));
+					tt.setLeiJiShuDaBiao(trMap.get("8"));
+					tt.setLeiJiShuWeiDaBiao(trMap.get("9"));
+					tt.setLeiJiShuShiJiJiaQuanPingJunZhi(trMap.get("10"));
+					tt.setBeiZhu(trMap.get("11"));
+					mapper.updateByPrimaryKey(tt);
 				}
+				break;				
 			}
-			break;				
 		}
 		case "160_002":{
 			System.out.println("160_002");
@@ -1438,9 +1643,6 @@ public class TableServ {
 					T160002 tt=new T160002();
 					tt.setTableId(ptable_id);
 					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-
-
-
 					tt.setBianMa(trMap.get("0"));
 					tt.setChengBenXiangMu(trMap.get("1"));
 					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
@@ -1452,9 +1654,22 @@ public class TableServ {
 					tt.setJieChaoYinSuFenXiJiaGe(trMap.get("8"));
 					tt.setJieChaoYinSuFenXiQiTa(trMap.get("9"));
 					tt.setZhuangTai(trMap.get("10"));
-
-
 					mapper.insert(tt);
+				}else{
+					T160002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setGuoChengChengBen(trMap.get("4"));
+					tt.setJieChaoJinE(trMap.get("5"));
+					tt.setJieChaoBiLi(trMap.get("6"));
+					tt.setJieChaoYinSuFenXiShuLiang(trMap.get("7"));
+					tt.setJieChaoYinSuFenXiJiaGe(trMap.get("8"));
+					tt.setJieChaoYinSuFenXiQiTa(trMap.get("9"));
+					tt.setZhuangTai(trMap.get("10"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1487,6 +1702,25 @@ public class TableServ {
 					tt.setJiaChaYingXiangJiaCha(trMap.get("13"));
 					tt.setJiaChaYingXiangJinE(trMap.get("14"));
 					mapper.insert(tt);
+				}else{
+					T161002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setYuSuanZhiShuLiang(trMap.get("4"));
+					tt.setYuSuanZhiDanJia(trMap.get("5"));
+					tt.setYuSuanZhiJinE(trMap.get("6"));
+					tt.setShiJiZhiShuLiang(trMap.get("7"));
+					tt.setShiJiZhiDanJia(trMap.get("8"));
+					tt.setShiJiZhiJinE(trMap.get("9"));
+					tt.setYingKui(trMap.get("10"));
+					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
+					tt.setLiangChaYingXiangJinE(trMap.get("12"));
+					tt.setJiaChaYingXiangJiaCha(trMap.get("13"));
+					tt.setJiaChaYingXiangJinE(trMap.get("14"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1519,8 +1753,28 @@ public class TableServ {
 					tt.setJiaChaYingXiangJiaCha(trMap.get("14"));
 					tt.setJiaChaYingXiangJinE(trMap.get("15"));
 					tt.setJiaChaYingXiangZhanBi(trMap.get("16"));		
-
 					mapper.insert(tt);
+				}else{
+					T161003 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setYuSuanZhiShuLiang(trMap.get("4"));
+					tt.setYuSuanZhiDanJia(trMap.get("5"));
+					tt.setYuSuanZhiJinE(trMap.get("6"));
+					tt.setShiJiZhiShuLiang(trMap.get("7"));
+					tt.setShiJiZhiDanJia(trMap.get("8"));
+					tt.setShiJiZhiJinE(trMap.get("9"));
+					tt.setYingKui(trMap.get("10"));
+					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
+					tt.setLiangChaYingXiangJinE(trMap.get("12"));
+					tt.setLiangChaYingXiangZhanBi(trMap.get("13"));
+					tt.setJiaChaYingXiangJiaCha(trMap.get("14"));
+					tt.setJiaChaYingXiangJinE(trMap.get("15"));
+					tt.setJiaChaYingXiangZhanBi(trMap.get("16"));		
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
@@ -1545,6 +1799,19 @@ public class TableServ {
 					tt.setLiRunDianBiaoJi(trMap.get("6"));
 					tt.setBeiZhu(trMap.get("7"));
 					mapper.insert(tt);
+				}else{
+					T162002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setXuHao(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanZaoJia(trMap.get("3"));
+					tt.setYuSuanChengBen(trMap.get("4"));
+					tt.setYingKuiEDu(trMap.get("5"));
+					tt.setLiRunDianBiaoJi(trMap.get("6"));
+					tt.setBeiZhu(trMap.get("7"));
+					mapper.updateByPrimaryKey(tt);
 				}
 			}
 			break;				
