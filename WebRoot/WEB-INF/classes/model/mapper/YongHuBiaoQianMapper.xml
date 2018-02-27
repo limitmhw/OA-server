@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="model.mapper.YongHuBiaoQianMapper" >
+  <resultMap id="BaseResultMap" type="model.po.YongHuBiaoQian" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="biao_qian_ming_" property="biaoQianMing" jdbcType="VARCHAR" />
+    <result column="suo_shu_gong_si_" property="suoShuGongSi" jdbcType="INTEGER" />
+    <result column="bei_zhu_" property="beiZhu" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, biao_qian_ming_, suo_shu_gong_si_, bei_zhu_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.YongHuBiaoQianExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yong_hu_biao_qian_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yong_hu_biao_qian_
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yong_hu_biao_qian_
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="model.po.YongHuBiaoQianExample" >
+    delete from yong_hu_biao_qian_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.po.YongHuBiaoQian" >
+    insert into yong_hu_biao_qian_ (id, biao_qian_ming_, suo_shu_gong_si_, 
+      bei_zhu_)
+    values (#{id,jdbcType=INTEGER}, #{biaoQianMing,jdbcType=VARCHAR}, #{suoShuGongSi,jdbcType=INTEGER}, 
+      #{beiZhu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.po.YongHuBiaoQian" >
+    insert into yong_hu_biao_qian_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="biaoQianMing != null" >
+        biao_qian_ming_,
+      </if>
+      <if test="suoShuGongSi != null" >
+        suo_shu_gong_si_,
+      </if>
+      <if test="beiZhu != null" >
+        bei_zhu_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="biaoQianMing != null" >
+        #{biaoQianMing,jdbcType=VARCHAR},
+      </if>
+      <if test="suoShuGongSi != null" >
+        #{suoShuGongSi,jdbcType=INTEGER},
+      </if>
+      <if test="beiZhu != null" >
+        #{beiZhu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.po.YongHuBiaoQianExample" resultType="java.lang.Integer" >
+    select count(*) from yong_hu_biao_qian_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yong_hu_biao_qian_
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.biaoQianMing != null" >
+        biao_qian_ming_ = #{record.biaoQianMing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suoShuGongSi != null" >
+        suo_shu_gong_si_ = #{record.suoShuGongSi,jdbcType=INTEGER},
+      </if>
+      <if test="record.beiZhu != null" >
+        bei_zhu_ = #{record.beiZhu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yong_hu_biao_qian_
+    set id = #{record.id,jdbcType=INTEGER},
+      biao_qian_ming_ = #{record.biaoQianMing,jdbcType=VARCHAR},
+      suo_shu_gong_si_ = #{record.suoShuGongSi,jdbcType=INTEGER},
+      bei_zhu_ = #{record.beiZhu,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="model.po.YongHuBiaoQian" >
+    update yong_hu_biao_qian_
+    <set >
+      <if test="biaoQianMing != null" >
+        biao_qian_ming_ = #{biaoQianMing,jdbcType=VARCHAR},
+      </if>
+      <if test="suoShuGongSi != null" >
+        suo_shu_gong_si_ = #{suoShuGongSi,jdbcType=INTEGER},
+      </if>
+      <if test="beiZhu != null" >
+        bei_zhu_ = #{beiZhu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.po.YongHuBiaoQian" >
+    update yong_hu_biao_qian_
+    set biao_qian_ming_ = #{biaoQianMing,jdbcType=VARCHAR},
+      suo_shu_gong_si_ = #{suoShuGongSi,jdbcType=INTEGER},
+      bei_zhu_ = #{beiZhu,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

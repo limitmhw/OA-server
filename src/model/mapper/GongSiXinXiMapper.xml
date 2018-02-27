@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="model.mapper.GongSiXinXiMapper" >
+  <resultMap id="BaseResultMap" type="model.po.GongSiXinXi" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="qi_ye_ming_cheng_" property="qiYeMingCheng" jdbcType="VARCHAR" />
+    <result column="gong_si_lei_xing_" property="gongSiLeiXing" jdbcType="VARCHAR" />
+    <result column="zhu_ce_di_zhi_" property="zhuCeDiZhi" jdbcType="VARCHAR" />
+    <result column="fa_ding_dai_biao_ren_" property="faDingDaiBiaoRen" jdbcType="VARCHAR" />
+    <result column="gong_shang_zhu_ce_hao_" property="gongShangZhuCeHao" jdbcType="VARCHAR" />
+    <result column="zhu_ce_zi_ben_" property="zhuCeZiBen" jdbcType="VARCHAR" />
+    <result column="kai_hu_yin_hang_" property="kaiHuYinHang" jdbcType="VARCHAR" />
+    <result column="kai_hu_zhang_hao_" property="kaiHuZhangHao" jdbcType="VARCHAR" />
+    <result column="wei_tuo_dai_li_ren_" property="weiTuoDaiLiRen" jdbcType="VARCHAR" />
+    <result column="wei_tuo_dai_li_ren_zhi_wu_" property="weiTuoDaiLiRenZhiWu" jdbcType="VARCHAR" />
+    <result column="wei_tuo_dai_li_ren_dian_hua_" property="weiTuoDaiLiRenDianHua" jdbcType="VARCHAR" />
+    <result column="lian_xi_ren_" property="lianXiRen" jdbcType="VARCHAR" />
+    <result column="lian_xi_ren_zhi_wu_" property="lianXiRenZhiWu" jdbcType="VARCHAR" />
+    <result column="lian_xi_ren_dian_hua_" property="lianXiRenDianHua" jdbcType="VARCHAR" />
+    <result column="dian_zi_you_xiang_" property="dianZiYouXiang" jdbcType="VARCHAR" />
+    <result column="chuan_zhen_" property="chuanZhen" jdbcType="VARCHAR" />
+    <result column="ban_shi_ji_gou_xiang_xi_di_zhi_" property="banShiJiGouXiangXiDiZhi" jdbcType="VARCHAR" />
+    <result column="ban_shi_ji_gou_you_zheng_bian_ma_" property="banShiJiGouYouZhengBianMa" jdbcType="VARCHAR" />
+    <result column="ban_shi_ji_gou_lian_xi_ren_" property="banShiJiGouLianXiRen" jdbcType="VARCHAR" />
+    <result column="ban_shi_ji_gou_lian_xi_ren_zhi_wu_" property="banShiJiGouLianXiRenZhiWu" jdbcType="VARCHAR" />
+    <result column="ban_shi_ji_gou_lian_xi_ren_dian_hua_" property="banShiJiGouLianXiRenDianHua" jdbcType="VARCHAR" />
+    <result column="ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_" property="banShiJiGouLianXiRenDianZiYouXiang" jdbcType="VARCHAR" />
+    <result column="ban_shi_ji_gou_lian_xi_ren_chuan_zhen_" property="banShiJiGouLianXiRenChuanZhen" jdbcType="VARCHAR" />
+    <result column="gong_si_ji_lu_lei_xing_" property="gongSiJiLuLeiXing" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="model.po.GongSiXinXi" extends="BaseResultMap" >
+    <result column="jing_ying_fan_wei_" property="jingYingFanWei" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, qi_ye_ming_cheng_, gong_si_lei_xing_, zhu_ce_di_zhi_, fa_ding_dai_biao_ren_, 
+    gong_shang_zhu_ce_hao_, zhu_ce_zi_ben_, kai_hu_yin_hang_, kai_hu_zhang_hao_, wei_tuo_dai_li_ren_, 
+    wei_tuo_dai_li_ren_zhi_wu_, wei_tuo_dai_li_ren_dian_hua_, lian_xi_ren_, lian_xi_ren_zhi_wu_, 
+    lian_xi_ren_dian_hua_, dian_zi_you_xiang_, chuan_zhen_, ban_shi_ji_gou_xiang_xi_di_zhi_, 
+    ban_shi_ji_gou_you_zheng_bian_ma_, ban_shi_ji_gou_lian_xi_ren_, ban_shi_ji_gou_lian_xi_ren_zhi_wu_, 
+    ban_shi_ji_gou_lian_xi_ren_dian_hua_, ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_, 
+    ban_shi_ji_gou_lian_xi_ren_chuan_zhen_, gong_si_ji_lu_lei_xing_
+  </sql>
+  <sql id="Blob_Column_List" >
+    jing_ying_fan_wei_
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="model.po.GongSiXinXiExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from gong_si_xin_xi_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.GongSiXinXiExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gong_si_xin_xi_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="model.po.GongSiXinXiKey" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from gong_si_xin_xi_
+    where id = #{id,jdbcType=INTEGER}
+      and qi_ye_ming_cheng_ = #{qiYeMingCheng,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="model.po.GongSiXinXiKey" >
+    delete from gong_si_xin_xi_
+    where id = #{id,jdbcType=INTEGER}
+      and qi_ye_ming_cheng_ = #{qiYeMingCheng,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="model.po.GongSiXinXiExample" >
+    delete from gong_si_xin_xi_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.po.GongSiXinXi" >
+    insert into gong_si_xin_xi_ (id, qi_ye_ming_cheng_, gong_si_lei_xing_, 
+      zhu_ce_di_zhi_, fa_ding_dai_biao_ren_, gong_shang_zhu_ce_hao_, 
+      zhu_ce_zi_ben_, kai_hu_yin_hang_, kai_hu_zhang_hao_, 
+      wei_tuo_dai_li_ren_, wei_tuo_dai_li_ren_zhi_wu_, wei_tuo_dai_li_ren_dian_hua_, 
+      lian_xi_ren_, lian_xi_ren_zhi_wu_, lian_xi_ren_dian_hua_, 
+      dian_zi_you_xiang_, chuan_zhen_, ban_shi_ji_gou_xiang_xi_di_zhi_, 
+      ban_shi_ji_gou_you_zheng_bian_ma_, ban_shi_ji_gou_lian_xi_ren_, 
+      ban_shi_ji_gou_lian_xi_ren_zhi_wu_, ban_shi_ji_gou_lian_xi_ren_dian_hua_, 
+      ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_, ban_shi_ji_gou_lian_xi_ren_chuan_zhen_, 
+      gong_si_ji_lu_lei_xing_, jing_ying_fan_wei_)
+    values (#{id,jdbcType=INTEGER}, #{qiYeMingCheng,jdbcType=VARCHAR}, #{gongSiLeiXing,jdbcType=VARCHAR}, 
+      #{zhuCeDiZhi,jdbcType=VARCHAR}, #{faDingDaiBiaoRen,jdbcType=VARCHAR}, #{gongShangZhuCeHao,jdbcType=VARCHAR}, 
+      #{zhuCeZiBen,jdbcType=VARCHAR}, #{kaiHuYinHang,jdbcType=VARCHAR}, #{kaiHuZhangHao,jdbcType=VARCHAR}, 
+      #{weiTuoDaiLiRen,jdbcType=VARCHAR}, #{weiTuoDaiLiRenZhiWu,jdbcType=VARCHAR}, #{weiTuoDaiLiRenDianHua,jdbcType=VARCHAR}, 
+      #{lianXiRen,jdbcType=VARCHAR}, #{lianXiRenZhiWu,jdbcType=VARCHAR}, #{lianXiRenDianHua,jdbcType=VARCHAR}, 
+      #{dianZiYouXiang,jdbcType=VARCHAR}, #{chuanZhen,jdbcType=VARCHAR}, #{banShiJiGouXiangXiDiZhi,jdbcType=VARCHAR}, 
+      #{banShiJiGouYouZhengBianMa,jdbcType=VARCHAR}, #{banShiJiGouLianXiRen,jdbcType=VARCHAR}, 
+      #{banShiJiGouLianXiRenZhiWu,jdbcType=VARCHAR}, #{banShiJiGouLianXiRenDianHua,jdbcType=VARCHAR}, 
+      #{banShiJiGouLianXiRenDianZiYouXiang,jdbcType=VARCHAR}, #{banShiJiGouLianXiRenChuanZhen,jdbcType=VARCHAR}, 
+      #{gongSiJiLuLeiXing,jdbcType=INTEGER}, #{jingYingFanWei,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="model.po.GongSiXinXi" >
+    insert into gong_si_xin_xi_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qiYeMingCheng != null" >
+        qi_ye_ming_cheng_,
+      </if>
+      <if test="gongSiLeiXing != null" >
+        gong_si_lei_xing_,
+      </if>
+      <if test="zhuCeDiZhi != null" >
+        zhu_ce_di_zhi_,
+      </if>
+      <if test="faDingDaiBiaoRen != null" >
+        fa_ding_dai_biao_ren_,
+      </if>
+      <if test="gongShangZhuCeHao != null" >
+        gong_shang_zhu_ce_hao_,
+      </if>
+      <if test="zhuCeZiBen != null" >
+        zhu_ce_zi_ben_,
+      </if>
+      <if test="kaiHuYinHang != null" >
+        kai_hu_yin_hang_,
+      </if>
+      <if test="kaiHuZhangHao != null" >
+        kai_hu_zhang_hao_,
+      </if>
+      <if test="weiTuoDaiLiRen != null" >
+        wei_tuo_dai_li_ren_,
+      </if>
+      <if test="weiTuoDaiLiRenZhiWu != null" >
+        wei_tuo_dai_li_ren_zhi_wu_,
+      </if>
+      <if test="weiTuoDaiLiRenDianHua != null" >
+        wei_tuo_dai_li_ren_dian_hua_,
+      </if>
+      <if test="lianXiRen != null" >
+        lian_xi_ren_,
+      </if>
+      <if test="lianXiRenZhiWu != null" >
+        lian_xi_ren_zhi_wu_,
+      </if>
+      <if test="lianXiRenDianHua != null" >
+        lian_xi_ren_dian_hua_,
+      </if>
+      <if test="dianZiYouXiang != null" >
+        dian_zi_you_xiang_,
+      </if>
+      <if test="chuanZhen != null" >
+        chuan_zhen_,
+      </if>
+      <if test="banShiJiGouXiangXiDiZhi != null" >
+        ban_shi_ji_gou_xiang_xi_di_zhi_,
+      </if>
+      <if test="banShiJiGouYouZhengBianMa != null" >
+        ban_shi_ji_gou_you_zheng_bian_ma_,
+      </if>
+      <if test="banShiJiGouLianXiRen != null" >
+        ban_shi_ji_gou_lian_xi_ren_,
+      </if>
+      <if test="banShiJiGouLianXiRenZhiWu != null" >
+        ban_shi_ji_gou_lian_xi_ren_zhi_wu_,
+      </if>
+      <if test="banShiJiGouLianXiRenDianHua != null" >
+        ban_shi_ji_gou_lian_xi_ren_dian_hua_,
+      </if>
+      <if test="banShiJiGouLianXiRenDianZiYouXiang != null" >
+        ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_,
+      </if>
+      <if test="banShiJiGouLianXiRenChuanZhen != null" >
+        ban_shi_ji_gou_lian_xi_ren_chuan_zhen_,
+      </if>
+      <if test="gongSiJiLuLeiXing != null" >
+        gong_si_ji_lu_lei_xing_,
+      </if>
+      <if test="jingYingFanWei != null" >
+        jing_ying_fan_wei_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qiYeMingCheng != null" >
+        #{qiYeMingCheng,jdbcType=VARCHAR},
+      </if>
+      <if test="gongSiLeiXing != null" >
+        #{gongSiLeiXing,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuCeDiZhi != null" >
+        #{zhuCeDiZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="faDingDaiBiaoRen != null" >
+        #{faDingDaiBiaoRen,jdbcType=VARCHAR},
+      </if>
+      <if test="gongShangZhuCeHao != null" >
+        #{gongShangZhuCeHao,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuCeZiBen != null" >
+        #{zhuCeZiBen,jdbcType=VARCHAR},
+      </if>
+      <if test="kaiHuYinHang != null" >
+        #{kaiHuYinHang,jdbcType=VARCHAR},
+      </if>
+      <if test="kaiHuZhangHao != null" >
+        #{kaiHuZhangHao,jdbcType=VARCHAR},
+      </if>
+      <if test="weiTuoDaiLiRen != null" >
+        #{weiTuoDaiLiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="weiTuoDaiLiRenZhiWu != null" >
+        #{weiTuoDaiLiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="weiTuoDaiLiRenDianHua != null" >
+        #{weiTuoDaiLiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="lianXiRen != null" >
+        #{lianXiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="lianXiRenZhiWu != null" >
+        #{lianXiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="lianXiRenDianHua != null" >
+        #{lianXiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="dianZiYouXiang != null" >
+        #{dianZiYouXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="chuanZhen != null" >
+        #{chuanZhen,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouXiangXiDiZhi != null" >
+        #{banShiJiGouXiangXiDiZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouYouZhengBianMa != null" >
+        #{banShiJiGouYouZhengBianMa,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRen != null" >
+        #{banShiJiGouLianXiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRenZhiWu != null" >
+        #{banShiJiGouLianXiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRenDianHua != null" >
+        #{banShiJiGouLianXiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRenDianZiYouXiang != null" >
+        #{banShiJiGouLianXiRenDianZiYouXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRenChuanZhen != null" >
+        #{banShiJiGouLianXiRenChuanZhen,jdbcType=VARCHAR},
+      </if>
+      <if test="gongSiJiLuLeiXing != null" >
+        #{gongSiJiLuLeiXing,jdbcType=INTEGER},
+      </if>
+      <if test="jingYingFanWei != null" >
+        #{jingYingFanWei,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.po.GongSiXinXiExample" resultType="java.lang.Integer" >
+    select count(*) from gong_si_xin_xi_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gong_si_xin_xi_
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.qiYeMingCheng != null" >
+        qi_ye_ming_cheng_ = #{record.qiYeMingCheng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gongSiLeiXing != null" >
+        gong_si_lei_xing_ = #{record.gongSiLeiXing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhuCeDiZhi != null" >
+        zhu_ce_di_zhi_ = #{record.zhuCeDiZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faDingDaiBiaoRen != null" >
+        fa_ding_dai_biao_ren_ = #{record.faDingDaiBiaoRen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gongShangZhuCeHao != null" >
+        gong_shang_zhu_ce_hao_ = #{record.gongShangZhuCeHao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhuCeZiBen != null" >
+        zhu_ce_zi_ben_ = #{record.zhuCeZiBen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kaiHuYinHang != null" >
+        kai_hu_yin_hang_ = #{record.kaiHuYinHang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kaiHuZhangHao != null" >
+        kai_hu_zhang_hao_ = #{record.kaiHuZhangHao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiTuoDaiLiRen != null" >
+        wei_tuo_dai_li_ren_ = #{record.weiTuoDaiLiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiTuoDaiLiRenZhiWu != null" >
+        wei_tuo_dai_li_ren_zhi_wu_ = #{record.weiTuoDaiLiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiTuoDaiLiRenDianHua != null" >
+        wei_tuo_dai_li_ren_dian_hua_ = #{record.weiTuoDaiLiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lianXiRen != null" >
+        lian_xi_ren_ = #{record.lianXiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lianXiRenZhiWu != null" >
+        lian_xi_ren_zhi_wu_ = #{record.lianXiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lianXiRenDianHua != null" >
+        lian_xi_ren_dian_hua_ = #{record.lianXiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dianZiYouXiang != null" >
+        dian_zi_you_xiang_ = #{record.dianZiYouXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chuanZhen != null" >
+        chuan_zhen_ = #{record.chuanZhen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banShiJiGouXiangXiDiZhi != null" >
+        ban_shi_ji_gou_xiang_xi_di_zhi_ = #{record.banShiJiGouXiangXiDiZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banShiJiGouYouZhengBianMa != null" >
+        ban_shi_ji_gou_you_zheng_bian_ma_ = #{record.banShiJiGouYouZhengBianMa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banShiJiGouLianXiRen != null" >
+        ban_shi_ji_gou_lian_xi_ren_ = #{record.banShiJiGouLianXiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banShiJiGouLianXiRenZhiWu != null" >
+        ban_shi_ji_gou_lian_xi_ren_zhi_wu_ = #{record.banShiJiGouLianXiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banShiJiGouLianXiRenDianHua != null" >
+        ban_shi_ji_gou_lian_xi_ren_dian_hua_ = #{record.banShiJiGouLianXiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banShiJiGouLianXiRenDianZiYouXiang != null" >
+        ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_ = #{record.banShiJiGouLianXiRenDianZiYouXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.banShiJiGouLianXiRenChuanZhen != null" >
+        ban_shi_ji_gou_lian_xi_ren_chuan_zhen_ = #{record.banShiJiGouLianXiRenChuanZhen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gongSiJiLuLeiXing != null" >
+        gong_si_ji_lu_lei_xing_ = #{record.gongSiJiLuLeiXing,jdbcType=INTEGER},
+      </if>
+      <if test="record.jingYingFanWei != null" >
+        jing_ying_fan_wei_ = #{record.jingYingFanWei,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update gong_si_xin_xi_
+    set id = #{record.id,jdbcType=INTEGER},
+      qi_ye_ming_cheng_ = #{record.qiYeMingCheng,jdbcType=VARCHAR},
+      gong_si_lei_xing_ = #{record.gongSiLeiXing,jdbcType=VARCHAR},
+      zhu_ce_di_zhi_ = #{record.zhuCeDiZhi,jdbcType=VARCHAR},
+      fa_ding_dai_biao_ren_ = #{record.faDingDaiBiaoRen,jdbcType=VARCHAR},
+      gong_shang_zhu_ce_hao_ = #{record.gongShangZhuCeHao,jdbcType=VARCHAR},
+      zhu_ce_zi_ben_ = #{record.zhuCeZiBen,jdbcType=VARCHAR},
+      kai_hu_yin_hang_ = #{record.kaiHuYinHang,jdbcType=VARCHAR},
+      kai_hu_zhang_hao_ = #{record.kaiHuZhangHao,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_ = #{record.weiTuoDaiLiRen,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_zhi_wu_ = #{record.weiTuoDaiLiRenZhiWu,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_dian_hua_ = #{record.weiTuoDaiLiRenDianHua,jdbcType=VARCHAR},
+      lian_xi_ren_ = #{record.lianXiRen,jdbcType=VARCHAR},
+      lian_xi_ren_zhi_wu_ = #{record.lianXiRenZhiWu,jdbcType=VARCHAR},
+      lian_xi_ren_dian_hua_ = #{record.lianXiRenDianHua,jdbcType=VARCHAR},
+      dian_zi_you_xiang_ = #{record.dianZiYouXiang,jdbcType=VARCHAR},
+      chuan_zhen_ = #{record.chuanZhen,jdbcType=VARCHAR},
+      ban_shi_ji_gou_xiang_xi_di_zhi_ = #{record.banShiJiGouXiangXiDiZhi,jdbcType=VARCHAR},
+      ban_shi_ji_gou_you_zheng_bian_ma_ = #{record.banShiJiGouYouZhengBianMa,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_ = #{record.banShiJiGouLianXiRen,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_zhi_wu_ = #{record.banShiJiGouLianXiRenZhiWu,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_dian_hua_ = #{record.banShiJiGouLianXiRenDianHua,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_ = #{record.banShiJiGouLianXiRenDianZiYouXiang,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_chuan_zhen_ = #{record.banShiJiGouLianXiRenChuanZhen,jdbcType=VARCHAR},
+      gong_si_ji_lu_lei_xing_ = #{record.gongSiJiLuLeiXing,jdbcType=INTEGER},
+      jing_ying_fan_wei_ = #{record.jingYingFanWei,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gong_si_xin_xi_
+    set id = #{record.id,jdbcType=INTEGER},
+      qi_ye_ming_cheng_ = #{record.qiYeMingCheng,jdbcType=VARCHAR},
+      gong_si_lei_xing_ = #{record.gongSiLeiXing,jdbcType=VARCHAR},
+      zhu_ce_di_zhi_ = #{record.zhuCeDiZhi,jdbcType=VARCHAR},
+      fa_ding_dai_biao_ren_ = #{record.faDingDaiBiaoRen,jdbcType=VARCHAR},
+      gong_shang_zhu_ce_hao_ = #{record.gongShangZhuCeHao,jdbcType=VARCHAR},
+      zhu_ce_zi_ben_ = #{record.zhuCeZiBen,jdbcType=VARCHAR},
+      kai_hu_yin_hang_ = #{record.kaiHuYinHang,jdbcType=VARCHAR},
+      kai_hu_zhang_hao_ = #{record.kaiHuZhangHao,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_ = #{record.weiTuoDaiLiRen,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_zhi_wu_ = #{record.weiTuoDaiLiRenZhiWu,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_dian_hua_ = #{record.weiTuoDaiLiRenDianHua,jdbcType=VARCHAR},
+      lian_xi_ren_ = #{record.lianXiRen,jdbcType=VARCHAR},
+      lian_xi_ren_zhi_wu_ = #{record.lianXiRenZhiWu,jdbcType=VARCHAR},
+      lian_xi_ren_dian_hua_ = #{record.lianXiRenDianHua,jdbcType=VARCHAR},
+      dian_zi_you_xiang_ = #{record.dianZiYouXiang,jdbcType=VARCHAR},
+      chuan_zhen_ = #{record.chuanZhen,jdbcType=VARCHAR},
+      ban_shi_ji_gou_xiang_xi_di_zhi_ = #{record.banShiJiGouXiangXiDiZhi,jdbcType=VARCHAR},
+      ban_shi_ji_gou_you_zheng_bian_ma_ = #{record.banShiJiGouYouZhengBianMa,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_ = #{record.banShiJiGouLianXiRen,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_zhi_wu_ = #{record.banShiJiGouLianXiRenZhiWu,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_dian_hua_ = #{record.banShiJiGouLianXiRenDianHua,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_ = #{record.banShiJiGouLianXiRenDianZiYouXiang,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_chuan_zhen_ = #{record.banShiJiGouLianXiRenChuanZhen,jdbcType=VARCHAR},
+      gong_si_ji_lu_lei_xing_ = #{record.gongSiJiLuLeiXing,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="model.po.GongSiXinXi" >
+    update gong_si_xin_xi_
+    <set >
+      <if test="gongSiLeiXing != null" >
+        gong_si_lei_xing_ = #{gongSiLeiXing,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuCeDiZhi != null" >
+        zhu_ce_di_zhi_ = #{zhuCeDiZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="faDingDaiBiaoRen != null" >
+        fa_ding_dai_biao_ren_ = #{faDingDaiBiaoRen,jdbcType=VARCHAR},
+      </if>
+      <if test="gongShangZhuCeHao != null" >
+        gong_shang_zhu_ce_hao_ = #{gongShangZhuCeHao,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuCeZiBen != null" >
+        zhu_ce_zi_ben_ = #{zhuCeZiBen,jdbcType=VARCHAR},
+      </if>
+      <if test="kaiHuYinHang != null" >
+        kai_hu_yin_hang_ = #{kaiHuYinHang,jdbcType=VARCHAR},
+      </if>
+      <if test="kaiHuZhangHao != null" >
+        kai_hu_zhang_hao_ = #{kaiHuZhangHao,jdbcType=VARCHAR},
+      </if>
+      <if test="weiTuoDaiLiRen != null" >
+        wei_tuo_dai_li_ren_ = #{weiTuoDaiLiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="weiTuoDaiLiRenZhiWu != null" >
+        wei_tuo_dai_li_ren_zhi_wu_ = #{weiTuoDaiLiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="weiTuoDaiLiRenDianHua != null" >
+        wei_tuo_dai_li_ren_dian_hua_ = #{weiTuoDaiLiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="lianXiRen != null" >
+        lian_xi_ren_ = #{lianXiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="lianXiRenZhiWu != null" >
+        lian_xi_ren_zhi_wu_ = #{lianXiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="lianXiRenDianHua != null" >
+        lian_xi_ren_dian_hua_ = #{lianXiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="dianZiYouXiang != null" >
+        dian_zi_you_xiang_ = #{dianZiYouXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="chuanZhen != null" >
+        chuan_zhen_ = #{chuanZhen,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouXiangXiDiZhi != null" >
+        ban_shi_ji_gou_xiang_xi_di_zhi_ = #{banShiJiGouXiangXiDiZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouYouZhengBianMa != null" >
+        ban_shi_ji_gou_you_zheng_bian_ma_ = #{banShiJiGouYouZhengBianMa,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRen != null" >
+        ban_shi_ji_gou_lian_xi_ren_ = #{banShiJiGouLianXiRen,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRenZhiWu != null" >
+        ban_shi_ji_gou_lian_xi_ren_zhi_wu_ = #{banShiJiGouLianXiRenZhiWu,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRenDianHua != null" >
+        ban_shi_ji_gou_lian_xi_ren_dian_hua_ = #{banShiJiGouLianXiRenDianHua,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRenDianZiYouXiang != null" >
+        ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_ = #{banShiJiGouLianXiRenDianZiYouXiang,jdbcType=VARCHAR},
+      </if>
+      <if test="banShiJiGouLianXiRenChuanZhen != null" >
+        ban_shi_ji_gou_lian_xi_ren_chuan_zhen_ = #{banShiJiGouLianXiRenChuanZhen,jdbcType=VARCHAR},
+      </if>
+      <if test="gongSiJiLuLeiXing != null" >
+        gong_si_ji_lu_lei_xing_ = #{gongSiJiLuLeiXing,jdbcType=INTEGER},
+      </if>
+      <if test="jingYingFanWei != null" >
+        jing_ying_fan_wei_ = #{jingYingFanWei,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and qi_ye_ming_cheng_ = #{qiYeMingCheng,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="model.po.GongSiXinXi" >
+    update gong_si_xin_xi_
+    set gong_si_lei_xing_ = #{gongSiLeiXing,jdbcType=VARCHAR},
+      zhu_ce_di_zhi_ = #{zhuCeDiZhi,jdbcType=VARCHAR},
+      fa_ding_dai_biao_ren_ = #{faDingDaiBiaoRen,jdbcType=VARCHAR},
+      gong_shang_zhu_ce_hao_ = #{gongShangZhuCeHao,jdbcType=VARCHAR},
+      zhu_ce_zi_ben_ = #{zhuCeZiBen,jdbcType=VARCHAR},
+      kai_hu_yin_hang_ = #{kaiHuYinHang,jdbcType=VARCHAR},
+      kai_hu_zhang_hao_ = #{kaiHuZhangHao,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_ = #{weiTuoDaiLiRen,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_zhi_wu_ = #{weiTuoDaiLiRenZhiWu,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_dian_hua_ = #{weiTuoDaiLiRenDianHua,jdbcType=VARCHAR},
+      lian_xi_ren_ = #{lianXiRen,jdbcType=VARCHAR},
+      lian_xi_ren_zhi_wu_ = #{lianXiRenZhiWu,jdbcType=VARCHAR},
+      lian_xi_ren_dian_hua_ = #{lianXiRenDianHua,jdbcType=VARCHAR},
+      dian_zi_you_xiang_ = #{dianZiYouXiang,jdbcType=VARCHAR},
+      chuan_zhen_ = #{chuanZhen,jdbcType=VARCHAR},
+      ban_shi_ji_gou_xiang_xi_di_zhi_ = #{banShiJiGouXiangXiDiZhi,jdbcType=VARCHAR},
+      ban_shi_ji_gou_you_zheng_bian_ma_ = #{banShiJiGouYouZhengBianMa,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_ = #{banShiJiGouLianXiRen,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_zhi_wu_ = #{banShiJiGouLianXiRenZhiWu,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_dian_hua_ = #{banShiJiGouLianXiRenDianHua,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_ = #{banShiJiGouLianXiRenDianZiYouXiang,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_chuan_zhen_ = #{banShiJiGouLianXiRenChuanZhen,jdbcType=VARCHAR},
+      gong_si_ji_lu_lei_xing_ = #{gongSiJiLuLeiXing,jdbcType=INTEGER},
+      jing_ying_fan_wei_ = #{jingYingFanWei,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+      and qi_ye_ming_cheng_ = #{qiYeMingCheng,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.po.GongSiXinXi" >
+    update gong_si_xin_xi_
+    set gong_si_lei_xing_ = #{gongSiLeiXing,jdbcType=VARCHAR},
+      zhu_ce_di_zhi_ = #{zhuCeDiZhi,jdbcType=VARCHAR},
+      fa_ding_dai_biao_ren_ = #{faDingDaiBiaoRen,jdbcType=VARCHAR},
+      gong_shang_zhu_ce_hao_ = #{gongShangZhuCeHao,jdbcType=VARCHAR},
+      zhu_ce_zi_ben_ = #{zhuCeZiBen,jdbcType=VARCHAR},
+      kai_hu_yin_hang_ = #{kaiHuYinHang,jdbcType=VARCHAR},
+      kai_hu_zhang_hao_ = #{kaiHuZhangHao,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_ = #{weiTuoDaiLiRen,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_zhi_wu_ = #{weiTuoDaiLiRenZhiWu,jdbcType=VARCHAR},
+      wei_tuo_dai_li_ren_dian_hua_ = #{weiTuoDaiLiRenDianHua,jdbcType=VARCHAR},
+      lian_xi_ren_ = #{lianXiRen,jdbcType=VARCHAR},
+      lian_xi_ren_zhi_wu_ = #{lianXiRenZhiWu,jdbcType=VARCHAR},
+      lian_xi_ren_dian_hua_ = #{lianXiRenDianHua,jdbcType=VARCHAR},
+      dian_zi_you_xiang_ = #{dianZiYouXiang,jdbcType=VARCHAR},
+      chuan_zhen_ = #{chuanZhen,jdbcType=VARCHAR},
+      ban_shi_ji_gou_xiang_xi_di_zhi_ = #{banShiJiGouXiangXiDiZhi,jdbcType=VARCHAR},
+      ban_shi_ji_gou_you_zheng_bian_ma_ = #{banShiJiGouYouZhengBianMa,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_ = #{banShiJiGouLianXiRen,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_zhi_wu_ = #{banShiJiGouLianXiRenZhiWu,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_dian_hua_ = #{banShiJiGouLianXiRenDianHua,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_dian_zi_you_xiang_ = #{banShiJiGouLianXiRenDianZiYouXiang,jdbcType=VARCHAR},
+      ban_shi_ji_gou_lian_xi_ren_chuan_zhen_ = #{banShiJiGouLianXiRenChuanZhen,jdbcType=VARCHAR},
+      gong_si_ji_lu_lei_xing_ = #{gongSiJiLuLeiXing,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+      and qi_ye_ming_cheng_ = #{qiYeMingCheng,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="model.mapper.YongHuMapper" >
+  <resultMap id="BaseResultMap" type="model.po.YongHu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="yong_hu_ming_" property="yongHuMing" jdbcType="VARCHAR" />
+    <result column="mi_ma_" property="miMa" jdbcType="VARCHAR" />
+    <result column="xing_ming_" property="xingMing" jdbcType="VARCHAR" />
+    <result column="xing_bie_" property="xingBie" jdbcType="VARCHAR" />
+    <result column="min_zu_" property="minZu" jdbcType="VARCHAR" />
+    <result column="shen_fen_zheng_hao_ma_" property="shenFenZhengHaoMa" jdbcType="VARCHAR" />
+    <result column="shen_fen_zheng_zhao_zheng_" property="shenFenZhengZhaoZheng" jdbcType="VARCHAR" />
+    <result column="shen_fen_zheng_zhao_fan_" property="shenFenZhengZhaoFan" jdbcType="VARCHAR" />
+    <result column="jia_ting_zhu_zhi_" property="jiaTingZhuZhi" jdbcType="VARCHAR" />
+    <result column="lao_dong_he_tong_bian_hao_" property="laoDongHeTongBianHao" jdbcType="VARCHAR" />
+    <result column="zheng_jian_zhao_ids_" property="zhengJianZhaoIds" jdbcType="VARCHAR" />
+    <result column="suo_shu_yong_hu_zu_" property="suoShuYongHuZu" jdbcType="INTEGER" />
+    <result column="biao_qian_" property="biaoQian" jdbcType="INTEGER" />
+    <result column="qi_ye_" property="qiYe" jdbcType="INTEGER" />
+    <result column="quan_xian_" property="quanXian" jdbcType="INTEGER" />
+    <result column="zhu_ce_shi_jian_" property="zhuCeShiJian" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, yong_hu_ming_, mi_ma_, xing_ming_, xing_bie_, min_zu_, shen_fen_zheng_hao_ma_, 
+    shen_fen_zheng_zhao_zheng_, shen_fen_zheng_zhao_fan_, jia_ting_zhu_zhi_, lao_dong_he_tong_bian_hao_, 
+    zheng_jian_zhao_ids_, suo_shu_yong_hu_zu_, biao_qian_, qi_ye_, quan_xian_, zhu_ce_shi_jian_
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.YongHuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yong_hu_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from yong_hu_
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from yong_hu_
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="model.po.YongHuExample" >
+    delete from yong_hu_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="model.po.YongHu" >
+    insert into yong_hu_ (id, yong_hu_ming_, mi_ma_, 
+      xing_ming_, xing_bie_, min_zu_, 
+      shen_fen_zheng_hao_ma_, shen_fen_zheng_zhao_zheng_, 
+      shen_fen_zheng_zhao_fan_, jia_ting_zhu_zhi_, lao_dong_he_tong_bian_hao_, 
+      zheng_jian_zhao_ids_, suo_shu_yong_hu_zu_, biao_qian_, 
+      qi_ye_, quan_xian_, zhu_ce_shi_jian_
+      )
+    values (#{id,jdbcType=INTEGER}, #{yongHuMing,jdbcType=VARCHAR}, #{miMa,jdbcType=VARCHAR}, 
+      #{xingMing,jdbcType=VARCHAR}, #{xingBie,jdbcType=VARCHAR}, #{minZu,jdbcType=VARCHAR}, 
+      #{shenFenZhengHaoMa,jdbcType=VARCHAR}, #{shenFenZhengZhaoZheng,jdbcType=VARCHAR}, 
+      #{shenFenZhengZhaoFan,jdbcType=VARCHAR}, #{jiaTingZhuZhi,jdbcType=VARCHAR}, #{laoDongHeTongBianHao,jdbcType=VARCHAR}, 
+      #{zhengJianZhaoIds,jdbcType=VARCHAR}, #{suoShuYongHuZu,jdbcType=INTEGER}, #{biaoQian,jdbcType=INTEGER}, 
+      #{qiYe,jdbcType=INTEGER}, #{quanXian,jdbcType=INTEGER}, #{zhuCeShiJian,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="model.po.YongHu" >
+    insert into yong_hu_
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="yongHuMing != null" >
+        yong_hu_ming_,
+      </if>
+      <if test="miMa != null" >
+        mi_ma_,
+      </if>
+      <if test="xingMing != null" >
+        xing_ming_,
+      </if>
+      <if test="xingBie != null" >
+        xing_bie_,
+      </if>
+      <if test="minZu != null" >
+        min_zu_,
+      </if>
+      <if test="shenFenZhengHaoMa != null" >
+        shen_fen_zheng_hao_ma_,
+      </if>
+      <if test="shenFenZhengZhaoZheng != null" >
+        shen_fen_zheng_zhao_zheng_,
+      </if>
+      <if test="shenFenZhengZhaoFan != null" >
+        shen_fen_zheng_zhao_fan_,
+      </if>
+      <if test="jiaTingZhuZhi != null" >
+        jia_ting_zhu_zhi_,
+      </if>
+      <if test="laoDongHeTongBianHao != null" >
+        lao_dong_he_tong_bian_hao_,
+      </if>
+      <if test="zhengJianZhaoIds != null" >
+        zheng_jian_zhao_ids_,
+      </if>
+      <if test="suoShuYongHuZu != null" >
+        suo_shu_yong_hu_zu_,
+      </if>
+      <if test="biaoQian != null" >
+        biao_qian_,
+      </if>
+      <if test="qiYe != null" >
+        qi_ye_,
+      </if>
+      <if test="quanXian != null" >
+        quan_xian_,
+      </if>
+      <if test="zhuCeShiJian != null" >
+        zhu_ce_shi_jian_,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="yongHuMing != null" >
+        #{yongHuMing,jdbcType=VARCHAR},
+      </if>
+      <if test="miMa != null" >
+        #{miMa,jdbcType=VARCHAR},
+      </if>
+      <if test="xingMing != null" >
+        #{xingMing,jdbcType=VARCHAR},
+      </if>
+      <if test="xingBie != null" >
+        #{xingBie,jdbcType=VARCHAR},
+      </if>
+      <if test="minZu != null" >
+        #{minZu,jdbcType=VARCHAR},
+      </if>
+      <if test="shenFenZhengHaoMa != null" >
+        #{shenFenZhengHaoMa,jdbcType=VARCHAR},
+      </if>
+      <if test="shenFenZhengZhaoZheng != null" >
+        #{shenFenZhengZhaoZheng,jdbcType=VARCHAR},
+      </if>
+      <if test="shenFenZhengZhaoFan != null" >
+        #{shenFenZhengZhaoFan,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaTingZhuZhi != null" >
+        #{jiaTingZhuZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="laoDongHeTongBianHao != null" >
+        #{laoDongHeTongBianHao,jdbcType=VARCHAR},
+      </if>
+      <if test="zhengJianZhaoIds != null" >
+        #{zhengJianZhaoIds,jdbcType=VARCHAR},
+      </if>
+      <if test="suoShuYongHuZu != null" >
+        #{suoShuYongHuZu,jdbcType=INTEGER},
+      </if>
+      <if test="biaoQian != null" >
+        #{biaoQian,jdbcType=INTEGER},
+      </if>
+      <if test="qiYe != null" >
+        #{qiYe,jdbcType=INTEGER},
+      </if>
+      <if test="quanXian != null" >
+        #{quanXian,jdbcType=INTEGER},
+      </if>
+      <if test="zhuCeShiJian != null" >
+        #{zhuCeShiJian,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="model.po.YongHuExample" resultType="java.lang.Integer" >
+    select count(*) from yong_hu_
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update yong_hu_
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.yongHuMing != null" >
+        yong_hu_ming_ = #{record.yongHuMing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.miMa != null" >
+        mi_ma_ = #{record.miMa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingMing != null" >
+        xing_ming_ = #{record.xingMing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xingBie != null" >
+        xing_bie_ = #{record.xingBie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minZu != null" >
+        min_zu_ = #{record.minZu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenFenZhengHaoMa != null" >
+        shen_fen_zheng_hao_ma_ = #{record.shenFenZhengHaoMa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenFenZhengZhaoZheng != null" >
+        shen_fen_zheng_zhao_zheng_ = #{record.shenFenZhengZhaoZheng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shenFenZhengZhaoFan != null" >
+        shen_fen_zheng_zhao_fan_ = #{record.shenFenZhengZhaoFan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiaTingZhuZhi != null" >
+        jia_ting_zhu_zhi_ = #{record.jiaTingZhuZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.laoDongHeTongBianHao != null" >
+        lao_dong_he_tong_bian_hao_ = #{record.laoDongHeTongBianHao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhengJianZhaoIds != null" >
+        zheng_jian_zhao_ids_ = #{record.zhengJianZhaoIds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suoShuYongHuZu != null" >
+        suo_shu_yong_hu_zu_ = #{record.suoShuYongHuZu,jdbcType=INTEGER},
+      </if>
+      <if test="record.biaoQian != null" >
+        biao_qian_ = #{record.biaoQian,jdbcType=INTEGER},
+      </if>
+      <if test="record.qiYe != null" >
+        qi_ye_ = #{record.qiYe,jdbcType=INTEGER},
+      </if>
+      <if test="record.quanXian != null" >
+        quan_xian_ = #{record.quanXian,jdbcType=INTEGER},
+      </if>
+      <if test="record.zhuCeShiJian != null" >
+        zhu_ce_shi_jian_ = #{record.zhuCeShiJian,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update yong_hu_
+    set id = #{record.id,jdbcType=INTEGER},
+      yong_hu_ming_ = #{record.yongHuMing,jdbcType=VARCHAR},
+      mi_ma_ = #{record.miMa,jdbcType=VARCHAR},
+      xing_ming_ = #{record.xingMing,jdbcType=VARCHAR},
+      xing_bie_ = #{record.xingBie,jdbcType=VARCHAR},
+      min_zu_ = #{record.minZu,jdbcType=VARCHAR},
+      shen_fen_zheng_hao_ma_ = #{record.shenFenZhengHaoMa,jdbcType=VARCHAR},
+      shen_fen_zheng_zhao_zheng_ = #{record.shenFenZhengZhaoZheng,jdbcType=VARCHAR},
+      shen_fen_zheng_zhao_fan_ = #{record.shenFenZhengZhaoFan,jdbcType=VARCHAR},
+      jia_ting_zhu_zhi_ = #{record.jiaTingZhuZhi,jdbcType=VARCHAR},
+      lao_dong_he_tong_bian_hao_ = #{record.laoDongHeTongBianHao,jdbcType=VARCHAR},
+      zheng_jian_zhao_ids_ = #{record.zhengJianZhaoIds,jdbcType=VARCHAR},
+      suo_shu_yong_hu_zu_ = #{record.suoShuYongHuZu,jdbcType=INTEGER},
+      biao_qian_ = #{record.biaoQian,jdbcType=INTEGER},
+      qi_ye_ = #{record.qiYe,jdbcType=INTEGER},
+      quan_xian_ = #{record.quanXian,jdbcType=INTEGER},
+      zhu_ce_shi_jian_ = #{record.zhuCeShiJian,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="model.po.YongHu" >
+    update yong_hu_
+    <set >
+      <if test="yongHuMing != null" >
+        yong_hu_ming_ = #{yongHuMing,jdbcType=VARCHAR},
+      </if>
+      <if test="miMa != null" >
+        mi_ma_ = #{miMa,jdbcType=VARCHAR},
+      </if>
+      <if test="xingMing != null" >
+        xing_ming_ = #{xingMing,jdbcType=VARCHAR},
+      </if>
+      <if test="xingBie != null" >
+        xing_bie_ = #{xingBie,jdbcType=VARCHAR},
+      </if>
+      <if test="minZu != null" >
+        min_zu_ = #{minZu,jdbcType=VARCHAR},
+      </if>
+      <if test="shenFenZhengHaoMa != null" >
+        shen_fen_zheng_hao_ma_ = #{shenFenZhengHaoMa,jdbcType=VARCHAR},
+      </if>
+      <if test="shenFenZhengZhaoZheng != null" >
+        shen_fen_zheng_zhao_zheng_ = #{shenFenZhengZhaoZheng,jdbcType=VARCHAR},
+      </if>
+      <if test="shenFenZhengZhaoFan != null" >
+        shen_fen_zheng_zhao_fan_ = #{shenFenZhengZhaoFan,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaTingZhuZhi != null" >
+        jia_ting_zhu_zhi_ = #{jiaTingZhuZhi,jdbcType=VARCHAR},
+      </if>
+      <if test="laoDongHeTongBianHao != null" >
+        lao_dong_he_tong_bian_hao_ = #{laoDongHeTongBianHao,jdbcType=VARCHAR},
+      </if>
+      <if test="zhengJianZhaoIds != null" >
+        zheng_jian_zhao_ids_ = #{zhengJianZhaoIds,jdbcType=VARCHAR},
+      </if>
+      <if test="suoShuYongHuZu != null" >
+        suo_shu_yong_hu_zu_ = #{suoShuYongHuZu,jdbcType=INTEGER},
+      </if>
+      <if test="biaoQian != null" >
+        biao_qian_ = #{biaoQian,jdbcType=INTEGER},
+      </if>
+      <if test="qiYe != null" >
+        qi_ye_ = #{qiYe,jdbcType=INTEGER},
+      </if>
+      <if test="quanXian != null" >
+        quan_xian_ = #{quanXian,jdbcType=INTEGER},
+      </if>
+      <if test="zhuCeShiJian != null" >
+        zhu_ce_shi_jian_ = #{zhuCeShiJian,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="model.po.YongHu" >
+    update yong_hu_
+    set yong_hu_ming_ = #{yongHuMing,jdbcType=VARCHAR},
+      mi_ma_ = #{miMa,jdbcType=VARCHAR},
+      xing_ming_ = #{xingMing,jdbcType=VARCHAR},
+      xing_bie_ = #{xingBie,jdbcType=VARCHAR},
+      min_zu_ = #{minZu,jdbcType=VARCHAR},
+      shen_fen_zheng_hao_ma_ = #{shenFenZhengHaoMa,jdbcType=VARCHAR},
+      shen_fen_zheng_zhao_zheng_ = #{shenFenZhengZhaoZheng,jdbcType=VARCHAR},
+      shen_fen_zheng_zhao_fan_ = #{shenFenZhengZhaoFan,jdbcType=VARCHAR},
+      jia_ting_zhu_zhi_ = #{jiaTingZhuZhi,jdbcType=VARCHAR},
+      lao_dong_he_tong_bian_hao_ = #{laoDongHeTongBianHao,jdbcType=VARCHAR},
+      zheng_jian_zhao_ids_ = #{zhengJianZhaoIds,jdbcType=VARCHAR},
+      suo_shu_yong_hu_zu_ = #{suoShuYongHuZu,jdbcType=INTEGER},
+      biao_qian_ = #{biaoQian,jdbcType=INTEGER},
+      qi_ye_ = #{qiYe,jdbcType=INTEGER},
+      quan_xian_ = #{quanXian,jdbcType=INTEGER},
+      zhu_ce_shi_jian_ = #{zhuCeShiJian,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

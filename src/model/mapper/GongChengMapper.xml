@@ -5,6 +5,16 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="xiang_mu_id" property="xiangMuId" jdbcType="INTEGER" />
+    <result column="dan_xiang_gong_cheng_" property="danXiangGongCheng" jdbcType="VARCHAR" />
+    <result column="gui_mo_mian_ji_" property="guiMoMianJi" jdbcType="VARCHAR" />
+    <result column="gui_mo_chang_du_" property="guiMoChangDu" jdbcType="VARCHAR" />
+    <result column="gui_mo_qi_ta_" property="guiMoQiTa" jdbcType="VARCHAR" />
+    <result column="yan_gao_" property="yanGao" jdbcType="VARCHAR" />
+    <result column="zong_gao_" property="zongGao" jdbcType="VARCHAR" />
+    <result column="di_shang_di_xia_ceng_shu_" property="diShangDiXiaCengShu" jdbcType="VARCHAR" />
+    <result column="gong_cheng_lei_bie_" property="gongChengLeiBie" jdbcType="VARCHAR" />
+    <result column="jie_gou_lei_xing_" property="jieGouLeiXing" jdbcType="VARCHAR" />
+    <result column="ji_chu_jie_gou_" property="jiChuJieGou" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +75,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, xiang_mu_id
+    id, name, xiang_mu_id, dan_xiang_gong_cheng_, gui_mo_mian_ji_, gui_mo_chang_du_, 
+    gui_mo_qi_ta_, yan_gao_, zong_gao_, di_shang_di_xia_ceng_shu_, gong_cheng_lei_bie_, 
+    jie_gou_lei_xing_, ji_chu_jie_gou_
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.GongChengExample" >
     select
@@ -98,10 +110,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.GongCheng" >
-    insert into gong_cheng_ (id, name, xiang_mu_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{xiangMuId,jdbcType=INTEGER}
-      )
+    insert into gong_cheng_ (id, name, xiang_mu_id, 
+      dan_xiang_gong_cheng_, gui_mo_mian_ji_, gui_mo_chang_du_, 
+      gui_mo_qi_ta_, yan_gao_, zong_gao_, 
+      di_shang_di_xia_ceng_shu_, gong_cheng_lei_bie_, jie_gou_lei_xing_, 
+      ji_chu_jie_gou_)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{xiangMuId,jdbcType=INTEGER}, 
+      #{danXiangGongCheng,jdbcType=VARCHAR}, #{guiMoMianJi,jdbcType=VARCHAR}, #{guiMoChangDu,jdbcType=VARCHAR}, 
+      #{guiMoQiTa,jdbcType=VARCHAR}, #{yanGao,jdbcType=VARCHAR}, #{zongGao,jdbcType=VARCHAR}, 
+      #{diShangDiXiaCengShu,jdbcType=VARCHAR}, #{gongChengLeiBie,jdbcType=VARCHAR}, #{jieGouLeiXing,jdbcType=VARCHAR}, 
+      #{jiChuJieGou,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="model.po.GongCheng" >
     insert into gong_cheng_
@@ -115,6 +133,36 @@
       <if test="xiangMuId != null" >
         xiang_mu_id,
       </if>
+      <if test="danXiangGongCheng != null" >
+        dan_xiang_gong_cheng_,
+      </if>
+      <if test="guiMoMianJi != null" >
+        gui_mo_mian_ji_,
+      </if>
+      <if test="guiMoChangDu != null" >
+        gui_mo_chang_du_,
+      </if>
+      <if test="guiMoQiTa != null" >
+        gui_mo_qi_ta_,
+      </if>
+      <if test="yanGao != null" >
+        yan_gao_,
+      </if>
+      <if test="zongGao != null" >
+        zong_gao_,
+      </if>
+      <if test="diShangDiXiaCengShu != null" >
+        di_shang_di_xia_ceng_shu_,
+      </if>
+      <if test="gongChengLeiBie != null" >
+        gong_cheng_lei_bie_,
+      </if>
+      <if test="jieGouLeiXing != null" >
+        jie_gou_lei_xing_,
+      </if>
+      <if test="jiChuJieGou != null" >
+        ji_chu_jie_gou_,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -125,6 +173,36 @@
       </if>
       <if test="xiangMuId != null" >
         #{xiangMuId,jdbcType=INTEGER},
+      </if>
+      <if test="danXiangGongCheng != null" >
+        #{danXiangGongCheng,jdbcType=VARCHAR},
+      </if>
+      <if test="guiMoMianJi != null" >
+        #{guiMoMianJi,jdbcType=VARCHAR},
+      </if>
+      <if test="guiMoChangDu != null" >
+        #{guiMoChangDu,jdbcType=VARCHAR},
+      </if>
+      <if test="guiMoQiTa != null" >
+        #{guiMoQiTa,jdbcType=VARCHAR},
+      </if>
+      <if test="yanGao != null" >
+        #{yanGao,jdbcType=VARCHAR},
+      </if>
+      <if test="zongGao != null" >
+        #{zongGao,jdbcType=VARCHAR},
+      </if>
+      <if test="diShangDiXiaCengShu != null" >
+        #{diShangDiXiaCengShu,jdbcType=VARCHAR},
+      </if>
+      <if test="gongChengLeiBie != null" >
+        #{gongChengLeiBie,jdbcType=VARCHAR},
+      </if>
+      <if test="jieGouLeiXing != null" >
+        #{jieGouLeiXing,jdbcType=VARCHAR},
+      </if>
+      <if test="jiChuJieGou != null" >
+        #{jiChuJieGou,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -146,6 +224,36 @@
       <if test="record.xiangMuId != null" >
         xiang_mu_id = #{record.xiangMuId,jdbcType=INTEGER},
       </if>
+      <if test="record.danXiangGongCheng != null" >
+        dan_xiang_gong_cheng_ = #{record.danXiangGongCheng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guiMoMianJi != null" >
+        gui_mo_mian_ji_ = #{record.guiMoMianJi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guiMoChangDu != null" >
+        gui_mo_chang_du_ = #{record.guiMoChangDu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guiMoQiTa != null" >
+        gui_mo_qi_ta_ = #{record.guiMoQiTa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yanGao != null" >
+        yan_gao_ = #{record.yanGao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zongGao != null" >
+        zong_gao_ = #{record.zongGao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.diShangDiXiaCengShu != null" >
+        di_shang_di_xia_ceng_shu_ = #{record.diShangDiXiaCengShu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gongChengLeiBie != null" >
+        gong_cheng_lei_bie_ = #{record.gongChengLeiBie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jieGouLeiXing != null" >
+        jie_gou_lei_xing_ = #{record.jieGouLeiXing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiChuJieGou != null" >
+        ji_chu_jie_gou_ = #{record.jiChuJieGou,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +263,17 @@
     update gong_cheng_
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      xiang_mu_id = #{record.xiangMuId,jdbcType=INTEGER}
+      xiang_mu_id = #{record.xiangMuId,jdbcType=INTEGER},
+      dan_xiang_gong_cheng_ = #{record.danXiangGongCheng,jdbcType=VARCHAR},
+      gui_mo_mian_ji_ = #{record.guiMoMianJi,jdbcType=VARCHAR},
+      gui_mo_chang_du_ = #{record.guiMoChangDu,jdbcType=VARCHAR},
+      gui_mo_qi_ta_ = #{record.guiMoQiTa,jdbcType=VARCHAR},
+      yan_gao_ = #{record.yanGao,jdbcType=VARCHAR},
+      zong_gao_ = #{record.zongGao,jdbcType=VARCHAR},
+      di_shang_di_xia_ceng_shu_ = #{record.diShangDiXiaCengShu,jdbcType=VARCHAR},
+      gong_cheng_lei_bie_ = #{record.gongChengLeiBie,jdbcType=VARCHAR},
+      jie_gou_lei_xing_ = #{record.jieGouLeiXing,jdbcType=VARCHAR},
+      ji_chu_jie_gou_ = #{record.jiChuJieGou,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +287,53 @@
       <if test="xiangMuId != null" >
         xiang_mu_id = #{xiangMuId,jdbcType=INTEGER},
       </if>
+      <if test="danXiangGongCheng != null" >
+        dan_xiang_gong_cheng_ = #{danXiangGongCheng,jdbcType=VARCHAR},
+      </if>
+      <if test="guiMoMianJi != null" >
+        gui_mo_mian_ji_ = #{guiMoMianJi,jdbcType=VARCHAR},
+      </if>
+      <if test="guiMoChangDu != null" >
+        gui_mo_chang_du_ = #{guiMoChangDu,jdbcType=VARCHAR},
+      </if>
+      <if test="guiMoQiTa != null" >
+        gui_mo_qi_ta_ = #{guiMoQiTa,jdbcType=VARCHAR},
+      </if>
+      <if test="yanGao != null" >
+        yan_gao_ = #{yanGao,jdbcType=VARCHAR},
+      </if>
+      <if test="zongGao != null" >
+        zong_gao_ = #{zongGao,jdbcType=VARCHAR},
+      </if>
+      <if test="diShangDiXiaCengShu != null" >
+        di_shang_di_xia_ceng_shu_ = #{diShangDiXiaCengShu,jdbcType=VARCHAR},
+      </if>
+      <if test="gongChengLeiBie != null" >
+        gong_cheng_lei_bie_ = #{gongChengLeiBie,jdbcType=VARCHAR},
+      </if>
+      <if test="jieGouLeiXing != null" >
+        jie_gou_lei_xing_ = #{jieGouLeiXing,jdbcType=VARCHAR},
+      </if>
+      <if test="jiChuJieGou != null" >
+        ji_chu_jie_gou_ = #{jiChuJieGou,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="model.po.GongCheng" >
     update gong_cheng_
     set name = #{name,jdbcType=VARCHAR},
-      xiang_mu_id = #{xiangMuId,jdbcType=INTEGER}
+      xiang_mu_id = #{xiangMuId,jdbcType=INTEGER},
+      dan_xiang_gong_cheng_ = #{danXiangGongCheng,jdbcType=VARCHAR},
+      gui_mo_mian_ji_ = #{guiMoMianJi,jdbcType=VARCHAR},
+      gui_mo_chang_du_ = #{guiMoChangDu,jdbcType=VARCHAR},
+      gui_mo_qi_ta_ = #{guiMoQiTa,jdbcType=VARCHAR},
+      yan_gao_ = #{yanGao,jdbcType=VARCHAR},
+      zong_gao_ = #{zongGao,jdbcType=VARCHAR},
+      di_shang_di_xia_ceng_shu_ = #{diShangDiXiaCengShu,jdbcType=VARCHAR},
+      gong_cheng_lei_bie_ = #{gongChengLeiBie,jdbcType=VARCHAR},
+      jie_gou_lei_xing_ = #{jieGouLeiXing,jdbcType=VARCHAR},
+      ji_chu_jie_gou_ = #{jiChuJieGou,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

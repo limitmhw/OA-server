@@ -40,12 +40,4 @@ public class WtableAuthority {
     public void setMtmask(String mtmask) {
         this.mtmask = mtmask == null ? null : mtmask.trim();
     }
-
-	@Override
-	public String toString() {
-		return "WtableAuthority [id=" + id + ", name=" + name + ", beiZhu="
-				+ beiZhu + ", mtmask=" + mtmask + "]";
-	}
-
-    
 }

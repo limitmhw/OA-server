@@ -894,7 +894,7 @@ public class TableServ {
 		String ptableCtx= request.getParameter("tableCtx");
 		String ptableInfo= request.getParameter("tableInfo");
 
-		System.out.println(ptableInfo);
+		
 		JSONObject tableInfoJson;
 		tableInfoJson = JSON.parseObject(ptableInfo);  
 		Map<String, String> tableItemMap= JSONObject.toJavaObject(tableInfoJson, Map.class);
@@ -1819,7 +1819,7 @@ public class TableServ {
 		}
 
 
-
+		System.out.println(ptableCtx);
 		System.out.println(ptableType+ptableCtx);
 		System.out.println(ptable_id);
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
