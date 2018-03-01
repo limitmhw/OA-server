@@ -131,7 +131,7 @@ public class ProjectServ {
 			ret="[";
 			for(XiangMuRenYuanZhuCe k :lee){
 
-				
+
 				String ss="{\"id\" : \""+k.getId()+"\","+
 						"\"ren_yuan_id_\" : \""+k.getRenYuanId()+"\","+
 						"\"xiang_mu_id_\" : \""+k.getXiangMuId()+"\","+
@@ -236,11 +236,9 @@ public class ProjectServ {
 	}
 
 	@RequestMapping("get_pro_staffs")
-
 	public void func6(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String pro_id= request.getParameter("pro_id");
-
 		XiangMuRenYuanZhuCe xx=new XiangMuRenYuanZhuCe();
 		XiangMuRenYuanZhuCeMapper mapper = sqlSession.getMapper(XiangMuRenYuanZhuCeMapper.class);
 		XiangMuRenYuanZhuCeExample cc=new XiangMuRenYuanZhuCeExample();
@@ -248,17 +246,19 @@ public class ProjectServ {
 		List<XiangMuRenYuanZhuCe> lee=mapper.selectByExample(cc);
 		String ret="[";
 		Map<String, String>	qq = new HashMap<String, String>();
+		//suo_shu_bu_men_
 		for(XiangMuRenYuanZhuCe kk:lee){
-			
+
 			if(qq.get(kk.getSuoShuBuMen())=="1"){
 				continue;
 			}else{
 				qq.put(kk.getSuoShuBuMen(),"1");
 			}
-			
-			
+
+
 			String ss="{"+
 					"	\"suo_shu_bu_men_\" : \""+kk.getSuoShuBuMen()+"\","+
+					"	\"lei_xing_\" : \"suo_shu_bu_men_\","+
 					"	\"ren_yuan_\" : [";
 			XiangMuRenYuanZhuCeExample zz=new XiangMuRenYuanZhuCeExample();
 			zz.or().andXiangMuIdEqualTo(Integer.parseInt(pro_id)).andSuoShuBuMenEqualTo(kk.getSuoShuBuMen());
@@ -266,7 +266,7 @@ public class ProjectServ {
 			for(XiangMuRenYuanZhuCe jj:fee){
 
 				String dd="{"+
-						"			\"id\" : \""+ jj.getId()+"\","+
+						"			\"id\" : \""+ jj.getId()+"\","+	
 						"			\"ren_yuan_id_\" : \""+ jj.getRenYuanId()+"\","+
 						"			\"xiang_mu_id_\" : \""+ jj.getXiangMuId()+"\","+
 						"			\"gang_wei_ming_cheng_\" : \""+ jj.getGangWeiMingCheng()+"\","+
@@ -285,8 +285,44 @@ public class ProjectServ {
 			ss+="]},";
 			ret+=ss;
 		}
+		//zhiwu
+		for(XiangMuRenYuanZhuCe kk:lee){
+
+			if(qq.get(kk.getZhiWu())=="1"){
+				continue;
+			}else{
+				qq.put(kk.getZhiWu(),"1");
+			}
+
+			//zhiwu replace suo_shu_bu_men_
+			String ss="{"+
+					"	\"zhi_wu_\" : \""+kk.getZhiWu()+"\","+
+					"	\"lei_xing_\" : \"zhi_wu_\","+
+					"	\"ren_yuan_\" : [";
+			XiangMuRenYuanZhuCeExample zz=new XiangMuRenYuanZhuCeExample();
+			zz.or().andXiangMuIdEqualTo(Integer.parseInt(pro_id)).andZhiWuEqualTo(kk.getZhiWu());
+			List<XiangMuRenYuanZhuCe> fee=mapper.selectByExample(zz);
+			for(XiangMuRenYuanZhuCe jj:fee){
+
+				String dd="{"+
+						"			\"id\" : \""+ jj.getId()+"\","+	
+						"			\"ren_yuan_id_\" : \""+ jj.getRenYuanId()+"\","+
+						"			\"xiang_mu_id_\" : \""+ jj.getXiangMuId()+"\","+
+						"			\"gang_wei_ming_cheng_\" : \""+ jj.getGangWeiMingCheng()+"\","+
+						"			\"zhi_wu_\" : \""+ jj.getZhiWu()+"\","+
+						"			\"suo_shu_bu_men_\" : \""+ jj.getSuoShuBuMen()+"\","+
+						"			\"dao_gang_shi_jian_\" : \""+ jj.getDaoGangShiJian()+"\","+
+						"			\"gang_wei_xing_zhi_\" : \""+ jj.getGangWeiXingZhi()+"\",";
+				YongHuMapper emapper = sqlSession.getMapper(YongHuMapper.class);
+				YongHu yy= emapper.selectByPrimaryKey(jj.getRenYuanId());
+				dd+="			\"yuan_gong_xin_ming_\" : \""+ yy.getXingMing()+"\""+
+						"		}, ";
+				ss+=dd;
+			}
+			ss+="]},";
+			ret+=ss;
+		}
 		ret+="]";
-		//pro_id
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write(ret);
 
@@ -301,8 +337,8 @@ public class ProjectServ {
 			throws Exception {
 		String pro_id= request.getParameter("pro_id");
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
-		response.getWriter().write("1111");
-		
+		response.getWriter().write("");
+
 	}
 
 }
