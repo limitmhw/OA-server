@@ -29,7 +29,7 @@ import model.po.*;
 @RequestMapping("/authority")
 public class AuthorityServ {
 	private SqlSession sqlSession;
-	
+
 	AuthorityServ()throws IOException{
 		String res = "SqlMapConfig.xml";
 		InputStream inputStream = Resources.getResourceAsStream(res);
@@ -43,7 +43,7 @@ public class AuthorityServ {
 		}
 		return "0";
 	}
-	
+
 	public String createAuthorityByMap(Map<String,String> mm){
 		MaskHandle mx=new MaskHandle();
 		List< String > at = mx.getValueFromMap(mm);
@@ -53,9 +53,9 @@ public class AuthorityServ {
 		}
 		return mask;
 	}
-	
 
-	
+
+
 
 
 
@@ -79,28 +79,43 @@ public class AuthorityServ {
 	@RequestMapping("get_menujs")
 	public void func3(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		
+		String renYuanId = request.getParameter("renYuanId");
+		String pro_id = request.getParameter("pro_id");
+		Integer yongHuZuId=Integer.parseInt(renYuanId);
+		Integer proId=Integer.parseInt(pro_id);
+		
+		
+		EauthorityMapper mapper = sqlSession.getMapper(EauthorityMapper.class);
+		EauthorityExample ee=new EauthorityExample();
+		ee.or().andGongChengIdEqualTo(proId).andYongHuZuIdEqualTo(yongHuZuId);
+		List<Eauthority> lee=mapper.selectByExample(ee);
+		String cmask;
+		if(lee.size()!=1){
+			System.out.println("Find Mask Error");
+			return;
+		}else{
+			cmask=lee.get(0).getMask();
+		}
+		/*
+		String  cmask="1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111";
+		*/
 		MaskHandle tt=new MaskHandle();
 		String ss="[";
-		String cmask="111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111"
-				+"111111111111111111";
-
 		ss=tt.getMenuJsonFromMask(cmask);
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write(ss);
-
 		return;
 	}
 
@@ -132,7 +147,7 @@ public class AuthorityServ {
 			}
 		}
 
-		
+
 		EauthorityMapper mapper = sqlSession.getMapper(EauthorityMapper.class);
 		for (Entry<String, Map<String, String>> entry : rQuanXianMap.entrySet()) {
 			Map<String, String>ppa=entry.getValue();
@@ -170,8 +185,8 @@ public class AuthorityServ {
 		String ret="[";
 		for(Eauthority k :lee){
 			String ss="{"+
-			"\"renYuanId\":\""+k.getYongHuZuId()+"\","+
-			"\"mask\":"+mx.getJsonFromMask(k.getMask())+"},";
+					"\"renYuanId\":\""+k.getYongHuZuId()+"\","+
+					"\"mask\":"+mx.getJsonFromMask(k.getMask())+"},";
 			ret+=ss;
 		}
 		ret+="]";

@@ -110,6 +110,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.GongCheng" >
+     <selectKey keyProperty="id" resultType="int">  
+            select LAST_INSERT_ID()  
+    </selectKey> 
     insert into gong_cheng_ (id, name, xiang_mu_id, 
       dan_xiang_gong_cheng_, gui_mo_mian_ji_, gui_mo_chang_du_, 
       gui_mo_qi_ta_, yan_gao_, zong_gao_, 
