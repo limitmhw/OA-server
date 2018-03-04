@@ -97,8 +97,7 @@ public class AuthorityServ {
 		}else{
 			cmask=lee.get(0).getMask();
 		}
-		/*
-		String  cmask="1111111111111111111111111"+
+		 cmask="1111111111111111111111111"+
 				"1111111111111111111111111"+
 				"1111111111111111111111111"+
 				"1111111111111111111111111"+
@@ -110,7 +109,7 @@ public class AuthorityServ {
 				"1111111111111111111111111"+
 				"1111111111111111111111111"+
 				"1111111111111111111111111";
-		*/
+		
 		MaskHandle tt=new MaskHandle();
 		String ss="[";
 		ss=tt.getMenuJsonFromMask(cmask);

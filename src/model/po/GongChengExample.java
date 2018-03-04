@@ -235,62 +235,62 @@ public class GongChengExample {
         }
 
         public Criteria andXiangMuIdIsNull() {
-            addCriterion("xiang_mu_id is null");
+            addCriterion("xiang_mu_id_ is null");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdIsNotNull() {
-            addCriterion("xiang_mu_id is not null");
+            addCriterion("xiang_mu_id_ is not null");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdEqualTo(Integer value) {
-            addCriterion("xiang_mu_id =", value, "xiangMuId");
+            addCriterion("xiang_mu_id_ =", value, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdNotEqualTo(Integer value) {
-            addCriterion("xiang_mu_id <>", value, "xiangMuId");
+            addCriterion("xiang_mu_id_ <>", value, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdGreaterThan(Integer value) {
-            addCriterion("xiang_mu_id >", value, "xiangMuId");
+            addCriterion("xiang_mu_id_ >", value, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("xiang_mu_id >=", value, "xiangMuId");
+            addCriterion("xiang_mu_id_ >=", value, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdLessThan(Integer value) {
-            addCriterion("xiang_mu_id <", value, "xiangMuId");
+            addCriterion("xiang_mu_id_ <", value, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdLessThanOrEqualTo(Integer value) {
-            addCriterion("xiang_mu_id <=", value, "xiangMuId");
+            addCriterion("xiang_mu_id_ <=", value, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdIn(List<Integer> values) {
-            addCriterion("xiang_mu_id in", values, "xiangMuId");
+            addCriterion("xiang_mu_id_ in", values, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdNotIn(List<Integer> values) {
-            addCriterion("xiang_mu_id not in", values, "xiangMuId");
+            addCriterion("xiang_mu_id_ not in", values, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdBetween(Integer value1, Integer value2) {
-            addCriterion("xiang_mu_id between", value1, value2, "xiangMuId");
+            addCriterion("xiang_mu_id_ between", value1, value2, "xiangMuId");
             return (Criteria) this;
         }
 
         public Criteria andXiangMuIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("xiang_mu_id not between", value1, value2, "xiangMuId");
+            addCriterion("xiang_mu_id_ not between", value1, value2, "xiangMuId");
             return (Criteria) this;
         }
 

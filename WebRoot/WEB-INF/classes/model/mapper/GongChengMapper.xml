@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="model.po.GongCheng" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="xiang_mu_id" property="xiangMuId" jdbcType="INTEGER" />
+    <result column="xiang_mu_id_" property="xiangMuId" jdbcType="INTEGER" />
     <result column="dan_xiang_gong_cheng_" property="danXiangGongCheng" jdbcType="VARCHAR" />
     <result column="gui_mo_mian_ji_" property="guiMoMianJi" jdbcType="VARCHAR" />
     <result column="gui_mo_chang_du_" property="guiMoChangDu" jdbcType="VARCHAR" />
@@ -75,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, xiang_mu_id, dan_xiang_gong_cheng_, gui_mo_mian_ji_, gui_mo_chang_du_, 
+    id, name, xiang_mu_id_, dan_xiang_gong_cheng_, gui_mo_mian_ji_, gui_mo_chang_du_, 
     gui_mo_qi_ta_, yan_gao_, zong_gao_, di_shang_di_xia_ceng_shu_, gong_cheng_lei_bie_, 
     jie_gou_lei_xing_, ji_chu_jie_gou_
   </sql>
@@ -110,10 +110,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.GongCheng" >
-     <selectKey keyProperty="id" resultType="int">  
+    <selectKey keyProperty="id" resultType="int">  
             select LAST_INSERT_ID()  
     </selectKey> 
-    insert into gong_cheng_ (id, name, xiang_mu_id, 
+    insert into gong_cheng_ (id, name, xiang_mu_id_, 
       dan_xiang_gong_cheng_, gui_mo_mian_ji_, gui_mo_chang_du_, 
       gui_mo_qi_ta_, yan_gao_, zong_gao_, 
       di_shang_di_xia_ceng_shu_, gong_cheng_lei_bie_, jie_gou_lei_xing_, 
@@ -134,7 +134,7 @@
         name,
       </if>
       <if test="xiangMuId != null" >
-        xiang_mu_id,
+        xiang_mu_id_,
       </if>
       <if test="danXiangGongCheng != null" >
         dan_xiang_gong_cheng_,
@@ -225,7 +225,7 @@
         name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.xiangMuId != null" >
-        xiang_mu_id = #{record.xiangMuId,jdbcType=INTEGER},
+        xiang_mu_id_ = #{record.xiangMuId,jdbcType=INTEGER},
       </if>
       <if test="record.danXiangGongCheng != null" >
         dan_xiang_gong_cheng_ = #{record.danXiangGongCheng,jdbcType=VARCHAR},
@@ -266,7 +266,7 @@
     update gong_cheng_
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
-      xiang_mu_id = #{record.xiangMuId,jdbcType=INTEGER},
+      xiang_mu_id_ = #{record.xiangMuId,jdbcType=INTEGER},
       dan_xiang_gong_cheng_ = #{record.danXiangGongCheng,jdbcType=VARCHAR},
       gui_mo_mian_ji_ = #{record.guiMoMianJi,jdbcType=VARCHAR},
       gui_mo_chang_du_ = #{record.guiMoChangDu,jdbcType=VARCHAR},
@@ -288,7 +288,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="xiangMuId != null" >
-        xiang_mu_id = #{xiangMuId,jdbcType=INTEGER},
+        xiang_mu_id_ = #{xiangMuId,jdbcType=INTEGER},
       </if>
       <if test="danXiangGongCheng != null" >
         dan_xiang_gong_cheng_ = #{danXiangGongCheng,jdbcType=VARCHAR},
@@ -326,7 +326,7 @@
   <update id="updateByPrimaryKey" parameterType="model.po.GongCheng" >
     update gong_cheng_
     set name = #{name,jdbcType=VARCHAR},
-      xiang_mu_id = #{xiangMuId,jdbcType=INTEGER},
+      xiang_mu_id_ = #{xiangMuId,jdbcType=INTEGER},
       dan_xiang_gong_cheng_ = #{danXiangGongCheng,jdbcType=VARCHAR},
       gui_mo_mian_ji_ = #{guiMoMianJi,jdbcType=VARCHAR},
       gui_mo_chang_du_ = #{guiMoChangDu,jdbcType=VARCHAR},

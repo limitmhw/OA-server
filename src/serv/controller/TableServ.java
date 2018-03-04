@@ -156,7 +156,7 @@ public class TableServ {
 		Wexcel record = new Wexcel();
 		record.setExceltype(pexcelType);
 		record.setGongChengId(Integer.parseInt(pgong_cheng_id));
-		record.setName("new(" + String.valueOf(mapper.countByExample(null) + 1)
+		record.setName("新建表单(" + String.valueOf(mapper.countByExample(null) + 1)
 				+ ")");
 		java.sql.Date createDate = new java.sql.Date(
 				new java.util.Date().getTime());
