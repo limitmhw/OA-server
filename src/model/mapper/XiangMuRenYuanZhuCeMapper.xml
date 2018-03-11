@@ -104,6 +104,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.XiangMuRenYuanZhuCe" >
+      <selectKey keyProperty="id" resultType="int">  
+            select LAST_INSERT_ID()  
+    </selectKey> 
     insert into xiang_mu_ren_yuan_zhu_ce_ (id, ren_yuan_id_, xiang_mu_id_, 
       gang_wei_ming_cheng_, zhi_wu_, suo_shu_bu_men_, 
       dao_gang_shi_jian_, gang_wei_xing_zhi_)

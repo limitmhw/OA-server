@@ -99,6 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.WtableAuthority" >
+      <selectKey keyProperty="id" resultType="int">  
+            select LAST_INSERT_ID()  
+    </selectKey> 
     insert into wtable_authority (id, name, bei_zhu_, 
       mtmask)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{beiZhu,jdbcType=VARCHAR}, 

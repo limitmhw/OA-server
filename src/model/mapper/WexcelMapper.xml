@@ -109,6 +109,9 @@
       #{exceltype,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="model.po.Wexcel" >
+     <selectKey keyProperty="id" resultType="int">  
+            select LAST_INSERT_ID()  
+    </selectKey> 
     insert into wexcel
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

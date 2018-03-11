@@ -52,22 +52,41 @@ public class ProjectServ {
 			JSONObject tableInfoJson;
 			tableInfoJson=(JSONObject)jsonArray.get(k);
 			Map<String, String> tableItemMap= JSONObject.toJavaObject(tableInfoJson, Map.class);
-			//    		for (Map.Entry<String, String> entry : tableItemMap.entrySet()) { 
-			//    			System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-			//    		}
-			GongCheng xx=new GongCheng();
-			xx.setXiangMuId(xiangMuId);
-			xx.setDanXiangGongCheng(tableItemMap.get("dan_xiang_gong_cheng_"));
-			xx.setGuiMoMianJi(tableItemMap.get("gui_mo_mian_ji_"));
-			xx.setGuiMoChangDu(tableItemMap.get("gui_mo_chang_du_"));
-			xx.setGuiMoQiTa(tableItemMap.get("gui_mo_qi_ta_"));
-			xx.setYanGao(tableItemMap.get("yan_gao_"));
-			xx.setZongGao(tableItemMap.get("zong_gao_"));
-			xx.setDiShangDiXiaCengShu(tableItemMap.get("di_shang_di_xia_ceng_shu_"));
-			xx.setGongChengLeiBie(tableItemMap.get("gong_cheng_lei_bie_"));
-			xx.setJieGouLeiXing(tableItemMap.get("jie_gou_lei_xing_"));
-			xx.setJiChuJieGou(tableItemMap.get("ji_chu_jie_gou_"));
-			mapper.insert(xx);	
+
+			
+			if(tableItemMap.get("gong_cheng_id_").trim().length()==0){
+				
+				GongCheng xx=new GongCheng();
+				xx.setXiangMuId(xiangMuId);
+				xx.setDanXiangGongCheng(tableItemMap.get("dan_xiang_gong_cheng_"));
+				xx.setGuiMoMianJi(tableItemMap.get("gui_mo_mian_ji_"));
+				xx.setGuiMoChangDu(tableItemMap.get("gui_mo_chang_du_"));
+				xx.setGuiMoQiTa(tableItemMap.get("gui_mo_qi_ta_"));
+				xx.setYanGao(tableItemMap.get("yan_gao_"));
+				xx.setZongGao(tableItemMap.get("zong_gao_"));
+				xx.setDiShangDiXiaCengShu(tableItemMap.get("di_shang_di_xia_ceng_shu_"));
+				xx.setGongChengLeiBie(tableItemMap.get("gong_cheng_lei_bie_"));
+				xx.setJieGouLeiXing(tableItemMap.get("jie_gou_lei_xing_"));
+				xx.setJiChuJieGou(tableItemMap.get("ji_chu_jie_gou_"));
+				mapper.insert(xx);	
+				
+			}else{
+				Integer id=Integer.parseInt(tableItemMap.get("gong_cheng_id_"));
+				GongCheng xx=mapper.selectByPrimaryKey(id);
+				xx.setXiangMuId(xiangMuId);
+				xx.setDanXiangGongCheng(tableItemMap.get("dan_xiang_gong_cheng_"));
+				xx.setGuiMoMianJi(tableItemMap.get("gui_mo_mian_ji_"));
+				xx.setGuiMoChangDu(tableItemMap.get("gui_mo_chang_du_"));
+				xx.setGuiMoQiTa(tableItemMap.get("gui_mo_qi_ta_"));
+				xx.setYanGao(tableItemMap.get("yan_gao_"));
+				xx.setZongGao(tableItemMap.get("zong_gao_"));
+				xx.setDiShangDiXiaCengShu(tableItemMap.get("di_shang_di_xia_ceng_shu_"));
+				xx.setGongChengLeiBie(tableItemMap.get("gong_cheng_lei_bie_"));
+				xx.setJieGouLeiXing(tableItemMap.get("jie_gou_lei_xing_"));
+				xx.setJiChuJieGou(tableItemMap.get("ji_chu_jie_gou_"));
+				mapper.updateByPrimaryKey(xx);
+			}
+
 
 		}  
 
@@ -82,31 +101,65 @@ public class ProjectServ {
 		tableInfoJson = JSON.parseObject(data);  
 		Map<String, String> tableItemMap= JSONObject.toJavaObject(tableInfoJson, Map.class);
 
-
-		XiangMuXinXi xx= new XiangMuXinXi();
-		xx.setXiangMuMingChen(tableItemMap.get("xiang_mu_ming_chen_"));
-		xx.setXiangMuYongTu(tableItemMap.get("xiang_mu_yong_tu_"));
-		xx.setGongChengDiDian(tableItemMap.get("gong_cheng_di_dian_"));
-		xx.setTouZiXingZhi(tableItemMap.get("tou_zi_xing_zhi_"));
-		xx.setJianSheDanWei(tableItemMap.get("jian_she_dan_wei_"));
-		xx.setJianSheDanWeiZhuGongDiDaiBiao(tableItemMap.get("jian_she_dan_wei_zhu_gong_di_dai_biao_"));
-		xx.setSheJiDanWei(tableItemMap.get("she_ji_dan_wei_"));
-		xx.setSheJiDanWeiZhuGongDiDaiBiao(tableItemMap.get("she_ji_dan_wei_zhu_gong_di_dai_biao_"));
-		xx.setJianLiDanWei(tableItemMap.get("jian_li_dan_wei_"));
-		xx.setJianLiDaiBiao(tableItemMap.get("jian_li_dai_biao_"));
-		DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-		Date kai_gong_ri_qi_ = dateFormat1.parse(tableItemMap.get("kai_gong_ri_qi_"));
-		Date jun_gong_ri_qi_ = dateFormat1.parse(tableItemMap.get("jun_gong_ri_qi_"));
-		xx.setKaiGongRiQi(kai_gong_ri_qi_);
-		xx.setJunGongRiQi(jun_gong_ri_qi_);
-		xx.setGongQiTianShu(tableItemMap.get("gong_qi_tian_shu_"));
-		xx.setZhiLiangMuBiao(tableItemMap.get("zhi_liang_mu_biao_"));
-		xx.setHeTongJiaKuan(tableItemMap.get("he_tong_jia_kuan_"));
-		xx.setChengBaoFangShi(tableItemMap.get("cheng_bao_fang_shi_"));
+		
+		
+		if(tableItemMap.get("xiang_mu_id_").trim().length()==0){
+			XiangMuXinXi xx= new XiangMuXinXi();
+			xx.setXiangMuMingChen(tableItemMap.get("xiang_mu_ming_chen_"));
+			xx.setXiangMuYongTu(tableItemMap.get("xiang_mu_yong_tu_"));
+			xx.setGongChengDiDian(tableItemMap.get("gong_cheng_di_dian_"));
+			xx.setTouZiXingZhi(tableItemMap.get("tou_zi_xing_zhi_"));
+			xx.setJianSheDanWei(tableItemMap.get("jian_she_dan_wei_"));
+			xx.setJianSheDanWeiZhuGongDiDaiBiao(tableItemMap.get("jian_she_dan_wei_zhu_gong_di_dai_biao_"));
+			xx.setSheJiDanWei(tableItemMap.get("she_ji_dan_wei_"));
+			xx.setSheJiDanWeiZhuGongDiDaiBiao(tableItemMap.get("she_ji_dan_wei_zhu_gong_di_dai_biao_"));
+			xx.setJianLiDanWei(tableItemMap.get("jian_li_dan_wei_"));
+			xx.setJianLiDaiBiao(tableItemMap.get("jian_li_dai_biao_"));
+			DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+			Date kai_gong_ri_qi_ = dateFormat1.parse(tableItemMap.get("kai_gong_ri_qi_"));
+			Date jun_gong_ri_qi_ = dateFormat1.parse(tableItemMap.get("jun_gong_ri_qi_"));
+			xx.setKaiGongRiQi(kai_gong_ri_qi_);
+			xx.setJunGongRiQi(jun_gong_ri_qi_);
+			xx.setGongQiTianShu(tableItemMap.get("gong_qi_tian_shu_"));
+			xx.setZhiLiangMuBiao(tableItemMap.get("zhi_liang_mu_biao_"));
+			xx.setHeTongJiaKuan(tableItemMap.get("he_tong_jia_kuan_"));
+			xx.setChengBaoFangShi(tableItemMap.get("cheng_bao_fang_shi_"));
+			XiangMuXinXiMapper mapper = sqlSession.getMapper(XiangMuXinXiMapper.class);
+			mapper.insert(xx);	
+			funcCreateGongCheng(tableItemMap.get("trdata"),xx.getId());
+		}else{
+			XiangMuXinXiMapper mapper = sqlSession.getMapper(XiangMuXinXiMapper.class);
+			XiangMuXinXi xx=mapper.selectByPrimaryKey(Integer.parseInt(tableItemMap.get("xiang_mu_id_")));
+			xx.setXiangMuMingChen(tableItemMap.get("xiang_mu_ming_chen_"));
+			xx.setXiangMuYongTu(tableItemMap.get("xiang_mu_yong_tu_"));
+			xx.setGongChengDiDian(tableItemMap.get("gong_cheng_di_dian_"));
+			xx.setTouZiXingZhi(tableItemMap.get("tou_zi_xing_zhi_"));
+			xx.setJianSheDanWei(tableItemMap.get("jian_she_dan_wei_"));
+			xx.setJianSheDanWeiZhuGongDiDaiBiao(tableItemMap.get("jian_she_dan_wei_zhu_gong_di_dai_biao_"));
+			xx.setSheJiDanWei(tableItemMap.get("she_ji_dan_wei_"));
+			xx.setSheJiDanWeiZhuGongDiDaiBiao(tableItemMap.get("she_ji_dan_wei_zhu_gong_di_dai_biao_"));
+			xx.setJianLiDanWei(tableItemMap.get("jian_li_dan_wei_"));
+			xx.setJianLiDaiBiao(tableItemMap.get("jian_li_dai_biao_"));
+			DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+			Date kai_gong_ri_qi_ = dateFormat1.parse(tableItemMap.get("kai_gong_ri_qi_"));
+			Date jun_gong_ri_qi_ = dateFormat1.parse(tableItemMap.get("jun_gong_ri_qi_"));
+			xx.setKaiGongRiQi(kai_gong_ri_qi_);
+			xx.setJunGongRiQi(jun_gong_ri_qi_);
+			xx.setGongQiTianShu(tableItemMap.get("gong_qi_tian_shu_"));
+			xx.setZhiLiangMuBiao(tableItemMap.get("zhi_liang_mu_biao_"));
+			xx.setHeTongJiaKuan(tableItemMap.get("he_tong_jia_kuan_"));
+			xx.setChengBaoFangShi(tableItemMap.get("cheng_bao_fang_shi_"));
+			mapper.updateByPrimaryKey(xx);
+			funcCreateGongCheng(tableItemMap.get("trdata"),xx.getId());
+		}
+		
+		
+		
+		/*
 		XiangMuXinXiMapper mapper = sqlSession.getMapper(XiangMuXinXiMapper.class);
 		mapper.insert(xx);	
 		funcCreateGongCheng(tableItemMap.get("trdata"),xx.getId());
-
+//*/
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write("success");
 
@@ -349,8 +402,7 @@ public class ProjectServ {
 		String pro_id= request.getParameter("pro_id");
 		XiangMuXinXiMapper mapper = sqlSession.getMapper(XiangMuXinXiMapper.class);
 		XiangMuXinXi xx=mapper.selectByPrimaryKey(Integer.parseInt(pro_id));
-
-
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		String ret="{"+
 				"	\"id\" : \""+xx.getId()+"\","+
@@ -397,7 +449,8 @@ public class ProjectServ {
 			ret+=ss;
 		}
 		ret+="]}";
-
+		//System.out.println(sdf.format(xx.getJunGongRiQi()));
+		System.out.println(xx.getJunGongRiQi());
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write(ret);
 
@@ -423,6 +476,4 @@ public class ProjectServ {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write(ret);
 	}
-
-
 }

@@ -5,26 +5,20 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import model.mapper.*;
 import model.po.*;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -42,83 +36,8 @@ public class TableServ {
 
 	public List<String> getTableForExcel(String tem_excelType) {
 		List<String> subTable = new ArrayList<String>();
-		switch (tem_excelType) {
-		case "151": {
-			System.out.println("151");
-			subTable.add("151_002");
-			break;
-		}
-		case "152": {
-			System.out.println("152");
-			subTable.add("152_002");
-			subTable.add("152_003");
-			subTable.add("152_004");
-			subTable.add("152_005");
-			subTable.add("152_006");
-			subTable.add("152_007");
-			break;
-		}
-		case "153": {
-			System.out.println("153");
-			subTable.add("153_002");
-			break;
-		}
-		case "154": {
-			System.out.println("154");
-			subTable.add("154_002");
-			subTable.add("154_003");
-			break;
-		}
-		case "155": {
-			System.out.println("155");
-			subTable.add("155_002");
-			subTable.add("155_003");
-			subTable.add("155_004");
-			subTable.add("155_005");
-			break;
-		}
-		case "156": {
-			System.out.println("156");
-			subTable.add("156_002");
-			break;
-		}
-		case "157": {
-			System.out.println("157");
-			subTable.add("157_002");
-			subTable.add("157_003");
-			break;
-		}
-		case "158": {
-			System.out.println("158");
-			subTable.add("158_002");
-			subTable.add("158_003");
-			subTable.add("158_004");
-			break;
-		}
-		case "159": {
-			System.out.println("159");
-			subTable.add("159_002");
-			break;
-		}
-		case "160": {
-			System.out.println("160");
-			subTable.add("160_002");
-			subTable.add("160_003");
-			break;
-		}
-		case "161": {
-			System.out.println("161");
-			subTable.add("161_002");
-			subTable.add("161_003");
-			break;
-		}
-		case "162": {
-			System.out.println("162");
-			subTable.add("162_002");
-			break;
-		}
-		}
-		return subTable;
+		MaskHandle hh=new MaskHandle();
+		return hh.getExcelSubTableType(tem_excelType);
 	}
 
 	public void createExcelSubTable(int excel_id, String excelType)
@@ -127,14 +46,12 @@ public class TableServ {
 
 		List<String> subTable = getTableForExcel(excelType);
 		for (String i : subTable) {
-
 			// 创建Usermapper对象，mybatis自动生成mapper代理对象
 			WtableMapper mapper = sqlSession.getMapper(WtableMapper.class);
 			Wtable tt = new Wtable();
 			tt.setTabletype(i);
 			tt.setExcelId(excel_id);
 			mapper.insert(tt);
-
 		}
 	}
 
@@ -150,7 +67,6 @@ public class TableServ {
 		String pexcelType = request.getParameter("excelType");
 		String pgong_cheng_id = request.getParameter("gong_cheng_id");
 		// /////////////////////////////////
-
 		// 创建Usermapper对象，mybatis自动生成mapper代理对象
 		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
 		Wexcel record = new Wexcel();
@@ -168,6 +84,330 @@ public class TableServ {
 		return;
 	}
 
+	public void copyTr(Integer newTableId,Integer oldTableIdId,String tableType)throws Exception {
+
+
+		switch(tableType){
+
+		case"151_002":{
+			System.out.println("151_002");
+			T151002Mapper mapper = sqlSession.getMapper(T151002Mapper.class);
+			T151002Example ee=new T151002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T151002> lee=mapper.selectByExample(ee);
+			for(T151002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"152_002":{
+			System.out.println("152_002");
+			T152002Mapper mapper = sqlSession.getMapper(T152002Mapper.class);
+			T152002Example ee=new T152002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T152002> lee=mapper.selectByExample(ee);
+			for(T152002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"152_004":{
+			System.out.println("152_004");
+			T152004Mapper mapper = sqlSession.getMapper(T152004Mapper.class);
+			T152004Example ee=new T152004Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T152004> lee=mapper.selectByExample(ee);
+			for(T152004 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"152_005":{
+			System.out.println("152_005");
+			T152005Mapper mapper = sqlSession.getMapper(T152005Mapper.class);
+			T152005Example ee=new T152005Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T152005> lee=mapper.selectByExample(ee);
+			for(T152005 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"152_006":{
+			System.out.println("152_006");
+			T152006Mapper mapper = sqlSession.getMapper(T152006Mapper.class);
+			T152006Example ee=new T152006Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T152006> lee=mapper.selectByExample(ee);
+			for(T152006 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"152_007":{
+			System.out.println("152_007");
+			T152007Mapper mapper = sqlSession.getMapper(T152007Mapper.class);
+			T152007Example ee=new T152007Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T152007> lee=mapper.selectByExample(ee);
+			for(T152007 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"153_002":{
+			System.out.println("153_002");
+			T153002Mapper mapper = sqlSession.getMapper(T153002Mapper.class);
+			T153002Example ee=new T153002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T153002> lee=mapper.selectByExample(ee);
+			for(T153002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"154_002":{
+			System.out.println("154_002");
+			T154002Mapper mapper = sqlSession.getMapper(T154002Mapper.class);
+			T154002Example ee=new T154002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T154002> lee=mapper.selectByExample(ee);
+			for(T154002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"155_002":{
+			System.out.println("155_002");
+			T155002Mapper mapper = sqlSession.getMapper(T155002Mapper.class);
+			T155002Example ee=new T155002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T155002> lee=mapper.selectByExample(ee);
+			for(T155002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"155_004":{
+			System.out.println("155_004");
+			T155004Mapper mapper = sqlSession.getMapper(T155004Mapper.class);
+			T155004Example ee=new T155004Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T155004> lee=mapper.selectByExample(ee);
+			for(T155004 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"155_005":{
+			System.out.println("155_005");
+			T155005Mapper mapper = sqlSession.getMapper(T155005Mapper.class);
+			T155005Example ee=new T155005Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T155005> lee=mapper.selectByExample(ee);
+			for(T155005 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"156_002":{
+			System.out.println("156_002");
+			T156002Mapper mapper = sqlSession.getMapper(T156002Mapper.class);
+			T156002Example ee=new T156002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T156002> lee=mapper.selectByExample(ee);
+			for(T156002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"157_002":{
+			System.out.println("157_002");
+			T157002Mapper mapper = sqlSession.getMapper(T157002Mapper.class);
+			T157002Example ee=new T157002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T157002> lee=mapper.selectByExample(ee);
+			for(T157002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"158_002":{
+			System.out.println("158_002");
+			T158002Mapper mapper = sqlSession.getMapper(T158002Mapper.class);
+			T158002Example ee=new T158002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T158002> lee=mapper.selectByExample(ee);
+			for(T158002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"158_003":{
+			System.out.println("158_003");
+			T158003Mapper mapper = sqlSession.getMapper(T158003Mapper.class);
+			T158003Example ee=new T158003Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T158003> lee=mapper.selectByExample(ee);
+			for(T158003 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"158_004":{
+			System.out.println("158_004");
+			T158004Mapper mapper = sqlSession.getMapper(T158004Mapper.class);
+			T158004Example ee=new T158004Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T158004> lee=mapper.selectByExample(ee);
+			for(T158004 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"159_002":{
+			System.out.println("159_002");
+			T159002Mapper mapper = sqlSession.getMapper(T159002Mapper.class);
+			T159002Example ee=new T159002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T159002> lee=mapper.selectByExample(ee);
+			for(T159002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"160_002":{
+			System.out.println("160_002");
+			T160002Mapper mapper = sqlSession.getMapper(T160002Mapper.class);
+			T160002Example ee=new T160002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T160002> lee=mapper.selectByExample(ee);
+			for(T160002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"161_002":{
+			System.out.println("161_002");
+			T161002Mapper mapper = sqlSession.getMapper(T161002Mapper.class);
+			T161002Example ee=new T161002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T161002> lee=mapper.selectByExample(ee);
+			for(T161002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"161_003":{
+			System.out.println("161_003");
+			T161003Mapper mapper = sqlSession.getMapper(T161003Mapper.class);
+			T161003Example ee=new T161003Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T161003> lee=mapper.selectByExample(ee);
+			for(T161003 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		case"162_002":{
+			System.out.println("162_002");
+			T162002Mapper mapper = sqlSession.getMapper(T162002Mapper.class);
+			T162002Example ee=new T162002Example();
+			ee.or().andTableIdEqualTo(oldTableIdId);
+			List< T162002> lee=mapper.selectByExample(ee);
+			for(T162002 ww:lee){
+				ww.setId(null);
+				ww.setTableId(newTableId);
+				mapper.insert(ww);
+			}
+			break;
+		}
+		}
+	}
+
+	public void copyTable(Integer id,Integer newExcelId)throws Exception {
+		WtableMapper mapper = sqlSession.getMapper(WtableMapper.class);
+		WtableExample ee=new WtableExample();
+		ee.or().andExcelIdEqualTo(id);
+		List<Wtable> lee=mapper.selectByExample(ee);
+		System.out.println("lee:");
+		System.out.println(lee.size());
+
+		for(Wtable ww:lee){
+
+			Integer oldTableId=ww.getId();
+			ww.setId(null);
+			ww.setExcelId(newExcelId);
+			mapper.insert(ww);
+			Integer newTableId=ww.getId();
+			copyTr(newTableId,oldTableId,ww.getTabletype());
+		}
+
+		return;
+	}
+	@RequestMapping("/copyExcel")
+	public void table_copy(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		Integer id=Integer.parseInt(request.getParameter("excel_id"));
+
+		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
+		Wexcel xx=mapper.selectByPrimaryKey(id);
+		if(xx!=null){
+			Integer excelId=xx.getId();
+			xx.setId(null);
+			xx.setName(xx.getName()+"（复制）");
+			System.out.println(xx.getName());
+			mapper.insert(xx);
+			Integer newExcelId=xx.getId();
+			copyTable(excelId,newExcelId);
+		}else{
+			System.out.println("没找到");
+		}
+
+
+
+		return;
+	}
 	@RequestMapping("deleteExcel")
 	public void table3(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -894,7 +1134,7 @@ public class TableServ {
 		String ptableCtx= request.getParameter("tableCtx");
 		String ptableInfo= request.getParameter("tableInfo");
 
-		
+
 		JSONObject tableInfoJson;
 		tableInfoJson = JSON.parseObject(ptableInfo);  
 		Map<String, String> tableItemMap= JSONObject.toJavaObject(tableInfoJson, Map.class);
@@ -1032,7 +1272,6 @@ public class TableServ {
 					tt.setYuSuanChengBen(trMap.get("5"));
 					tt.setBeiZhu(trMap.get("6"));
 					mapper.updateByPrimaryKey(tt);
-
 				}
 			}
 			break;				

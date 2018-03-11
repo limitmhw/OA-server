@@ -115,6 +115,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.Wtable" >
+      <selectKey keyProperty="id" resultType="int">  
+            select LAST_INSERT_ID()  
+    </selectKey> 
     insert into wtable (id, tableType, wen_dang_bian_hao_, 
       excel_id, biao_dan_bian_hao_, xiang_mu_ming_chen_, 
       xiang_mu_ming_chen_dan_xiang_gong_cheng_, xiang_mu_ming_chen_dan_xiang_gong_cheng_zhuan_ye_lei_bie_, 

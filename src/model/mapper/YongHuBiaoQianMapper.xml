@@ -99,6 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.YongHuBiaoQian" >
+      <selectKey keyProperty="id" resultType="int">  
+            select LAST_INSERT_ID()  
+    </selectKey> 
     insert into yong_hu_biao_qian_ (id, biao_qian_ming_, suo_shu_gong_si_, 
       bei_zhu_)
     values (#{id,jdbcType=INTEGER}, #{biaoQianMing,jdbcType=VARCHAR}, #{suoShuGongSi,jdbcType=INTEGER}, 

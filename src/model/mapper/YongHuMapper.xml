@@ -114,6 +114,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.YongHu" >
+      <selectKey keyProperty="id" resultType="int">  
+            select LAST_INSERT_ID()  
+    </selectKey> 
     insert into yong_hu_ (id, yong_hu_ming_, mi_ma_, 
       xing_ming_, xing_bie_, min_zu_, 
       shen_fen_zheng_hao_ma_, shen_fen_zheng_zhao_zheng_, 

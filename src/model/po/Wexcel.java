@@ -52,4 +52,12 @@ public class Wexcel {
     public void setCreatedate(Date createdate) {
         this.createdate = createdate;
     }
+
+	@Override
+	public String toString() {
+		return "Wexcel [id=" + id + ", name=" + name + ", gongChengId="
+				+ gongChengId + ", exceltype=" + exceltype + ", createdate="
+				+ createdate + "]";
+	}
+
 }
