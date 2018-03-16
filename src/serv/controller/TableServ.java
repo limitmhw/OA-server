@@ -514,11 +514,22 @@ public class TableServ {
 
 
 
-
+		WtableTitleMapper titlemapper = sqlSession.getMapper(WtableTitleMapper.class);
+		WtableTitleExample titleEE=new WtableTitleExample();
+		titleEE.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
+		List<WtableTitle> titleLee=titlemapper.selectByExample(titleEE);
+		String titleCtx="";
+		for(WtableTitle kk:titleLee){
+			titleCtx+="{\"tr_id\":\""+kk.getId()
+					+"\",\"tr_order\":\""+kk.getTrOrder()
+					+"\",\"title\":\""+kk.getTitle()
+					+"\",\"level\":\""+kk.getLevel()
+					+"\"},";
+		}
 
 
 		String ss="[";
-
+		ss+=titleCtx;//"{\"tr_id\":\"\",\"tr_order\":\"4\",\"title\":\"萨顶\",\"level\":\"1\"},";
 		switch(ptableType){
 		case "151_002":{
 			System.out.println("151002");
@@ -531,7 +542,7 @@ public class TableServ {
 			for(T151002 it : lee) {
 				String tr_data="["	
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -556,7 +567,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLeiJiShu())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -580,7 +591,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getYuSuanChengBen())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -608,7 +619,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getCeSuanHeJi())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -632,7 +643,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getYuSuanChengBen())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -656,7 +667,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getYuSuanChengBen())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -684,7 +695,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLeiJiShuQiTa())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -708,7 +719,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getChengBenJiangDiLv())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -738,7 +749,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getZhuangTai())+"\","
 
 					+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -770,7 +781,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getShengYuChengBenYuCeShuJieChao())+"\","
 						+"\""+String.valueOf(it.getShiJiYuJiChengBen())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -804,7 +815,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getShengYuChengBenYuCeShuJieChao())+"\","
 						+"\""+String.valueOf(it.getShiJiYuJiChengBen())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -833,7 +844,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getWeiWanYuKongShuYuCeDanJia())+"\","
 						+"\""+String.valueOf(it.getWeiWanYuKongShuYuKongDanJia())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -861,7 +872,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLeiJiShuJiangDiLv())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -885,7 +896,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getShiJiChengBen())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -915,7 +926,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getSuoShuChengBenXiangMu())+"\","
 						+"\""+String.valueOf(it.getShiYongBuWei())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -947,7 +958,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getShiJiChengBenHeJia())+"\","
 						+"\""+String.valueOf(it.getSuoShuChengBenXiangMu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -976,7 +987,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLeiJiShuShiJiJiaQuanPingJunZhi())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -1006,7 +1017,7 @@ public class TableServ {
 
 
 					+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -1039,7 +1050,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getJiaChaYingXiangJiaCha())+"\","
 						+"\""+String.valueOf(it.getJiaChaYingXiangJinE())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -1074,7 +1085,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getJiaChaYingXiangZhanBi())+"\","
 
 					+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -1099,13 +1110,14 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLiRunDianBiaoJi())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
 			break;				
 		}
 		}
+
 		ss+="]";
 		ss=ss.replace("},]","}]");
 		///**************
@@ -1119,6 +1131,151 @@ public class TableServ {
 	@RequestMapping("deleteTr")
 	public void table8(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		String id= request.getParameter("id");
+		String tableType= request.getParameter("tableType");
+		String istitle= request.getParameter("istitle");
+		/*
+			System.out.println("id:"+id);
+			System.out.println("tableType:"+tableType);
+			System.out.println("isTitle:"+istitle);
+		 */
+		if(istitle!=null&&istitle.equals("istitle")){
+			WtableTitleMapper mapper = sqlSession.getMapper(WtableTitleMapper.class);
+			mapper.deleteByPrimaryKey(Integer.parseInt(id));
+		}else{
+			System.out.println("删除普通行");	
+
+			switch(tableType){
+
+			case"151_002":{
+				System.out.println("151_002");
+				T151002Mapper mapper = sqlSession.getMapper(T151002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"152_002":{
+				System.out.println("152_002");
+				T152002Mapper mapper = sqlSession.getMapper(T152002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"152_004":{
+				System.out.println("152_004");
+				T152004Mapper mapper = sqlSession.getMapper(T152004Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"152_005":{
+				System.out.println("152_005");
+				T152005Mapper mapper = sqlSession.getMapper(T152005Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"152_006":{
+				System.out.println("152_006");
+				T152006Mapper mapper = sqlSession.getMapper(T152006Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"152_007":{
+				System.out.println("152_007");
+				T152007Mapper mapper = sqlSession.getMapper(T152007Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"153_002":{
+				System.out.println("153_002");
+				T153002Mapper mapper = sqlSession.getMapper(T153002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"154_002":{
+				System.out.println("154_002");
+				T154002Mapper mapper = sqlSession.getMapper(T154002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"155_002":{
+				System.out.println("155_002");
+				T155002Mapper mapper = sqlSession.getMapper(T155002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"155_004":{
+				System.out.println("155_004");
+				T155004Mapper mapper = sqlSession.getMapper(T155004Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"155_005":{
+				System.out.println("155_005");
+				T155005Mapper mapper = sqlSession.getMapper(T155005Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"156_002":{
+				System.out.println("156_002");
+				T156002Mapper mapper = sqlSession.getMapper(T156002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"157_002":{
+				System.out.println("157_002");
+				T157002Mapper mapper = sqlSession.getMapper(T157002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"158_002":{
+				System.out.println("158_002");
+				T158002Mapper mapper = sqlSession.getMapper(T158002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"158_003":{
+				System.out.println("158_003");
+				T158003Mapper mapper = sqlSession.getMapper(T158003Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"158_004":{
+				System.out.println("158_004");
+				T158004Mapper mapper = sqlSession.getMapper(T158004Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"159_002":{
+				System.out.println("159_002");
+				T159002Mapper mapper = sqlSession.getMapper(T159002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"160_002":{
+				System.out.println("160_002");
+				T160002Mapper mapper = sqlSession.getMapper(T160002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"161_002":{
+				System.out.println("161_002");
+				T161002Mapper mapper = sqlSession.getMapper(T161002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"161_003":{
+				System.out.println("161_003");
+				T161003Mapper mapper = sqlSession.getMapper(T161003Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			case"162_002":{
+				System.out.println("162_002");
+				T162002Mapper mapper = sqlSession.getMapper(T162002Mapper.class);
+				mapper.deleteByPrimaryKey(Integer.parseInt(id));
+				break;
+			}
+			}
+		}
+
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write("[]");
 		return;
@@ -1128,18 +1285,49 @@ public class TableServ {
 	public void table9(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		//st:8080/simpleMVC/excel//saveTable.action?
+		//st:8080/simpleMVC/excel/saveTable.action?
 		int ptable_id= Integer.parseInt(request.getParameter("id"));
 		String ptableType= request.getParameter("tableType");
 		String ptableCtx= request.getParameter("tableCtx");
 		String ptableInfo= request.getParameter("tableInfo");
+		String ptableTitle= request.getParameter("tableTitle");
 
+		//System.out.println("XXXXXXXXXXXXXXXXXXX");
+		//System.out.println(ptableCtx);
+		////////////////////////////////////////
+		//存储title
+		JSONObject tabletitleInfoJson;
+		tabletitleInfoJson = JSON.parseObject(ptableTitle);
+		Map<String, Object> tabletitleItemMap= JSONObject.toJavaObject(tabletitleInfoJson, Map.class);
+		WtableTitleMapper titlemapper = sqlSession.getMapper(WtableTitleMapper.class);
 
+		for (Map.Entry<String, Object> entry : tabletitleItemMap.entrySet()) {
+			//System.out.println("##############");
+			//System.out.println(entry.getKey());
+			Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+			System.out.println(trMap.toString());
+			if(trMap.get("tr_id").trim().length()!=0){
+				System.out.println(trMap.get("tr_id").trim());
+				WtableTitle titleXX=titlemapper.selectByPrimaryKey(Integer.parseInt(trMap.get("tr_id").trim()));
+				titleXX.setTableId(ptable_id);
+				titleXX.setTitle(trMap.get("title").trim());
+				//级别不可以改
+				//titleXX.setLevel(trMap.get("level").trim());
+				titleXX.setTrOrder(Integer.parseInt(entry.getKey()));
+				titlemapper.updateByPrimaryKey(titleXX);
+			}else{
+				WtableTitle titleXX=new WtableTitle();
+				titleXX.setTableId(ptable_id);
+				titleXX.setTitle(trMap.get("title").trim());
+				titleXX.setLevel(trMap.get("level").trim());
+				titleXX.setTrOrder(Integer.parseInt(entry.getKey()));	
+				titlemapper.insert(titleXX);
+			}
+		}
+		////////////////////////////////////////
 		JSONObject tableInfoJson;
 		tableInfoJson = JSON.parseObject(ptableInfo);  
 		Map<String, String> tableItemMap= JSONObject.toJavaObject(tableInfoJson, Map.class);
-
-
 		WtableMapper tmapper = sqlSession.getMapper(WtableMapper.class);
 
 		//先查询
