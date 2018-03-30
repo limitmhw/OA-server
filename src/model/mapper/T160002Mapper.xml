@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="table_id" property="tableId" jdbcType="INTEGER" />
     <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="tr_type" property="trType" jdbcType="VARCHAR" />
     <result column="bian_ma_" property="bianMa" jdbcType="VARCHAR" />
     <result column="cheng_ben_xiang_mu_" property="chengBenXiangMu" jdbcType="VARCHAR" />
     <result column="na_rong_fan_wei_miao_shu_" property="naRongFanWeiMiaoShu" jdbcType="VARCHAR" />
@@ -77,7 +78,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, table_id, tr_order, bian_ma_, cheng_ben_xiang_mu_, na_rong_fan_wei_miao_shu_, 
+    id, table_id, tr_order, tr_type, bian_ma_, cheng_ben_xiang_mu_, na_rong_fan_wei_miao_shu_, 
     yu_suan_cheng_ben_, ji_hua_cheng_ben_, guo_cheng_cheng_ben_, jie_chao_jin_e_, jie_chao_bi_li_, 
     jie_chao_yin_su_fen_xi_shu_liang_, jie_chao_yin_su_fen_xi_jia_ge_, jie_chao_yin_su_fen_xi_qi_ta_, 
     zhuang_tai_
@@ -114,17 +115,17 @@
   </delete>
   <insert id="insert" parameterType="model.po.T160002" >
     insert into t160_002 (id, table_id, tr_order, 
-      bian_ma_, cheng_ben_xiang_mu_, na_rong_fan_wei_miao_shu_, 
-      yu_suan_cheng_ben_, ji_hua_cheng_ben_, guo_cheng_cheng_ben_, 
-      jie_chao_jin_e_, jie_chao_bi_li_, jie_chao_yin_su_fen_xi_shu_liang_, 
-      jie_chao_yin_su_fen_xi_jia_ge_, jie_chao_yin_su_fen_xi_qi_ta_, 
-      zhuang_tai_)
+      tr_type, bian_ma_, cheng_ben_xiang_mu_, 
+      na_rong_fan_wei_miao_shu_, yu_suan_cheng_ben_, ji_hua_cheng_ben_, 
+      guo_cheng_cheng_ben_, jie_chao_jin_e_, jie_chao_bi_li_, 
+      jie_chao_yin_su_fen_xi_shu_liang_, jie_chao_yin_su_fen_xi_jia_ge_, 
+      jie_chao_yin_su_fen_xi_qi_ta_, zhuang_tai_)
     values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
-      #{bianMa,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, #{naRongFanWeiMiaoShu,jdbcType=VARCHAR}, 
-      #{yuSuanChengBen,jdbcType=VARCHAR}, #{jiHuaChengBen,jdbcType=VARCHAR}, #{guoChengChengBen,jdbcType=VARCHAR}, 
-      #{jieChaoJinE,jdbcType=VARCHAR}, #{jieChaoBiLi,jdbcType=VARCHAR}, #{jieChaoYinSuFenXiShuLiang,jdbcType=VARCHAR}, 
-      #{jieChaoYinSuFenXiJiaGe,jdbcType=VARCHAR}, #{jieChaoYinSuFenXiQiTa,jdbcType=VARCHAR}, 
-      #{zhuangTai,jdbcType=VARCHAR})
+      #{trType,jdbcType=VARCHAR}, #{bianMa,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, 
+      #{naRongFanWeiMiaoShu,jdbcType=VARCHAR}, #{yuSuanChengBen,jdbcType=VARCHAR}, #{jiHuaChengBen,jdbcType=VARCHAR}, 
+      #{guoChengChengBen,jdbcType=VARCHAR}, #{jieChaoJinE,jdbcType=VARCHAR}, #{jieChaoBiLi,jdbcType=VARCHAR}, 
+      #{jieChaoYinSuFenXiShuLiang,jdbcType=VARCHAR}, #{jieChaoYinSuFenXiJiaGe,jdbcType=VARCHAR}, 
+      #{jieChaoYinSuFenXiQiTa,jdbcType=VARCHAR}, #{zhuangTai,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="model.po.T160002" >
     insert into t160_002
@@ -137,6 +138,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order,
+      </if>
+      <if test="trType != null" >
+        tr_type,
       </if>
       <if test="bianMa != null" >
         bian_ma_,
@@ -184,6 +188,9 @@
       </if>
       <if test="trOrder != null" >
         #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        #{trType,jdbcType=VARCHAR},
       </if>
       <if test="bianMa != null" >
         #{bianMa,jdbcType=VARCHAR},
@@ -241,6 +248,9 @@
       <if test="record.trOrder != null" >
         tr_order = #{record.trOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.trType != null" >
+        tr_type = #{record.trType,jdbcType=VARCHAR},
+      </if>
       <if test="record.bianMa != null" >
         bian_ma_ = #{record.bianMa,jdbcType=VARCHAR},
       </if>
@@ -287,6 +297,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       table_id = #{record.tableId,jdbcType=INTEGER},
       tr_order = #{record.trOrder,jdbcType=INTEGER},
+      tr_type = #{record.trType,jdbcType=VARCHAR},
       bian_ma_ = #{record.bianMa,jdbcType=VARCHAR},
       cheng_ben_xiang_mu_ = #{record.chengBenXiangMu,jdbcType=VARCHAR},
       na_rong_fan_wei_miao_shu_ = #{record.naRongFanWeiMiaoShu,jdbcType=VARCHAR},
@@ -311,6 +322,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        tr_type = #{trType,jdbcType=VARCHAR},
       </if>
       <if test="bianMa != null" >
         bian_ma_ = #{bianMa,jdbcType=VARCHAR},
@@ -355,6 +369,7 @@
     update t160_002
     set table_id = #{tableId,jdbcType=INTEGER},
       tr_order = #{trOrder,jdbcType=INTEGER},
+      tr_type = #{trType,jdbcType=VARCHAR},
       bian_ma_ = #{bianMa,jdbcType=VARCHAR},
       cheng_ben_xiang_mu_ = #{chengBenXiangMu,jdbcType=VARCHAR},
       na_rong_fan_wei_miao_shu_ = #{naRongFanWeiMiaoShu,jdbcType=VARCHAR},

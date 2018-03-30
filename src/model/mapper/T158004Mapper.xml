@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="table_id" property="tableId" jdbcType="INTEGER" />
     <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="tr_type" property="trType" jdbcType="VARCHAR" />
     <result column="xu_hao_" property="xuHao" jdbcType="VARCHAR" />
     <result column="wu_zi_ming_chen_" property="wuZiMingChen" jdbcType="VARCHAR" />
     <result column="gui_ge_xing_hao_" property="guiGeXingHao" jdbcType="VARCHAR" />
@@ -80,7 +81,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, table_id, tr_order, xu_hao_, wu_zi_ming_chen_, gui_ge_xing_hao_, zu_lin_dan_jia_dan_wei_, 
+    id, table_id, tr_order, tr_type, xu_hao_, wu_zi_ming_chen_, gui_ge_xing_hao_, zu_lin_dan_jia_dan_wei_, 
     zu_lin_dan_jia_yu_suan_shu_, zu_lin_dan_jia_shi_ji_shu_, zu_lin_shu_liang_dan_wei_, 
     zu_lin_shu_liang_yu_suan_shu_, zu_lin_shu_liang_shi_ji_shu_, zu_lin_shi_jian_dan_wei_, 
     zu_lin_shi_jian_yu_suan_shu_, zu_lin_shi_jian_shi_ji_shu_, yu_suan_cheng_ben_he_ji_, 
@@ -118,8 +119,8 @@
   </delete>
   <insert id="insert" parameterType="model.po.T158004" >
     insert into t158_004 (id, table_id, tr_order, 
-      xu_hao_, wu_zi_ming_chen_, gui_ge_xing_hao_, 
-      zu_lin_dan_jia_dan_wei_, zu_lin_dan_jia_yu_suan_shu_, 
+      tr_type, xu_hao_, wu_zi_ming_chen_, 
+      gui_ge_xing_hao_, zu_lin_dan_jia_dan_wei_, zu_lin_dan_jia_yu_suan_shu_, 
       zu_lin_dan_jia_shi_ji_shu_, zu_lin_shu_liang_dan_wei_, 
       zu_lin_shu_liang_yu_suan_shu_, zu_lin_shu_liang_shi_ji_shu_, 
       zu_lin_shi_jian_dan_wei_, zu_lin_shi_jian_yu_suan_shu_, 
@@ -127,8 +128,8 @@
       shi_ji_cheng_ben_he_jia_, suo_shu_cheng_ben_xiang_mu_
       )
     values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
-      #{xuHao,jdbcType=VARCHAR}, #{wuZiMingChen,jdbcType=VARCHAR}, #{guiGeXingHao,jdbcType=VARCHAR}, 
-      #{zuLinDanJiaDanWei,jdbcType=VARCHAR}, #{zuLinDanJiaYuSuanShu,jdbcType=VARCHAR}, 
+      #{trType,jdbcType=VARCHAR}, #{xuHao,jdbcType=VARCHAR}, #{wuZiMingChen,jdbcType=VARCHAR}, 
+      #{guiGeXingHao,jdbcType=VARCHAR}, #{zuLinDanJiaDanWei,jdbcType=VARCHAR}, #{zuLinDanJiaYuSuanShu,jdbcType=VARCHAR}, 
       #{zuLinDanJiaShiJiShu,jdbcType=VARCHAR}, #{zuLinShuLiangDanWei,jdbcType=VARCHAR}, 
       #{zuLinShuLiangYuSuanShu,jdbcType=VARCHAR}, #{zuLinShuLiangShiJiShu,jdbcType=VARCHAR}, 
       #{zuLinShiJianDanWei,jdbcType=VARCHAR}, #{zuLinShiJianYuSuanShu,jdbcType=VARCHAR}, 
@@ -147,6 +148,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order,
+      </if>
+      <if test="trType != null" >
+        tr_type,
       </if>
       <if test="xuHao != null" >
         xu_hao_,
@@ -203,6 +207,9 @@
       </if>
       <if test="trOrder != null" >
         #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        #{trType,jdbcType=VARCHAR},
       </if>
       <if test="xuHao != null" >
         #{xuHao,jdbcType=VARCHAR},
@@ -269,6 +276,9 @@
       <if test="record.trOrder != null" >
         tr_order = #{record.trOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.trType != null" >
+        tr_type = #{record.trType,jdbcType=VARCHAR},
+      </if>
       <if test="record.xuHao != null" >
         xu_hao_ = #{record.xuHao,jdbcType=VARCHAR},
       </if>
@@ -324,6 +334,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       table_id = #{record.tableId,jdbcType=INTEGER},
       tr_order = #{record.trOrder,jdbcType=INTEGER},
+      tr_type = #{record.trType,jdbcType=VARCHAR},
       xu_hao_ = #{record.xuHao,jdbcType=VARCHAR},
       wu_zi_ming_chen_ = #{record.wuZiMingChen,jdbcType=VARCHAR},
       gui_ge_xing_hao_ = #{record.guiGeXingHao,jdbcType=VARCHAR},
@@ -351,6 +362,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        tr_type = #{trType,jdbcType=VARCHAR},
       </if>
       <if test="xuHao != null" >
         xu_hao_ = #{xuHao,jdbcType=VARCHAR},
@@ -404,6 +418,7 @@
     update t158_004
     set table_id = #{tableId,jdbcType=INTEGER},
       tr_order = #{trOrder,jdbcType=INTEGER},
+      tr_type = #{trType,jdbcType=VARCHAR},
       xu_hao_ = #{xuHao,jdbcType=VARCHAR},
       wu_zi_ming_chen_ = #{wuZiMingChen,jdbcType=VARCHAR},
       gui_ge_xing_hao_ = #{guiGeXingHao,jdbcType=VARCHAR},

@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="table_id" property="tableId" jdbcType="INTEGER" />
     <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="tr_type" property="trType" jdbcType="VARCHAR" />
     <result column="xu_hao_" property="xuHao" jdbcType="VARCHAR" />
     <result column="wu_zi_ming_chen_" property="wuZiMingChen" jdbcType="VARCHAR" />
     <result column="gui_ge_xing_hao_" property="guiGeXingHao" jdbcType="VARCHAR" />
@@ -82,11 +83,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, table_id, tr_order, xu_hao_, wu_zi_ming_chen_, gui_ge_xing_hao_, dan_wei_, yu_suan_zhi_shu_liang_, 
-    yu_suan_zhi_dan_jia_, yu_suan_zhi_jin_e_, shi_ji_zhi_shu_liang_, shi_ji_zhi_dan_jia_, 
-    shi_ji_zhi_jin_e_, ying_kui_, liang_cha_ying_xiang_liang_cha_, liang_cha_ying_xiang_jin_e_, 
-    liang_cha_ying_xiang_zhan_bi_, jia_cha_ying_xiang_jia_cha_, jia_cha_ying_xiang_jin_e_, 
-    jia_cha_ying_xiang_zhan_bi_
+    id, table_id, tr_order, tr_type, xu_hao_, wu_zi_ming_chen_, gui_ge_xing_hao_, dan_wei_, 
+    yu_suan_zhi_shu_liang_, yu_suan_zhi_dan_jia_, yu_suan_zhi_jin_e_, shi_ji_zhi_shu_liang_, 
+    shi_ji_zhi_dan_jia_, shi_ji_zhi_jin_e_, ying_kui_, liang_cha_ying_xiang_liang_cha_, 
+    liang_cha_ying_xiang_jin_e_, liang_cha_ying_xiang_zhan_bi_, jia_cha_ying_xiang_jia_cha_, 
+    jia_cha_ying_xiang_jin_e_, jia_cha_ying_xiang_zhan_bi_
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.T161003Example" >
     select
@@ -120,21 +121,23 @@
   </delete>
   <insert id="insert" parameterType="model.po.T161003" >
     insert into t161_003 (id, table_id, tr_order, 
-      xu_hao_, wu_zi_ming_chen_, gui_ge_xing_hao_, 
-      dan_wei_, yu_suan_zhi_shu_liang_, yu_suan_zhi_dan_jia_, 
-      yu_suan_zhi_jin_e_, shi_ji_zhi_shu_liang_, shi_ji_zhi_dan_jia_, 
-      shi_ji_zhi_jin_e_, ying_kui_, liang_cha_ying_xiang_liang_cha_, 
-      liang_cha_ying_xiang_jin_e_, liang_cha_ying_xiang_zhan_bi_, 
-      jia_cha_ying_xiang_jia_cha_, jia_cha_ying_xiang_jin_e_, 
-      jia_cha_ying_xiang_zhan_bi_)
+      tr_type, xu_hao_, wu_zi_ming_chen_, 
+      gui_ge_xing_hao_, dan_wei_, yu_suan_zhi_shu_liang_, 
+      yu_suan_zhi_dan_jia_, yu_suan_zhi_jin_e_, shi_ji_zhi_shu_liang_, 
+      shi_ji_zhi_dan_jia_, shi_ji_zhi_jin_e_, ying_kui_, 
+      liang_cha_ying_xiang_liang_cha_, liang_cha_ying_xiang_jin_e_, 
+      liang_cha_ying_xiang_zhan_bi_, jia_cha_ying_xiang_jia_cha_, 
+      jia_cha_ying_xiang_jin_e_, jia_cha_ying_xiang_zhan_bi_
+      )
     values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
-      #{xuHao,jdbcType=VARCHAR}, #{wuZiMingChen,jdbcType=VARCHAR}, #{guiGeXingHao,jdbcType=VARCHAR}, 
-      #{danWei,jdbcType=VARCHAR}, #{yuSuanZhiShuLiang,jdbcType=VARCHAR}, #{yuSuanZhiDanJia,jdbcType=VARCHAR}, 
-      #{yuSuanZhiJinE,jdbcType=VARCHAR}, #{shiJiZhiShuLiang,jdbcType=VARCHAR}, #{shiJiZhiDanJia,jdbcType=VARCHAR}, 
-      #{shiJiZhiJinE,jdbcType=VARCHAR}, #{yingKui,jdbcType=VARCHAR}, #{liangChaYingXiangLiangCha,jdbcType=VARCHAR}, 
-      #{liangChaYingXiangJinE,jdbcType=VARCHAR}, #{liangChaYingXiangZhanBi,jdbcType=VARCHAR}, 
-      #{jiaChaYingXiangJiaCha,jdbcType=VARCHAR}, #{jiaChaYingXiangJinE,jdbcType=VARCHAR}, 
-      #{jiaChaYingXiangZhanBi,jdbcType=VARCHAR})
+      #{trType,jdbcType=VARCHAR}, #{xuHao,jdbcType=VARCHAR}, #{wuZiMingChen,jdbcType=VARCHAR}, 
+      #{guiGeXingHao,jdbcType=VARCHAR}, #{danWei,jdbcType=VARCHAR}, #{yuSuanZhiShuLiang,jdbcType=VARCHAR}, 
+      #{yuSuanZhiDanJia,jdbcType=VARCHAR}, #{yuSuanZhiJinE,jdbcType=VARCHAR}, #{shiJiZhiShuLiang,jdbcType=VARCHAR}, 
+      #{shiJiZhiDanJia,jdbcType=VARCHAR}, #{shiJiZhiJinE,jdbcType=VARCHAR}, #{yingKui,jdbcType=VARCHAR}, 
+      #{liangChaYingXiangLiangCha,jdbcType=VARCHAR}, #{liangChaYingXiangJinE,jdbcType=VARCHAR}, 
+      #{liangChaYingXiangZhanBi,jdbcType=VARCHAR}, #{jiaChaYingXiangJiaCha,jdbcType=VARCHAR}, 
+      #{jiaChaYingXiangJinE,jdbcType=VARCHAR}, #{jiaChaYingXiangZhanBi,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="model.po.T161003" >
     insert into t161_003
@@ -147,6 +150,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order,
+      </if>
+      <if test="trType != null" >
+        tr_type,
       </if>
       <if test="xuHao != null" >
         xu_hao_,
@@ -209,6 +215,9 @@
       </if>
       <if test="trOrder != null" >
         #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        #{trType,jdbcType=VARCHAR},
       </if>
       <if test="xuHao != null" >
         #{xuHao,jdbcType=VARCHAR},
@@ -281,6 +290,9 @@
       <if test="record.trOrder != null" >
         tr_order = #{record.trOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.trType != null" >
+        tr_type = #{record.trType,jdbcType=VARCHAR},
+      </if>
       <if test="record.xuHao != null" >
         xu_hao_ = #{record.xuHao,jdbcType=VARCHAR},
       </if>
@@ -342,6 +354,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       table_id = #{record.tableId,jdbcType=INTEGER},
       tr_order = #{record.trOrder,jdbcType=INTEGER},
+      tr_type = #{record.trType,jdbcType=VARCHAR},
       xu_hao_ = #{record.xuHao,jdbcType=VARCHAR},
       wu_zi_ming_chen_ = #{record.wuZiMingChen,jdbcType=VARCHAR},
       gui_ge_xing_hao_ = #{record.guiGeXingHao,jdbcType=VARCHAR},
@@ -371,6 +384,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        tr_type = #{trType,jdbcType=VARCHAR},
       </if>
       <if test="xuHao != null" >
         xu_hao_ = #{xuHao,jdbcType=VARCHAR},
@@ -430,6 +446,7 @@
     update t161_003
     set table_id = #{tableId,jdbcType=INTEGER},
       tr_order = #{trOrder,jdbcType=INTEGER},
+      tr_type = #{trType,jdbcType=VARCHAR},
       xu_hao_ = #{xuHao,jdbcType=VARCHAR},
       wu_zi_ming_chen_ = #{wuZiMingChen,jdbcType=VARCHAR},
       gui_ge_xing_hao_ = #{guiGeXingHao,jdbcType=VARCHAR},

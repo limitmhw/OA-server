@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="table_id" property="tableId" jdbcType="INTEGER" />
     <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="tr_type" property="trType" jdbcType="VARCHAR" />
     <result column="xu_hao_" property="xuHao" jdbcType="VARCHAR" />
     <result column="cheng_ben_xiang_mu_" property="chengBenXiangMu" jdbcType="VARCHAR" />
     <result column="na_rong_fan_wei_miao_shu_" property="naRongFanWeiMiaoShu" jdbcType="VARCHAR" />
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, table_id, tr_order, xu_hao_, cheng_ben_xiang_mu_, na_rong_fan_wei_miao_shu_, 
+    id, table_id, tr_order, tr_type, xu_hao_, cheng_ben_xiang_mu_, na_rong_fan_wei_miao_shu_, 
     yu_suan_zao_jia_, yu_suan_cheng_ben_, ying_kui_e_du_, li_run_dian_biao_ji_, bei_zhu_
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.T162002Example" >
@@ -108,13 +109,15 @@
   </delete>
   <insert id="insert" parameterType="model.po.T162002" >
     insert into t162_002 (id, table_id, tr_order, 
-      xu_hao_, cheng_ben_xiang_mu_, na_rong_fan_wei_miao_shu_, 
-      yu_suan_zao_jia_, yu_suan_cheng_ben_, ying_kui_e_du_, 
-      li_run_dian_biao_ji_, bei_zhu_)
+      tr_type, xu_hao_, cheng_ben_xiang_mu_, 
+      na_rong_fan_wei_miao_shu_, yu_suan_zao_jia_, yu_suan_cheng_ben_, 
+      ying_kui_e_du_, li_run_dian_biao_ji_, bei_zhu_
+      )
     values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
-      #{xuHao,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, #{naRongFanWeiMiaoShu,jdbcType=VARCHAR}, 
-      #{yuSuanZaoJia,jdbcType=VARCHAR}, #{yuSuanChengBen,jdbcType=VARCHAR}, #{yingKuiEDu,jdbcType=VARCHAR}, 
-      #{liRunDianBiaoJi,jdbcType=VARCHAR}, #{beiZhu,jdbcType=VARCHAR})
+      #{trType,jdbcType=VARCHAR}, #{xuHao,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, 
+      #{naRongFanWeiMiaoShu,jdbcType=VARCHAR}, #{yuSuanZaoJia,jdbcType=VARCHAR}, #{yuSuanChengBen,jdbcType=VARCHAR}, 
+      #{yingKuiEDu,jdbcType=VARCHAR}, #{liRunDianBiaoJi,jdbcType=VARCHAR}, #{beiZhu,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="model.po.T162002" >
     insert into t162_002
@@ -127,6 +130,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order,
+      </if>
+      <if test="trType != null" >
+        tr_type,
       </if>
       <if test="xuHao != null" >
         xu_hao_,
@@ -162,6 +168,9 @@
       </if>
       <if test="trOrder != null" >
         #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        #{trType,jdbcType=VARCHAR},
       </if>
       <if test="xuHao != null" >
         #{xuHao,jdbcType=VARCHAR},
@@ -207,6 +216,9 @@
       <if test="record.trOrder != null" >
         tr_order = #{record.trOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.trType != null" >
+        tr_type = #{record.trType,jdbcType=VARCHAR},
+      </if>
       <if test="record.xuHao != null" >
         xu_hao_ = #{record.xuHao,jdbcType=VARCHAR},
       </if>
@@ -241,6 +253,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       table_id = #{record.tableId,jdbcType=INTEGER},
       tr_order = #{record.trOrder,jdbcType=INTEGER},
+      tr_type = #{record.trType,jdbcType=VARCHAR},
       xu_hao_ = #{record.xuHao,jdbcType=VARCHAR},
       cheng_ben_xiang_mu_ = #{record.chengBenXiangMu,jdbcType=VARCHAR},
       na_rong_fan_wei_miao_shu_ = #{record.naRongFanWeiMiaoShu,jdbcType=VARCHAR},
@@ -261,6 +274,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        tr_type = #{trType,jdbcType=VARCHAR},
       </if>
       <if test="xuHao != null" >
         xu_hao_ = #{xuHao,jdbcType=VARCHAR},
@@ -293,6 +309,7 @@
     update t162_002
     set table_id = #{tableId,jdbcType=INTEGER},
       tr_order = #{trOrder,jdbcType=INTEGER},
+      tr_type = #{trType,jdbcType=VARCHAR},
       xu_hao_ = #{xuHao,jdbcType=VARCHAR},
       cheng_ben_xiang_mu_ = #{chengBenXiangMu,jdbcType=VARCHAR},
       na_rong_fan_wei_miao_shu_ = #{naRongFanWeiMiaoShu,jdbcType=VARCHAR},

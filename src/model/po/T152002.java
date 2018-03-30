@@ -7,6 +7,8 @@ public class T152002 {
 
     private Integer trOrder;
 
+    private String trType;
+
     private String bianMa;
 
     private String chengBenXiangMu;
@@ -45,6 +47,14 @@ public class T152002 {
 
     public void setTrOrder(Integer trOrder) {
         this.trOrder = trOrder;
+    }
+
+    public String getTrType() {
+        return trType;
+    }
+
+    public void setTrType(String trType) {
+        this.trType = trType == null ? null : trType.trim();
     }
 
     public String getBianMa() {

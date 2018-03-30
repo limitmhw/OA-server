@@ -7,6 +7,8 @@ public class T152005 {
 
     private Integer trOrder;
 
+    private String trType;
+
     private String bianHao;
 
     private String caiLiaoMingChen;
@@ -49,6 +51,14 @@ public class T152005 {
 
     public void setTrOrder(Integer trOrder) {
         this.trOrder = trOrder;
+    }
+
+    public String getTrType() {
+        return trType;
+    }
+
+    public void setTrType(String trType) {
+        this.trType = trType == null ? null : trType.trim();
     }
 
     public String getBianHao() {

@@ -10,10 +10,35 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-02-27 21:43:49
+Date: 2018-03-20 17:13:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for eauthority
+-- ----------------------------
+DROP TABLE IF EXISTS `eauthority`;
+CREATE TABLE `eauthority` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `gong_cheng_id` int(11) DEFAULT NULL,
+  `yong_hu_zu_id` int(11) DEFAULT NULL,
+  `mask` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of eauthority
+-- ----------------------------
+INSERT INTO `eauthority` VALUES ('10', '1', '21', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000000000000000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('11', '1', '20', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000010000000000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('12', '1', '19', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001001000000000000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('13', '1', '17', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000000000000000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('14', '1', '22', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000000000000000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('15', '1', '23', '0000111101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011110111110111110000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('16', '1', '25', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000000000000000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('17', '1', '13', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000100000000000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('18', '1', '14', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001101000000000000000000000000000000000');
 
 -- ----------------------------
 -- Table structure for gong_cheng_
@@ -22,7 +47,7 @@ DROP TABLE IF EXISTS `gong_cheng_`;
 CREATE TABLE `gong_cheng_` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
-  `xiang_mu_id` int(11) DEFAULT NULL,
+  `xiang_mu_id_` int(11) DEFAULT NULL,
   `dan_xiang_gong_cheng_` varchar(255) DEFAULT NULL,
   `gui_mo_mian_ji_` varchar(255) DEFAULT NULL,
   `gui_mo_chang_du_` varchar(255) DEFAULT NULL,
@@ -34,8 +59,8 @@ CREATE TABLE `gong_cheng_` (
   `jie_gou_lei_xing_` varchar(255) DEFAULT NULL,
   `ji_chu_jie_gou_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `xiang_mu_id` (`xiang_mu_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+  KEY `xiang_mu_id` (`xiang_mu_id_`)
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of gong_cheng_
@@ -45,10 +70,43 @@ INSERT INTO `gong_cheng_` VALUES ('2', null, null, null, null, null, null, null,
 INSERT INTO `gong_cheng_` VALUES ('3', null, null, '1', '1', '1', '1', '1', '1', '1', '1', '1', '1');
 INSERT INTO `gong_cheng_` VALUES ('4', null, null, null, null, null, null, null, null, null, null, null, null);
 INSERT INTO `gong_cheng_` VALUES ('5', null, null, '11', '111', '', '', '', '', '', '', '', '');
-INSERT INTO `gong_cheng_` VALUES ('6', null, null, '222', '222', '', '', '', '', '', '', '', '');
-INSERT INTO `gong_cheng_` VALUES ('7', null, null, '333', '33', '', '', '', '', '', '', '', '');
-INSERT INTO `gong_cheng_` VALUES ('8', null, null, '444', '4444', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('6', null, '45', '222', '222', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('7', null, '45', '333', '33', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('8', null, '45', '444', '4444', '', '', '', '', '', '', '', '');
 INSERT INTO `gong_cheng_` VALUES ('9', null, '44', 's', 's', 's', 's', 's', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('10', null, '45', '阿萨', '嘻嘻嘻', '嘻嘻嘻', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('11', null, '45', '按顺序', '搜索', '学习', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('12', null, '46', '阿萨2', '嘻嘻嘻', '嘻嘻嘻', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('13', null, '46', '按顺序2', '搜索', '学习', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('14', null, '3', '111', '444', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('15', null, '3', '4444', '', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('16', null, '3', '22', '', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('17', null, '1', '1', '1', '1', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('18', null, '1', '11', '11', '11', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('19', null, '1', '33', '222', '22', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('20', null, '1', '22', '嗯嗯23', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('21', null, '1', '33', '一个', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('22', null, '1', '44', '连个', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('23', null, '1', '55', '是多少', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('24', null, '8', '111', '111', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('25', null, '8', '111223', '11', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('26', null, null, '省道', '的', '11沙发', '打发', '11', '112', '第三方', '请问', '请问', '请问');
+INSERT INTO `gong_cheng_` VALUES ('27', null, null, '打发', '阿斯蒂芬', '暗室逢灯', '大师傅', '大师傅', '大师傅', '大师傅', '阿斯蒂芬', '发多少', '大厦');
+INSERT INTO `gong_cheng_` VALUES ('28', null, '47', '11', '', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('29', null, '49', 'xxx1', '', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('30', null, '49', 'xxx2', '', '', '', '', '', '', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('31', null, '50', '大幅度', '大法师打', '大师傅的a', '阿斯顿发生', '大师傅', '大师傅', '打发', '爱的方式', '爱迪生', '爱的方式');
+INSERT INTO `gong_cheng_` VALUES ('32', null, '50', '第三方', '大师傅', '爱迪生', '大师傅', '阿斯蒂芬', '阿斯蒂芬', '大师傅', '阿斯蒂芬', '阿斯蒂芬', '的撒');
+INSERT INTO `gong_cheng_` VALUES ('33', null, '51', '一个项目', '10000', '4000', '', '3', '4', '5', '公建', '钢架', '钢架');
+INSERT INTO `gong_cheng_` VALUES ('34', null, '52', '省道', '222', '32323', '2323', '2323', '2323', '2323', '2323', '232', '2323');
+INSERT INTO `gong_cheng_` VALUES ('35', null, '53', '在线咨询', '朱辛庄', 'zx', '这些', 'zx', '', 'z', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('36', null, '54', '在线咨询', '朱辛庄', 'zx', '这些', 'zx', '', 'z', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('37', null, '55', '在线咨询', '朱辛庄', 'zx', '这些', 'zx', '', 'z', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('38', null, '56', '在线咨询', '朱辛庄', 'zx', '这些', 'zx', '', 'z', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('39', null, '57', '在线咨询', '朱辛庄', 'zx', '这些', 'zx', '', 'z', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('40', null, '58', '在线咨询', '朱辛庄', 'zx', '这些', 'zx', '', 'z', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('41', null, '59', '在线咨询', '朱辛庄', 'zx', '这些', 'zx', '', 'z', '', '', '');
+INSERT INTO `gong_cheng_` VALUES ('42', null, '60', '在线咨询', '朱辛庄', 'zx', '这些', 'zx', '', 'z', '', '', '');
 
 -- ----------------------------
 -- Table structure for gong_si_xin_xi_
@@ -88,8 +146,8 @@ CREATE TABLE `gong_si_xin_xi_` (
 -- Records of gong_si_xin_xi_
 -- ----------------------------
 INSERT INTO `gong_si_xin_xi_` VALUES ('3', '张西洋大事发生', '第三方', '打卡机啊哈计划反倒是看好就', '电话即可', '撒阿士大夫撒旦', '大多数', '第三方第三方', '大爱的', '大赛科技离开第三方拉的屎就离开来看待来看待了解肯定是经理撒大家了肯定撒立刻就发来看撒娇的', '阿达地方', '啊发大水', '的撒范德萨', '大厦', '士大夫', '打发', '第三方发奥术大师', '打发啊', '打发地方看见啊', '第三方的', '的撒范德萨', '第三方 ', '第三方阿萨德', '第三方 大的时间浩丰科技阿萨德', '大发啊 ', '0');
-INSERT INTO `gong_si_xin_xi_` VALUES ('6', '多范德萨阿士大', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨', '第三方', '1');
-INSERT INTO `gong_si_xin_xi_` VALUES ('7', '是打发的所发生的大', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀什开机', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨', '第三方', '1');
+INSERT INTO `gong_si_xin_xi_` VALUES ('6', '多范德萨阿', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨', '第三方', '1');
+INSERT INTO `gong_si_xin_xi_` VALUES ('7', '是打发的所发生的大', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀什开机', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨2323', '第三方', '1');
 INSERT INTO `gong_si_xin_xi_` VALUES ('8', '打飞机哈副科代发', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀什开机', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨', '第三方', '1');
 INSERT INTO `gong_si_xin_xi_` VALUES ('9', '倒海翻江爱福克斯', '加的撒谎就', '极大很快就回家看电视哈空间的', '囧的呼唤', '就的撒会尽快', '简单化开机', '就好打击', '就的还快', '尽快的哈风健康的时间看到计划', '加大富豪监控', '记到哈', '加的撒谎端口', '结婚的风', '记到哈', '京东卡和', '加快递费卡接收到回复发', '的话华东师范', '回复就开始的恢复健康东三环 ', '接收到回复', '角度看伤口就开始东方红', '绝对是咖啡还款', '科技活动', '跨境电商可好看', '打发士大夫', '1');
 INSERT INTO `gong_si_xin_xi_` VALUES ('10', '倒海翻江爱福克斯的划', '加的撒谎就', '极大很快就回家看电视哈空间的', '囧的呼唤', '就的撒会尽快', '简单化开机', '就好打击', '就的还快', '尽快的哈风健康的时间看到计划', '加大富豪监控', '记到哈', '加的撒谎端口', '结婚的风', '记到哈', '京东卡和', '加快递费卡接收到回复发', '的话华东师范', '回复就开始的恢复健康东三环 ', '接收到回复', '角度看伤口就开始东方红', '绝对是咖啡还款', '科技活动', '跨境电商可好看', '打发士大夫', '1');
@@ -125,7 +183,7 @@ CREATE TABLE `t151_002` (
   `cheng_ben_jiang_di_lv_` varchar(255) DEFAULT NULL,
   `cheng_ben_ze_ren_ren_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t151_002
@@ -148,28 +206,15 @@ CREATE TABLE `t152_002` (
   `lei_ji_shu_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_002
 -- ----------------------------
-INSERT INTO `t152_002` VALUES ('13', '62', '4', '', '1', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('14', '62', '1', '', '13333', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('15', '62', '0', '1', '', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('16', '82', '0', '1', '2', '344444', '4', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('17', '62', '5', '', '1', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('18', '62', '13', '', '1', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('19', '62', '2', '1', '', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('20', '62', '10', '', '1', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('21', '62', '9', '', '1', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('22', '62', '8', '', '1', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('23', '62', '6', '', '不好用', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('24', '62', '12', '', '1', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('25', '62', '11', '', '1', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('26', '62', '3', '', 'ss', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('27', '62', '7', '', '可好看好看', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('28', '82', '2', '', '', '不好说', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('29', '82', '1', '', '', '好使', '', '', '', '', '');
+INSERT INTO `t152_002` VALUES ('63', '468', '3', '', '啊实打实', '', '', '', '', '', '');
+INSERT INTO `t152_002` VALUES ('64', '468', '1', '', '撒大声地所', '', '', '', '', '', '');
+INSERT INTO `t152_002` VALUES ('65', '468', '0', '', '萨达所大所多', '', '', '', '', '', '');
+INSERT INTO `t152_002` VALUES ('66', '474', '0', '', '是多少', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t152_004
@@ -187,7 +232,7 @@ CREATE TABLE `t152_004` (
   `yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_004
@@ -212,7 +257,7 @@ CREATE TABLE `t152_005` (
   `ce_suan_he_ji_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_005
@@ -234,7 +279,7 @@ CREATE TABLE `t152_006` (
   `yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_006
@@ -256,7 +301,7 @@ CREATE TABLE `t152_007` (
   `yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_007
@@ -282,7 +327,7 @@ CREATE TABLE `t153_002` (
   `lei_ji_shu_qi_ta_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t153_002
@@ -304,11 +349,13 @@ CREATE TABLE `t154_002` (
   `cheng_ben_jiang_di_lv_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t154_002
 -- ----------------------------
+INSERT INTO `t154_002` VALUES ('64', '480', '1', '', '', '萨达所大所多', '', '', '', '');
+INSERT INTO `t154_002` VALUES ('65', '480', '0', '', '', '撒大声地所', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t155_002
@@ -335,7 +382,6 @@ CREATE TABLE `t155_002` (
 -- ----------------------------
 -- Records of t155_002
 -- ----------------------------
-INSERT INTO `t155_002` VALUES ('1', '68', '0', '1', '2', '3', '4', '', '6', '7', '8', '9', 'a', 'bã');
 
 -- ----------------------------
 -- Table structure for t155_004
@@ -442,7 +488,7 @@ CREATE TABLE `t157_002` (
   `lei_ji_shu_jiang_di_lv_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t157_002
@@ -468,8 +514,6 @@ CREATE TABLE `t158_002` (
 -- ----------------------------
 -- Records of t158_002
 -- ----------------------------
-INSERT INTO `t158_002` VALUES ('1', '78', '0', '11', '', '', '', '', '');
-INSERT INTO `t158_002` VALUES ('2', '78', '0', '111', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t158_003
@@ -528,7 +572,6 @@ CREATE TABLE `t158_004` (
 -- ----------------------------
 -- Records of t158_004
 -- ----------------------------
-INSERT INTO `t158_004` VALUES ('1', '80', '0', 'ã', '111', '', '', '', '', '', '', null, '', '', '', 'ã', null, null);
 
 -- ----------------------------
 -- Table structure for t159_002
@@ -556,9 +599,6 @@ CREATE TABLE `t159_002` (
 -- ----------------------------
 -- Records of t159_002
 -- ----------------------------
-INSERT INTO `t159_002` VALUES ('1', '77', '2', '', '111', '', '', '', '', '', '', '', '', '', '');
-INSERT INTO `t159_002` VALUES ('2', '77', '1', '', '111', '', '', '', '', '', '', '', '', '', '');
-INSERT INTO `t159_002` VALUES ('3', '77', '0', '111', '', '', '', '', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t160_002
@@ -581,15 +621,11 @@ CREATE TABLE `t160_002` (
   `jie_chao_yin_su_fen_xi_qi_ta_` varchar(255) DEFAULT NULL,
   `zhuang_tai_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t160_002
 -- ----------------------------
-INSERT INTO `t160_002` VALUES ('1', '75', '1', '11', '111', '', '', null, '', '', '', '', '', '', '');
-INSERT INTO `t160_002` VALUES ('2', '75', '0', '', '111', '', '', null, '', '', '', '', '', '', '');
-INSERT INTO `t160_002` VALUES ('3', '75', '0', '', '111', '', '', null, '', '', '', '', '', '', '');
-INSERT INTO `t160_002` VALUES ('4', '75', '0', '111', '', '', '', null, '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t161_002
@@ -620,7 +656,6 @@ CREATE TABLE `t161_002` (
 -- ----------------------------
 -- Records of t161_002
 -- ----------------------------
-INSERT INTO `t161_002` VALUES ('1', '73', '0', '', '111', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t161_003
@@ -653,8 +688,6 @@ CREATE TABLE `t161_003` (
 -- ----------------------------
 -- Records of t161_003
 -- ----------------------------
-INSERT INTO `t161_003` VALUES ('1', '74', '0', '', '11', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
-INSERT INTO `t161_003` VALUES ('2', '74', '0', '', '111', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t162_002
@@ -673,14 +706,11 @@ CREATE TABLE `t162_002` (
   `li_run_dian_biao_ji_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t162_002
 -- ----------------------------
-INSERT INTO `t162_002` VALUES ('1', '72', '1', '', '', '1111', '', '', '', '', '');
-INSERT INTO `t162_002` VALUES ('2', '72', '0', '11', '', '', '', '', '', '', '');
-INSERT INTO `t162_002` VALUES ('3', '81', '0', '1', '2', '3', '4', '', '7', '8', '9');
 
 -- ----------------------------
 -- Table structure for wexcel
@@ -693,21 +723,14 @@ CREATE TABLE `wexcel` (
   `excelType` varchar(255) NOT NULL,
   `createDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=224 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of wexcel
 -- ----------------------------
-INSERT INTO `wexcel` VALUES ('51', 'new(1)', '1', '151', '2018-02-15 15:44:18');
-INSERT INTO `wexcel` VALUES ('52', 'new(2)', '1', '152', '2018-02-15 15:44:22');
-INSERT INTO `wexcel` VALUES ('53', 'new(3)', '1', '155', '2018-02-15 15:46:14');
-INSERT INTO `wexcel` VALUES ('54', 'new(4)', '1', '162', '2018-02-15 15:46:40');
-INSERT INTO `wexcel` VALUES ('55', 'new(5)', '1', '161', '2018-02-15 15:47:19');
-INSERT INTO `wexcel` VALUES ('56', 'new(6)', '1', '160', '2018-02-15 15:48:17');
-INSERT INTO `wexcel` VALUES ('57', 'new(7)', '1', '159', '2018-02-15 15:49:47');
-INSERT INTO `wexcel` VALUES ('58', 'new(8)', '1', '158', '2018-02-15 15:50:03');
-INSERT INTO `wexcel` VALUES ('59', 'new(9)', '1', '162', '2018-02-16 09:21:39');
-INSERT INTO `wexcel` VALUES ('60', 'new(10)', '1', '152', '2018-02-18 09:10:00');
+INSERT INTO `wexcel` VALUES ('221', '工程成本测算表(1)', '1', '152', '2018-03-20 16:32:44');
+INSERT INTO `wexcel` VALUES ('222', '工程成本测算表(2)', '1', '152', '2018-03-20 16:32:51');
+INSERT INTO `wexcel` VALUES ('223', '工程成本计划表(3)', '1', '154', '2018-03-20 16:33:04');
 
 -- ----------------------------
 -- Table structure for wtable
@@ -732,38 +755,25 @@ CREATE TABLE `wtable` (
   `shen_he_ri_qi_` varchar(255) DEFAULT NULL,
   `shen_pi_ri_qi_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=482 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of wtable
 -- ----------------------------
-INSERT INTO `wtable` VALUES ('61', '151_002', null, '51', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('62', '152_002', null, '52', '10', '1', null, null, 'null', 'null', '1', '1', '1', '', '111', '111', '111');
-INSERT INTO `wtable` VALUES ('63', '152_003', null, '52', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('64', '152_004', null, '52', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('65', '152_005', null, '52', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('66', '152_006', null, '52', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('67', '152_007', null, '52', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('68', '155_002', null, '53', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('69', '155_003', null, '53', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('70', '155_004', null, '53', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('71', '155_005', null, '53', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('72', '162_002', null, '54', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('73', '161_002', null, '55', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('74', '161_003', null, '55', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('75', '160_002', null, '56', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('76', '160_003', null, '56', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('77', '159_002', null, '57', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('78', '158_002', null, '58', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('79', '158_003', null, '58', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('80', '158_004', null, '58', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('81', '162_002', null, '59', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('82', '152_002', null, '60', '大王', 'null', null, null, 'null', 'null', 'null', 'null', 'null', '', 'null', 'null', 'null');
-INSERT INTO `wtable` VALUES ('83', '152_003', null, '60', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('84', '152_004', null, '60', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('85', '152_005', null, '60', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('86', '152_006', null, '60', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('87', '152_007', null, '60', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('468', '152_002', null, '221', '嘻嘻嘻', '', null, null, 'null', 'null', '', '', '', '', '', '', '');
+INSERT INTO `wtable` VALUES ('469', '152_003', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('470', '152_004', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('471', '152_005', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('472', '152_006', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('473', '152_007', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('474', '152_002', null, '222', '', '', null, null, 'null', 'null', '', '', '', '', '', '', '');
+INSERT INTO `wtable` VALUES ('475', '152_003', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('476', '152_004', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('477', '152_005', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('478', '152_006', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('479', '152_007', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('480', '154_002', null, '223', '', '', null, null, 'null', 'null', '', '', '', '', '', '', '');
+INSERT INTO `wtable` VALUES ('481', '154_003', null, '223', null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for wtable_authority
@@ -819,6 +829,40 @@ INSERT INTO `wtable_authority` VALUES ('36', '��ï��', null, '1111100000
 INSERT INTO `wtable_authority` VALUES ('37', '��ï��', null, '11111000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000');
 
 -- ----------------------------
+-- Table structure for wtable_title
+-- ----------------------------
+DROP TABLE IF EXISTS `wtable_title`;
+CREATE TABLE `wtable_title` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `table_id` int(11) DEFAULT NULL,
+  `tr_order` int(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `level` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of wtable_title
+-- ----------------------------
+INSERT INTO `wtable_title` VALUES ('25', '313', '16', '的撒啊啊啊啊啊啊啊啊', '3');
+INSERT INTO `wtable_title` VALUES ('26', '352', '4', '一·工程调整', '1');
+INSERT INTO `wtable_title` VALUES ('24', '313', '24', '撒大大多多多多多多', '1');
+INSERT INTO `wtable_title` VALUES ('23', '313', '5', '阿斯顿点点滴滴', '2');
+INSERT INTO `wtable_title` VALUES ('18', '313', '25', '333333333333', '3');
+INSERT INTO `wtable_title` VALUES ('21', '313', '10', '十大啊啊啊啊啊啊啊啊', '3');
+INSERT INTO `wtable_title` VALUES ('22', '313', '0', '撒大大多多多多多多多多多多多多多多多多多多多多多多多多多多多', '1');
+INSERT INTO `wtable_title` VALUES ('20', '313', '20', '大搜索搜索', '1');
+INSERT INTO `wtable_title` VALUES ('27', '360', '19', '第二个标题', '1');
+INSERT INTO `wtable_title` VALUES ('28', '360', '4', '第一个标题', '1');
+INSERT INTO `wtable_title` VALUES ('29', '360', '23', '2.1标题', '2');
+INSERT INTO `wtable_title` VALUES ('30', '360', '8', '1.1标题', '2');
+INSERT INTO `wtable_title` VALUES ('31', '360', '15', '1.2标题', '2');
+INSERT INTO `wtable_title` VALUES ('32', '360', '27', '2.2标题', '2');
+INSERT INTO `wtable_title` VALUES ('33', '360', '32', '2.3标题', '2');
+INSERT INTO `wtable_title` VALUES ('34', '360', '37', '2.4标题', '1');
+INSERT INTO `wtable_title` VALUES ('35', '468', '2', '萨达所大所多所', '1');
+
+-- ----------------------------
 -- Table structure for xiang_mu_ren_yuan_zhu_ce_
 -- ----------------------------
 DROP TABLE IF EXISTS `xiang_mu_ren_yuan_zhu_ce_`;
@@ -837,15 +881,15 @@ CREATE TABLE `xiang_mu_ren_yuan_zhu_ce_` (
 -- ----------------------------
 -- Records of xiang_mu_ren_yuan_zhu_ce_
 -- ----------------------------
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('8', '23', '6', '改了', '测试', '投标', '2018-02-01', '测试');
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('9', '19', '6', '岗位2', '测试', '行政', '2018-02-02', '哦哦哦');
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('10', '22', '6', '岗位3', 'Alla', '测绘', '2018-02-03', '啊啊');
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('11', '17', '6', '岗位4', '啦啦啦', '核算', '2018-02-04', '对对对');
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('12', '14', '6', '岗位5', '对对对', '行政', '2018-02-06', '1111');
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('13', '13', '6', '岗位6', '大', '测绘', '2018-02-01', '3233');
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('14', '20', '6', '岗位7', '晓得', '投标', '2018-02-08', '4433');
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('15', '25', '6', '岗位8', '电视剧', '核算', '2018-02-07', '7677');
-INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('18', '21', '6', '岗位9', '大大', '核算', '2018-02-02', '大第三方');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('8', '23', '1', '改了', '测试', '投标', '2018-02-01', '测试');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('9', '19', '1', '岗位2', '测试', '行政', '2018-02-02', '哦哦哦');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('10', '22', '1', '岗位3', 'Alla', '测绘', '2018-02-03', '啊啊');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('11', '17', '1', '岗位4', '啦啦啦', '核算', '2018-02-04', '对对对');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('12', '14', '1', '岗位5', '对对对', '行政', '2018-02-06', '1111');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('13', '13', '1', '岗位6', '大', '测绘', '2018-02-01', '3233');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('14', '20', '1', '岗位7', '晓得', '投标', '2018-02-08', '4433');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('15', '25', '1', '岗位8', '电视剧', '核算', '2018-02-07', '7677');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('18', '21', '1', '岗位9', '大大', '核算', '2018-02-02', '大第三方');
 
 -- ----------------------------
 -- Table structure for xiang_mu_xin_xi_
@@ -871,32 +915,25 @@ CREATE TABLE `xiang_mu_xin_xi_` (
   `cheng_bao_fang_shi_` varchar(255) DEFAULT NULL COMMENT '承包方式',
   `shen_he_zhuang_tai_` int(11) DEFAULT '1' COMMENT '1:编辑等待审核；2：审核完成；',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of xiang_mu_xin_xi_
 -- ----------------------------
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('3', '测试项目', 'asdd', 'as', '1', '2', '4', '3', '2', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('6', '11111', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('3', '测试项目', 'asdd', 'as', '1', '2', '4', '3', '2', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '万元', '万元', '', '1');
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('1', '测试项目', '', '', '', '', '', '', '', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '万元', '万元', '', '1');
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('7', '213', '是大法师的法', '第三方撒旦法师打发第三方', '爱的色放撒地方撒地方', '大法师打发打发', '的撒发生大所发生的', '是打发打发大是大非', '的撒范德萨发生的', '士大夫的撒发顺丰', '的萨芬撒打发的撒', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '222', '打发第三方', '万元', '士大夫士大夫', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('8', '11111dsfasdf', '222', 'dsfasdfs', 'fasdfsd', '', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('8', '11111dsfasdf', '222', 'dsfasdfs', 'fasdfsd', '', '', '', '', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '万元', '万元', '', '1');
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('9', '1121212121测试室', 'dfasdfds中', 'dsfsdfdas', 'dsfsadf', 'dsfsadfdas', '1121', '的好方法设计的回复即可收到货达到1测试测试是是', '达瓦', '', '', '2017-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('10', 'adawddawsad', 'dsfads', 'asdsa', 'sd', 'asdasdas', 'asdas', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('11', '的看法还是劳动法律可视对讲付了款', '爱迪生多', '奥术大师多', '111', '奥术大师大阿迪王哇大无大无阿瓦达', '撒大声地', '阿瓦达无多哇大啊啊啊啊', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('12', '阿瓦达伟大的我阿达瓦大阿瓦达阿达瓦', '', '但是士大夫撒旦发的说法是否萨达撒大多撒奥所所大所多', '', '是撒多撒大所多撒安达市大所多所啊撒大声地', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '2');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('13', 'acsdsdvdasa', 'dasdasd', 'asdasasasdasd', '', '', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('14', '发大水发的撒是大法师的法', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('15', '达瓦大无大无多哇大无哇多', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('16', '的发送到发的所发生的', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('17', '的发送到发送到发送到发送到1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('18', '打发士大夫骄傲独守空房好看的', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('23', '阿达瓦无多', '', '撒大声地', '', '奥术大师', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('22', '但是打发斯蒂芬的萨芬撒地方', '第三方', '爱的色放的撒范德萨', '奥术大师多', '士大夫的撒范德萨', '大凤', '爱的色放第三方', '大师傅', 'Asdasd撒大声地', '爱迪生撒的撒', '2017-01-01 00:00:00', '2018-01-01 00:00:00', '365', '啊第三方sad', '900', '奥术大师', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('24', '测试一个项目2018年1月11日测试', '答复', '阿萨德啊啊十大', '', '撒大 的撒范德萨', '发', '大事发生的 AAS发的', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('25', '111', '', '111', '', '', '', '', '', '', '', null, null, '', '', '', '', null);
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('26', '222', '', '111', '', '', '', '', '', '', '', null, null, '', '', '', '', null);
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('27', '111', '', '', '', '', '', '', '', '', '', null, null, '', '', '', '', null);
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('28', '111', '', '', '', '', '', '', '', '', '', null, null, '', '', '', '', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('11', '的看法还是劳动', '爱迪生多', '奥术大师多', '111', '奥术大师大阿迪王哇大无大无阿瓦达', '撒大声地', '阿瓦达无多哇大啊啊啊啊', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('12', '测试项目', '', '但是士大夫撒旦发的说法是否萨达撒大多撒奥所所大所多', '', '是撒多撒大所多撒安达市大所多所啊撒大声地', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '2');
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('47', '数据的返回', '计算的和', '电视剧啊很费劲', '外资', 'djsahfjk打发', '阿萨德发多少', '啊实打实', '啊实打实', '啊实打实', '啊实打实', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '112', '', '', '联合总承包，合作伙伴是张西洋', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('49', '新建项目', '', '', '', '', '', '', '', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('48', '孟宏伟', '', '', '', '', '', '', '', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('22', '但是打发斯蒂', '第三方', '爱的色放的撒范德萨', '奥术大师多', '士大夫的撒范德萨', '大凤', '爱的色放第三方', '大师傅', 'Asdasd撒大声地', '爱迪生撒的撒', '2017-01-01 00:00:00', '2018-01-01 00:00:00', '365', '啊第三方sad', '900', '奥术大师', '1');
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('24', '测试一个项目', '答复', '阿萨德啊啊十大', '', '撒大 的撒范德萨', '发', '大事发生的 AAS发的', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '', '', '1');
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('50', '测试一下', '第三方', '大打发修改了', '世（亚）行贷款', '大师傅大师傅', '大法师打', '发生的发生大', '阿斯蒂芬大厦', '阿萨德发多少', '阿斯蒂芬大厦', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '111', '取1', '取1', '联合总承包，合作伙伴是张张', null);
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('29', '33333', '', '44444', '', '', '', '', '', '', '', '2018-02-01 00:00:00', '2018-02-12 00:00:00', '', '', '', '', null);
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('30', '1111', '', '', '', '', '', '', '', '', '', '2018-02-07 00:00:00', '2020-10-14 00:00:00', '', '', '', '', null);
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('31', '1234789', '', '', '', '', '', '', '', '', '', '2018-02-01 00:00:00', '2018-02-01 00:00:00', '', '', '', '', null);
@@ -913,6 +950,18 @@ INSERT INTO `xiang_mu_xin_xi_` VALUES ('41', '1234789', '', '', '', '', '', '', 
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('42', '222', '', '11', '', '', '', '', '', '', '', '2018-02-15 00:00:00', '2018-02-24 00:00:00', '', '', '', '', null);
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('43', '222', '', '11', '', '', '', '', '', '', '', '2018-02-15 00:00:00', '2018-02-24 00:00:00', '', '', '', '', null);
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('44', 'xxx', '', '', '', '', '', '', '', '', '', '2018-02-01 00:00:00', '2018-02-28 00:00:00', '', '', '', '', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('45', 'XXXX', '', '', '', '', '', '', '', '', '', '2018-03-01 00:00:00', '2018-03-14 00:00:00', '', '', '', '', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('46', 'XXXX2', '', '', '', '', '', '', '', '', '', '2018-03-01 00:00:00', '2018-03-14 00:00:00', '', '', '', '', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('51', '测试0317', '五五五', '北京', '国拨', '五五五', '五五五', '五五五', '五五五', '五五五', '五五五', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '五五五', '五五五', '五五五', '分包，总承包商是', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('52', '嘻嘻哈哈', '阿萨德', '阿萨德', '国拨', '阿萨德', '阿萨德', '阿萨德', '阿萨德', '阿萨德', '阿萨德', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '956', '5656', '总承包', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('53', '322323', '2323', '2323', '其他', '2323', '23', '2323', '23', '2323', '323', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '总承包', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('54', '322323', '2323', '2323', '其他', '2323', '23', '2323', '23', '2323', '323', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '总承包', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('55', '322323', '2323', '2323', '其他', '2323', '23', '2323', '23', '2323', '323', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '总承包', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('56', '322323', '2323', '2323', '其他', '2323', '23', '2323', '23', '2323', '323', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '总承包', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('57', '322323', '2323', '2323', '其他', '2323', '23', '2323', '23', '2323', '323', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '总承包', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('58', '322323', '2323', '2323', '其他', '2323', '23', '2323', '23', '2323', '323', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '总承包', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('59', '322323', '2323', '2323', '其他', '2323', '23', '2323', '23', '2323', '323', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '总承包', null);
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('60', '322323', '2323', '2323', '其他', '2323', '23', '2323', '23', '2323', '323', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '', '', '总承包', null);
 
 -- ----------------------------
 -- Table structure for yong_hu_
@@ -937,11 +986,12 @@ CREATE TABLE `yong_hu_` (
   `quan_xian_` int(11) DEFAULT '1' COMMENT '权限：0暂时表示超级管理员，1：基本用户；剩下的用二进制算',
   `zhu_ce_shi_jian_` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of yong_hu_
 -- ----------------------------
+INSERT INTO `yong_hu_` VALUES ('30', null, null, '发个梵蒂冈', '1', ' 发', '发的地方', '2018031113585225666z.png', '2018031113585225666f.png', '讽德诵功的方式发给', '大师傅', '[]', '2', '2', '3', '1', '2018-03-11 01:58:52');
 INSERT INTO `yong_hu_` VALUES ('14', null, null, '电话费', '2', '好', '89749878923184', '2018020713414777362z.png', '2018020713414777362f.png', '分开绝对是分开计算的话就开始电话', '的科技荣获', '[4]', '2', '1', '3', '1', '2018-02-01 03:50:37');
 INSERT INTO `yong_hu_` VALUES ('13', null, null, '电接收', '2', '好', '的89749878923184', '2018020713404121670z.png', '2018020713404121670f.png', '分开绝对是分开计算的话就开始电话', '的科技荣获', null, '2', '1', '3', '1', '2018-02-05 03:50:43');
 INSERT INTO `yong_hu_` VALUES ('18', null, null, '张西洋', '1', '机会', '321323198907115379', '2018020714263568312z.png', '2018020714263568312f.png', '加快速度浩丰科技暗室逢灯', '撒第三方', '[7]', '2', '1', '3', '1', '2018-02-07 03:50:50');

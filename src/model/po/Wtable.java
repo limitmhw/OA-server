@@ -80,6 +80,7 @@ public class Wtable {
     }
 
     public void setXiangMuMingChen(String xiangMuMingChen) {
+    	
         this.xiangMuMingChen = xiangMuMingChen == null ? null : xiangMuMingChen.trim();
     }
 
@@ -170,4 +171,21 @@ public class Wtable {
     public void setShenPiRiQi(String shenPiRiQi) {
         this.shenPiRiQi = shenPiRiQi == null ? null : shenPiRiQi.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Wtable [id=" + id + ", tabletype=" + tabletype
+				+ ", wenDangBianHao=" + wenDangBianHao + ", excelId=" + excelId
+				+ ", biaoDanBianHao=" + biaoDanBianHao + ", xiangMuMingChen="
+				+ xiangMuMingChen + ", xiangMuMingChenDanXiangGongCheng="
+				+ xiangMuMingChenDanXiangGongCheng
+				+ ", xiangMuMingChenDanXiangGongChengZhuanYeLeiBie="
+				+ xiangMuMingChenDanXiangGongChengZhuanYeLeiBie
+				+ ", tongJiYueFen=" + tongJiYueFen + ", tongJiRiQi="
+				+ tongJiRiQi + ", danWei=" + danWei + ", bianZhiRen="
+				+ bianZhiRen + ", shenHeRen=" + shenHeRen + ", shenPiRen="
+				+ shenPiRen + ", bianZhiRiQi=" + bianZhiRiQi + ", shenHeRiQi="
+				+ shenHeRiQi + ", shenPiRiQi=" + shenPiRiQi + "]";
+	}
+
 }

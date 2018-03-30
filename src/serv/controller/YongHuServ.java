@@ -18,13 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user")
-public class YongHuServ {
-	private SqlSession sqlSession;
+public class YongHuServ extends BaseCtl {
 	YongHuServ()throws IOException{
-		String res = "SqlMapConfig.xml";
-		InputStream inputStream = Resources.getResourceAsStream(res);
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		sqlSession = sqlSessionFactory.openSession();
+		
 	}
 
 

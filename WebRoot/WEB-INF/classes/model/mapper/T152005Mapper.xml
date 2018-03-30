@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="table_id" property="tableId" jdbcType="INTEGER" />
     <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="tr_type" property="trType" jdbcType="VARCHAR" />
     <result column="bian_hao_" property="bianHao" jdbcType="VARCHAR" />
     <result column="cai_liao_ming_chen_" property="caiLiaoMingChen" jdbcType="VARCHAR" />
     <result column="gui_ge_xing_hao_" property="guiGeXingHao" jdbcType="VARCHAR" />
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, table_id, tr_order, bian_hao_, cai_liao_ming_chen_, gui_ge_xing_hao_, dan_wei_, 
-    shu_liang_, tou_biao_dan_jia_, tou_biao_he_ji_, ce_suan_dan_jia_, ce_suan_he_ji_, 
+    id, table_id, tr_order, tr_type, bian_hao_, cai_liao_ming_chen_, gui_ge_xing_hao_, 
+    dan_wei_, shu_liang_, tou_biao_dan_jia_, tou_biao_he_ji_, ce_suan_dan_jia_, ce_suan_he_ji_, 
     bei_zhu_
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.T152005Example" >
@@ -111,15 +112,15 @@
   </delete>
   <insert id="insert" parameterType="model.po.T152005" >
     insert into t152_005 (id, table_id, tr_order, 
-      bian_hao_, cai_liao_ming_chen_, gui_ge_xing_hao_, 
-      dan_wei_, shu_liang_, tou_biao_dan_jia_, 
-      tou_biao_he_ji_, ce_suan_dan_jia_, ce_suan_he_ji_, 
-      bei_zhu_)
+      tr_type, bian_hao_, cai_liao_ming_chen_, 
+      gui_ge_xing_hao_, dan_wei_, shu_liang_, 
+      tou_biao_dan_jia_, tou_biao_he_ji_, ce_suan_dan_jia_, 
+      ce_suan_he_ji_, bei_zhu_)
     values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
-      #{bianHao,jdbcType=VARCHAR}, #{caiLiaoMingChen,jdbcType=VARCHAR}, #{guiGeXingHao,jdbcType=VARCHAR}, 
-      #{danWei,jdbcType=VARCHAR}, #{shuLiang,jdbcType=VARCHAR}, #{touBiaoDanJia,jdbcType=VARCHAR}, 
-      #{touBiaoHeJi,jdbcType=VARCHAR}, #{ceSuanDanJia,jdbcType=VARCHAR}, #{ceSuanHeJi,jdbcType=VARCHAR}, 
-      #{beiZhu,jdbcType=VARCHAR})
+      #{trType,jdbcType=VARCHAR}, #{bianHao,jdbcType=VARCHAR}, #{caiLiaoMingChen,jdbcType=VARCHAR}, 
+      #{guiGeXingHao,jdbcType=VARCHAR}, #{danWei,jdbcType=VARCHAR}, #{shuLiang,jdbcType=VARCHAR}, 
+      #{touBiaoDanJia,jdbcType=VARCHAR}, #{touBiaoHeJi,jdbcType=VARCHAR}, #{ceSuanDanJia,jdbcType=VARCHAR}, 
+      #{ceSuanHeJi,jdbcType=VARCHAR}, #{beiZhu,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="model.po.T152005" >
     insert into t152_005
@@ -132,6 +133,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order,
+      </if>
+      <if test="trType != null" >
+        tr_type,
       </if>
       <if test="bianHao != null" >
         bian_hao_,
@@ -173,6 +177,9 @@
       </if>
       <if test="trOrder != null" >
         #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        #{trType,jdbcType=VARCHAR},
       </if>
       <if test="bianHao != null" >
         #{bianHao,jdbcType=VARCHAR},
@@ -224,6 +231,9 @@
       <if test="record.trOrder != null" >
         tr_order = #{record.trOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.trType != null" >
+        tr_type = #{record.trType,jdbcType=VARCHAR},
+      </if>
       <if test="record.bianHao != null" >
         bian_hao_ = #{record.bianHao,jdbcType=VARCHAR},
       </if>
@@ -264,6 +274,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       table_id = #{record.tableId,jdbcType=INTEGER},
       tr_order = #{record.trOrder,jdbcType=INTEGER},
+      tr_type = #{record.trType,jdbcType=VARCHAR},
       bian_hao_ = #{record.bianHao,jdbcType=VARCHAR},
       cai_liao_ming_chen_ = #{record.caiLiaoMingChen,jdbcType=VARCHAR},
       gui_ge_xing_hao_ = #{record.guiGeXingHao,jdbcType=VARCHAR},
@@ -286,6 +297,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        tr_type = #{trType,jdbcType=VARCHAR},
       </if>
       <if test="bianHao != null" >
         bian_hao_ = #{bianHao,jdbcType=VARCHAR},
@@ -324,6 +338,7 @@
     update t152_005
     set table_id = #{tableId,jdbcType=INTEGER},
       tr_order = #{trOrder,jdbcType=INTEGER},
+      tr_type = #{trType,jdbcType=VARCHAR},
       bian_hao_ = #{bianHao,jdbcType=VARCHAR},
       cai_liao_ming_chen_ = #{caiLiaoMingChen,jdbcType=VARCHAR},
       gui_ge_xing_hao_ = #{guiGeXingHao,jdbcType=VARCHAR},

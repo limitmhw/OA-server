@@ -27,15 +27,11 @@ import model.mapper.*;
 import model.po.*;
 @Controller
 @RequestMapping("/authority")
-public class AuthorityServ {
-	private SqlSession sqlSession;
-
+public class AuthorityServ extends BaseCtl {
 	AuthorityServ()throws IOException{
-		String res = "SqlMapConfig.xml";
-		InputStream inputStream = Resources.getResourceAsStream(res);
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		sqlSession = sqlSessionFactory.openSession();
+		
 	}
+
 	private String changeResult(String vv){
 		if(vv==null)return "0";
 		if(vv.equals("1")){
@@ -44,9 +40,24 @@ public class AuthorityServ {
 		return "0";
 	}
 
+	public String getCMask(Integer proId,Integer yongHuZuId){
+		String cmask="";
+
+		EauthorityMapper mapper = sqlSession.getMapper(EauthorityMapper.class);
+		EauthorityExample ee=new EauthorityExample();
+		ee.or().andGongChengIdEqualTo(proId).andYongHuZuIdEqualTo(yongHuZuId);
+		List<Eauthority> lee=mapper.selectByExample(ee);
+		if(lee.size()!=1){
+			System.out.println("Find Mask Error");
+			return cmask;
+		}else{
+			cmask=lee.get(0).getMask();
+		}
+
+		return cmask;
+	}
 	public String createAuthorityByMap(Map<String,String> mm){
-		MaskHandle mx=new MaskHandle();
-		List< String > at = mx.getValueFromMap(mm);
+		List< String > at = maskCTL.getValueFromMap(mm);
 		String mask="";
 		for(String i:at){
 			mask+=changeResult(i);
@@ -79,25 +90,20 @@ public class AuthorityServ {
 	@RequestMapping("get_menujs")
 	public void func3(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
+
 		String renYuanId = request.getParameter("renYuanId");
 		String pro_id = request.getParameter("pro_id");
 		Integer yongHuZuId=Integer.parseInt(renYuanId);
 		Integer proId=Integer.parseInt(pro_id);
-		
-		
-		EauthorityMapper mapper = sqlSession.getMapper(EauthorityMapper.class);
-		EauthorityExample ee=new EauthorityExample();
-		ee.or().andGongChengIdEqualTo(proId).andYongHuZuIdEqualTo(yongHuZuId);
-		List<Eauthority> lee=mapper.selectByExample(ee);
-		String cmask;
-		if(lee.size()!=1){
-			System.out.println("Find Mask Error");
+
+
+
+		String cmask=getCMask(proId,yongHuZuId);
+		if(cmask.length()<5){
 			return;
-		}else{
-			cmask=lee.get(0).getMask();
 		}
-		 cmask="1111111111111111111111111"+
+
+		cmask="1111111111111111111111111"+
 				"1111111111111111111111111"+
 				"1111111111111111111111111"+
 				"1111111111111111111111111"+
@@ -109,10 +115,9 @@ public class AuthorityServ {
 				"1111111111111111111111111"+
 				"1111111111111111111111111"+
 				"1111111111111111111111111";
-		
-		MaskHandle tt=new MaskHandle();
+		//*/
 		String ss="[";
-		ss=tt.getMenuJsonFromMask(cmask);
+		ss=maskCTL.getMenuJsonFromMask(cmask);
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write(ss);
 		return;
@@ -180,12 +185,11 @@ public class AuthorityServ {
 		EauthorityExample ee=new EauthorityExample();
 		ee.or().andGongChengIdEqualTo(Integer.parseInt(pro_id));
 		List<Eauthority> lee=mapper.selectByExample(ee);
-		MaskHandle mx=new MaskHandle();
 		String ret="[";
 		for(Eauthority k :lee){
 			String ss="{"+
 					"\"renYuanId\":\""+k.getYongHuZuId()+"\","+
-					"\"mask\":"+mx.getJsonFromMask(k.getMask())+"},";
+					"\"mask\":"+maskCTL.getJsonFromMask(k.getMask())+"},";
 			ret+=ss;
 		}
 		ret+="]";
@@ -193,4 +197,5 @@ public class AuthorityServ {
 		response.getWriter().write(ret);
 		return;
 	}
+	
 }

@@ -3,12 +3,14 @@ package serv.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.mapper.*;
 import model.po.*;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -25,19 +27,1007 @@ import com.alibaba.fastjson.JSONObject;
 
 @Controller
 @RequestMapping("/excel")
-public class TableServ {
-	private SqlSession sqlSession;
+public class TableServ extends BaseCtl {
 	TableServ()throws IOException{
-		String res = "SqlMapConfig.xml";
-		InputStream inputStream = Resources.getResourceAsStream(res);
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		sqlSession = sqlSessionFactory.openSession();
+
 	}
+
+
+	public void saveTableTitle(Integer ptable_id,String ptableInfo){
+
+		//存储title
+
+		////////////////////////////////////////
+		JSONObject tableInfoJson;
+		tableInfoJson = JSON.parseObject(ptableInfo);  
+		Map<String, String> tableItemMap= JSONObject.toJavaObject(tableInfoJson, Map.class);
+		WtableMapper tmapper = sqlSession.getMapper(WtableMapper.class);
+
+		//System.out.println("tableItemMap.toString():");
+		//System.out.println(tableItemMap.toString());
+
+
+		//空字符串会报错这里用null替换空字符串
+
+		//先查询
+		Wtable ttable = tmapper.selectByPrimaryKey(ptable_id);
+		//然后更新
+		if(ttable==null){
+			System.out.println("ptable_id有问题！！！！");
+		}
+
+		ttable.setXiangMuMingChen(tableItemMap.get("xiang_mu_ming_chen_"));
+		ttable.setBiaoDanBianHao(tableItemMap.get("biao_dan_bian_hao_"));
+		String tongJiRiQi=tableItemMap.get("tong_ji_ri_qi_nian_")
+				+tableItemMap.get("tong_ji_ri_qi_yue_")
+				+tableItemMap.get("tong_ji_ri_qi_ri_");
+		ttable.setTongJiRiQi(tongJiRiQi);
+		ttable.setTongJiYueFen(tongJiRiQi);
+		ttable.setDanWei(tableItemMap.get("dan_wei_"));
+
+
+		ttable.setBianZhiRen(tableItemMap.get("bian_zhi_ren_"));		
+		String bianZhiRiQi=tableItemMap.get("bian_zhi_ren_nian_")
+				+tableItemMap.get("bian_zhi_ren_yue_")
+				+tableItemMap.get("bian_zhi_ren_ri_");
+		ttable.setBianZhiRiQi(bianZhiRiQi);
+
+
+
+		ttable.setShenHeRen(tableItemMap.get("shen_he_ren_"));
+		String shenHeRiQi=tableItemMap.get("shen_he_ren_nian_")
+				+tableItemMap.get("shen_he_ren_yue_")
+				+tableItemMap.get("shen_he_ren_ri_");
+		ttable.setShenHeRiQi(shenHeRiQi);
+
+
+		ttable.setShenPiRen(tableItemMap.get("shen_he_ren_ri_"));
+		String shenPiRiQi=tableItemMap.get("shen_pi_ren_nian_")
+				+tableItemMap.get("shen_pi_ren_yue_")
+				+tableItemMap.get("shen_pi_ren_ri_");
+		ttable.setShenPiRiQi(shenPiRiQi);
+
+		tmapper.updateByPrimaryKey(ttable);
+		//System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+		//System.out.println(ttable.toString());
+	}
+
+	public void saveTableByType(Integer ptable_id,String ptableType,String ptableCtx)throws Exception{
+		JSONObject json;
+		Map<String, Object> itemMap = new HashMap<String, Object>();
+		try{
+			json = JSON.parseObject(ptableCtx);//这里对于非json数据可能会爆异常  
+			itemMap= JSONObject.toJavaObject(json, Map.class);
+		}catch(Exception e){
+
+		}
+
+
+		switch(ptableType){
+		case "151_002":{
+			System.out.println("151_002");
+			T151002Mapper mapper = sqlSession.getMapper(T151002Mapper.class);
+
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T151002 tt=new T151002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					mapper.insert(tt);
+				}
+				/*
+				else{
+					T151002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+
+				}
+				 */
+			}
+			break;
+		}
+		case "152_002":{
+			T152002Mapper mapper = sqlSession.getMapper(T152002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T152002 tt=new T152002(); 
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setChuShiYuSuanChengBen(trMap.get("3"));
+					tt.setDiaoZhengHouYuSuanChengBen(trMap.get("4"));
+					tt.setBenQiShu(trMap.get("5"));
+					tt.setLeiJiShu(trMap.get("6"));
+					tt.setBeiZhu(trMap.get("7"));
+					mapper.insert(tt);
+				}else{
+					T152002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setChuShiYuSuanChengBen(trMap.get("3"));
+					tt.setDiaoZhengHouYuSuanChengBen(trMap.get("4"));
+					tt.setBenQiShu(trMap.get("5"));
+					tt.setLeiJiShu(trMap.get("6"));
+					tt.setBeiZhu(trMap.get("7"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;
+		}
+		case "152_004":{
+			System.out.println("152_004");
+			T152004Mapper mapper = sqlSession.getMapper(T152004Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T152004 tt=new T152004();
+					tt.setTableId(ptable_id);
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.insert(tt);
+				}else{
+					T152004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+
+
+		case "152_005":{
+			System.out.println("152_005");
+			T152005Mapper mapper = sqlSession.getMapper(T152005Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T152005 tt=new T152005();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianHao(trMap.get("0"));
+					tt.setCaiLiaoMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setShuLiang(trMap.get("4"));
+					tt.setTouBiaoDanJia(trMap.get("5"));
+					tt.setTouBiaoHeJi(trMap.get("6"));
+					tt.setCeSuanDanJia(trMap.get("7"));
+					tt.setCeSuanHeJi(trMap.get("8"));
+					tt.setBeiZhu(trMap.get("9"));
+					mapper.insert(tt);
+				}else{
+					T152005 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianHao(trMap.get("0"));
+					tt.setCaiLiaoMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setShuLiang(trMap.get("4"));
+					tt.setTouBiaoDanJia(trMap.get("5"));
+					tt.setTouBiaoHeJi(trMap.get("6"));
+					tt.setCeSuanDanJia(trMap.get("7"));
+					tt.setCeSuanHeJi(trMap.get("8"));
+					tt.setBeiZhu(trMap.get("9"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "152_006":{
+			System.out.println("152_006");
+			T152006Mapper mapper = sqlSession.getMapper(T152006Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T152006 tt=new T152006();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.insert(tt);
+				}else{
+					T152006 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "152_007":{
+			System.out.println("152_007");
+			T152007Mapper mapper = sqlSession.getMapper(T152007Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T152007 tt=new T152007();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.insert(tt);
+				}else{
+					T152007 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setDanJia(trMap.get("3"));
+					tt.setJiSuanJiShu(trMap.get("4"));
+					tt.setYuSuanChengBen(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "153_002":{
+			System.out.println("153_002");
+			T153002Mapper mapper = sqlSession.getMapper(T153002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				//这里有bug？？？
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T153002 tt=new T153002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setBenQiShuDiaoZhengE(trMap.get("2"));
+					tt.setBenQiShuShuLiang(trMap.get("3"));
+					tt.setBenQiShuJiaGe(trMap.get("4"));
+					tt.setBenQiShuQiTa(trMap.get("5"));
+					tt.setLeiJiShuDiaoZhengE(trMap.get("6"));
+					tt.setLeiJiShuShuLiang(trMap.get("7"));
+					tt.setLeiJiShuJiaGe(trMap.get("8"));
+					tt.setLeiJiShuQiTa(trMap.get("9"));
+					tt.setBeiZhu(trMap.get("10"));
+					mapper.insert(tt);
+				}else{
+					T153002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setBenQiShuDiaoZhengE(trMap.get("2"));
+					tt.setBenQiShuShuLiang(trMap.get("3"));
+					tt.setBenQiShuJiaGe(trMap.get("4"));
+					tt.setBenQiShuQiTa(trMap.get("5"));
+					tt.setLeiJiShuDiaoZhengE(trMap.get("6"));
+					tt.setLeiJiShuShuLiang(trMap.get("7"));
+					tt.setLeiJiShuJiaGe(trMap.get("8"));
+					tt.setLeiJiShuQiTa(trMap.get("9"));
+					tt.setBeiZhu(trMap.get("10"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "154_002":{
+			System.out.println("154_002");
+			T154002Mapper mapper = sqlSession.getMapper(T154002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T154002 tt=new T154002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setJiHuaChengBen(trMap.get("4"));
+					tt.setChengBenJiangDiLv(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.insert(tt);
+				}else{
+					T154002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setJiHuaChengBen(trMap.get("4"));
+					tt.setChengBenJiangDiLv(trMap.get("5"));
+					tt.setBeiZhu(trMap.get("6"));
+					mapper.updateByPrimaryKey(tt);
+
+				}
+			}
+			break;				
+		}
+
+		case "155_002":{
+			System.out.println("155_002");
+			T155002Mapper mapper = sqlSession.getMapper(T155002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T155002 tt=new T155002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setJiHuaChengBen(trMap.get("4"));
+					tt.setShiJiYuJiChengBen(trMap.get("5"));
+					tt.setYuSuanShiJiJinE(trMap.get("6"));
+					tt.setYuSuanShiJiBiLi(trMap.get("7"));
+					tt.setJiHuaShiJiJinE(trMap.get("8"));
+					tt.setJiHuaShiJiBiLi(trMap.get("9"));
+					tt.setZhuangTai(trMap.get("10"));
+
+					mapper.insert(tt);
+				}else{
+					T155002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setJiHuaChengBen(trMap.get("4"));
+					tt.setShiJiYuJiChengBen(trMap.get("5"));
+					tt.setYuSuanShiJiJinE(trMap.get("6"));
+					tt.setYuSuanShiJiBiLi(trMap.get("7"));
+					tt.setJiHuaShiJiJinE(trMap.get("8"));
+					tt.setJiHuaShiJiBiLi(trMap.get("9"));
+					tt.setZhuangTai(trMap.get("10"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+
+		case "155_004":{
+			System.out.println("155_004");
+			T155004Mapper mapper = sqlSession.getMapper(T155004Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T155004 tt=new T155004();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setYuSuanChengBen(trMap.get("2"));
+					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
+					tt.setZuLinShiJianZongYuSuanShiJian(trMap.get("4"));
+					tt.setZuLinShiJianYiFaShengShiJian(trMap.get("5"));
+					tt.setZuLinShiJianYuSuanShengYuShiJian(trMap.get("6"));
+					tt.setZuLinShiJianHuaiXuYaoShiJian(trMap.get("7"));
+					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
+					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
+					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
+					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
+					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
+					tt.setShiJiYuJiChengBen(trMap.get("13"));
+					mapper.insert(tt);
+				}else{
+					T155004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setYuSuanChengBen(trMap.get("2"));
+					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
+					tt.setZuLinShiJianZongYuSuanShiJian(trMap.get("4"));
+					tt.setZuLinShiJianYiFaShengShiJian(trMap.get("5"));
+					tt.setZuLinShiJianYuSuanShengYuShiJian(trMap.get("6"));
+					tt.setZuLinShiJianHuaiXuYaoShiJian(trMap.get("7"));
+					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
+					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
+					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
+					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
+					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
+					tt.setShiJiYuJiChengBen(trMap.get("13"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "155_005":{
+			System.out.println("155_005");
+			T155005Mapper mapper = sqlSession.getMapper(T155005Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T155005 tt=new T155005();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianHao(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setYuSuanChengBen(trMap.get("2"));
+					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
+					tt.setChengBenShiJianZongYuSuanShiJian(trMap.get("4"));
+					tt.setChengBenShiJianYiFaShengShiJian(trMap.get("5"));
+					tt.setChengBenShiJianYuSuanShengYuShiJian(trMap.get("6"));
+					tt.setChengBenShiJianHuaiXuYaoShiJian(trMap.get("7"));
+					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
+					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
+					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
+					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
+					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
+					tt.setShiJiYuJiChengBen(trMap.get("13"));
+					mapper.insert(tt);
+				}else{
+					T155005 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianHao(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setYuSuanChengBen(trMap.get("2"));
+					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
+					tt.setChengBenShiJianZongYuSuanShiJian(trMap.get("4"));
+					tt.setChengBenShiJianYiFaShengShiJian(trMap.get("5"));
+					tt.setChengBenShiJianYuSuanShengYuShiJian(trMap.get("6"));
+					tt.setChengBenShiJianHuaiXuYaoShiJian(trMap.get("7"));
+					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
+					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
+					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
+					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
+					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
+					tt.setShiJiYuJiChengBen(trMap.get("13"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "156_002":{
+			System.out.println("156_002");
+			T156002Mapper mapper = sqlSession.getMapper(T156002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T156002 tt=new T156002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setZongYuSuanShuShuLiang(trMap.get("4"));
+					tt.setZongYuSuanShuDanJia(trMap.get("5"));
+					tt.setZongYuSuanShuJinE(trMap.get("6"));
+					tt.setYiWanCaiGouShuShuLiang(trMap.get("7"));
+					tt.setYiWanCaiGouShuJinE(trMap.get("8"));
+					tt.setWeiWanYuKongShuShengYuLiang(trMap.get("9"));
+					tt.setWeiWanYuKongShuYuCeDanJia(trMap.get("10"));
+					tt.setWeiWanYuKongShuYuKongDanJia(trMap.get("11"));
+
+					mapper.insert(tt);
+				}else{
+					T156002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setZongYuSuanShuShuLiang(trMap.get("4"));
+					tt.setZongYuSuanShuDanJia(trMap.get("5"));
+					tt.setZongYuSuanShuJinE(trMap.get("6"));
+					tt.setYiWanCaiGouShuShuLiang(trMap.get("7"));
+					tt.setYiWanCaiGouShuJinE(trMap.get("8"));
+					tt.setWeiWanYuKongShuShengYuLiang(trMap.get("9"));
+					tt.setWeiWanYuKongShuYuCeDanJia(trMap.get("10"));
+					tt.setWeiWanYuKongShuYuKongDanJia(trMap.get("11"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "157_002":{
+			System.out.println("157_002");
+			T157002Mapper mapper = sqlSession.getMapper(T157002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T157002 tt=new T157002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setBenQiShuYuSuanChengBen(trMap.get("2"));
+					tt.setBenQiShuShiJiChengBen(trMap.get("3"));
+					tt.setBenQiShuJiangDiE(trMap.get("4"));
+					tt.setBenQiShuJiangDiLv(trMap.get("5"));
+					tt.setLeiJiShuYuSuanChengBen(trMap.get("6"));
+					tt.setLeiJiShuShiJiChengBen(trMap.get("7"));
+					tt.setLeiJiShuJiangDiE(trMap.get("8"));
+					tt.setLeiJiShuJiangDiLv(trMap.get("9"));
+					tt.setBeiZhu(trMap.get("10"));
+					mapper.insert(tt);
+				}else{
+					T157002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setBenQiShuYuSuanChengBen(trMap.get("2"));
+					tt.setBenQiShuShiJiChengBen(trMap.get("3"));
+					tt.setBenQiShuJiangDiE(trMap.get("4"));
+					tt.setBenQiShuJiangDiLv(trMap.get("5"));
+					tt.setLeiJiShuYuSuanChengBen(trMap.get("6"));
+					tt.setLeiJiShuShiJiChengBen(trMap.get("7"));
+					tt.setLeiJiShuJiangDiE(trMap.get("8"));
+					tt.setLeiJiShuJiangDiLv(trMap.get("9"));
+					tt.setBeiZhu(trMap.get("10"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+
+		case "158_002":{
+			System.out.println("158_002");
+			T158002Mapper mapper = sqlSession.getMapper(T158002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T158002 tt=new T158002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setShiJiChengBen(trMap.get("4"));
+					tt.setBeiZhu(trMap.get("5"));
+					mapper.insert(tt);
+				}else{
+					T158002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setChengBenBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setShiJiChengBen(trMap.get("4"));
+					tt.setBeiZhu(trMap.get("5"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "158_003":{
+			System.out.println("158_003");
+			T158003Mapper mapper = sqlSession.getMapper(T158003Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T158003 tt=new T158003();
+					tt.setTableId(ptable_id);
+
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setBenYueYuSuanChengBenYuSuanDanJia(trMap.get("4"));
+					tt.setBenYueYuSuanChengBenYuSuanYongLiang(trMap.get("5"));
+					tt.setBenYueYuSuanChengBenHeJia(trMap.get("6"));
+					tt.setSunHaoLv(trMap.get("7"));
+					tt.setBenYueShiJiChengBenCaiGouDanJia(trMap.get("8"));
+					tt.setBenYueShiJiChengBenShiJiYongLiang(trMap.get("9"));
+					tt.setBenYueShiJiChengBenHeJia(trMap.get("10"));
+					tt.setSuoShuChengBenXiangMu(trMap.get("11"));
+					tt.setShiYongBuWei(trMap.get("12"));
+					mapper.insert(tt);
+				}else{
+					T158003 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setBenYueYuSuanChengBenYuSuanDanJia(trMap.get("4"));
+					tt.setBenYueYuSuanChengBenYuSuanYongLiang(trMap.get("5"));
+					tt.setBenYueYuSuanChengBenHeJia(trMap.get("6"));
+					tt.setSunHaoLv(trMap.get("7"));
+					tt.setBenYueShiJiChengBenCaiGouDanJia(trMap.get("8"));
+					tt.setBenYueShiJiChengBenShiJiYongLiang(trMap.get("9"));
+					tt.setBenYueShiJiChengBenHeJia(trMap.get("10"));
+					tt.setSuoShuChengBenXiangMu(trMap.get("11"));
+					tt.setShiYongBuWei(trMap.get("12"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "158_004":{
+			System.out.println("158_004");
+			T158004Mapper mapper = sqlSession.getMapper(T158004Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T158004 tt=new T158004();
+					tt.setTableId(ptable_id);
+
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setZuLinDanJiaDanWei(trMap.get("3"));
+					tt.setZuLinDanJiaYuSuanShu(trMap.get("4"));
+					tt.setZuLinDanJiaShiJiShu(trMap.get("5"));
+					tt.setZuLinShuLiangDanWei(trMap.get("6"));
+					tt.setZuLinShuLiangYuSuanShu(trMap.get("7"));
+					tt.setZuLinShuLiangYuSuanShu(trMap.get("8"));
+					tt.setZuLinShiJianDanWei(trMap.get("11"));
+					tt.setZuLinShiJianYuSuanShu(trMap.get("12"));
+					tt.setZuLinShiJianShiJiShu(trMap.get("13"));
+					tt.setYuSuanChengBenHeJi(trMap.get("14"));
+					tt.setShiJiChengBenHeJia(trMap.get("15"));
+					tt.setSuoShuChengBenXiangMu(trMap.get("16"));
+					mapper.insert(tt);
+				}else{
+					T158004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setZuLinDanJiaDanWei(trMap.get("3"));
+					tt.setZuLinDanJiaYuSuanShu(trMap.get("4"));
+					tt.setZuLinDanJiaShiJiShu(trMap.get("5"));
+					tt.setZuLinShuLiangDanWei(trMap.get("6"));
+					tt.setZuLinShuLiangYuSuanShu(trMap.get("7"));
+					tt.setZuLinShuLiangYuSuanShu(trMap.get("8"));
+					tt.setZuLinShiJianDanWei(trMap.get("11"));
+					tt.setZuLinShiJianYuSuanShu(trMap.get("12"));
+					tt.setZuLinShiJianShiJiShu(trMap.get("13"));
+					tt.setYuSuanChengBenHeJi(trMap.get("14"));
+					tt.setShiJiChengBenHeJia(trMap.get("15"));
+					tt.setSuoShuChengBenXiangMu(trMap.get("16"));
+					mapper.updateByPrimaryKey(tt);
+
+				}
+			}
+			break;				
+		}
+		case "159_002":{
+			System.out.println("159_002");
+			T159002Mapper mapper = sqlSession.getMapper(T159002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T159002 tt=new T159002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setJiHuaXiangMu(trMap.get("1"));
+					tt.setChengBenJiangDiLvMuBiaoZhi(trMap.get("2"));
+					tt.setBenQiShuZongFen(trMap.get("3"));
+					tt.setBenQiShuDaBiao(trMap.get("4"));
+					tt.setBenQiShuWeiDaBiao(trMap.get("5"));
+					tt.setBenQiShuShiJiJiaQuanPingJunZhi(trMap.get("6"));
+					tt.setLeiJiShuZongFen(trMap.get("7"));
+					tt.setLeiJiShuDaBiao(trMap.get("8"));
+					tt.setLeiJiShuWeiDaBiao(trMap.get("9"));
+					tt.setLeiJiShuShiJiJiaQuanPingJunZhi(trMap.get("10"));
+					tt.setBeiZhu(trMap.get("11"));
+					mapper.insert(tt);
+				}else{
+					T159002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setJiHuaXiangMu(trMap.get("1"));
+					tt.setChengBenJiangDiLvMuBiaoZhi(trMap.get("2"));
+					tt.setBenQiShuZongFen(trMap.get("3"));
+					tt.setBenQiShuDaBiao(trMap.get("4"));
+					tt.setBenQiShuWeiDaBiao(trMap.get("5"));
+					tt.setBenQiShuShiJiJiaQuanPingJunZhi(trMap.get("6"));
+					tt.setLeiJiShuZongFen(trMap.get("7"));
+					tt.setLeiJiShuDaBiao(trMap.get("8"));
+					tt.setLeiJiShuWeiDaBiao(trMap.get("9"));
+					tt.setLeiJiShuShiJiJiaQuanPingJunZhi(trMap.get("10"));
+					tt.setBeiZhu(trMap.get("11"));
+					mapper.updateByPrimaryKey(tt);
+				}
+				break;				
+			}
+		}
+		case "160_002":{
+			System.out.println("160_002");
+			T160002Mapper mapper = sqlSession.getMapper(T160002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T160002 tt=new T160002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setGuoChengChengBen(trMap.get("4"));
+					tt.setJieChaoJinE(trMap.get("5"));
+					tt.setJieChaoBiLi(trMap.get("6"));
+					tt.setJieChaoYinSuFenXiShuLiang(trMap.get("7"));
+					tt.setJieChaoYinSuFenXiJiaGe(trMap.get("8"));
+					tt.setJieChaoYinSuFenXiQiTa(trMap.get("9"));
+					tt.setZhuangTai(trMap.get("10"));
+					mapper.insert(tt);
+				}else{
+					T160002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setBianMa(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanChengBen(trMap.get("3"));
+					tt.setGuoChengChengBen(trMap.get("4"));
+					tt.setJieChaoJinE(trMap.get("5"));
+					tt.setJieChaoBiLi(trMap.get("6"));
+					tt.setJieChaoYinSuFenXiShuLiang(trMap.get("7"));
+					tt.setJieChaoYinSuFenXiJiaGe(trMap.get("8"));
+					tt.setJieChaoYinSuFenXiQiTa(trMap.get("9"));
+					tt.setZhuangTai(trMap.get("10"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+
+		case "161_002":{
+			System.out.println("161_002");
+			T161002Mapper mapper = sqlSession.getMapper(T161002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T161002 tt=new T161002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setYuSuanZhiShuLiang(trMap.get("4"));
+					tt.setYuSuanZhiDanJia(trMap.get("5"));
+					tt.setYuSuanZhiJinE(trMap.get("6"));
+					tt.setShiJiZhiShuLiang(trMap.get("7"));
+					tt.setShiJiZhiDanJia(trMap.get("8"));
+					tt.setShiJiZhiJinE(trMap.get("9"));
+					tt.setYingKui(trMap.get("10"));
+					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
+					tt.setLiangChaYingXiangJinE(trMap.get("12"));
+					tt.setJiaChaYingXiangJiaCha(trMap.get("13"));
+					tt.setJiaChaYingXiangJinE(trMap.get("14"));
+					mapper.insert(tt);
+				}else{
+					T161002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setYuSuanZhiShuLiang(trMap.get("4"));
+					tt.setYuSuanZhiDanJia(trMap.get("5"));
+					tt.setYuSuanZhiJinE(trMap.get("6"));
+					tt.setShiJiZhiShuLiang(trMap.get("7"));
+					tt.setShiJiZhiDanJia(trMap.get("8"));
+					tt.setShiJiZhiJinE(trMap.get("9"));
+					tt.setYingKui(trMap.get("10"));
+					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
+					tt.setLiangChaYingXiangJinE(trMap.get("12"));
+					tt.setJiaChaYingXiangJiaCha(trMap.get("13"));
+					tt.setJiaChaYingXiangJinE(trMap.get("14"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "161_003":{
+			System.out.println("161_003");
+			T161003Mapper mapper = sqlSession.getMapper(T161003Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T161003 tt=new T161003();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setYuSuanZhiShuLiang(trMap.get("4"));
+					tt.setYuSuanZhiDanJia(trMap.get("5"));
+					tt.setYuSuanZhiJinE(trMap.get("6"));
+					tt.setShiJiZhiShuLiang(trMap.get("7"));
+					tt.setShiJiZhiDanJia(trMap.get("8"));
+					tt.setShiJiZhiJinE(trMap.get("9"));
+					tt.setYingKui(trMap.get("10"));
+					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
+					tt.setLiangChaYingXiangJinE(trMap.get("12"));
+					tt.setLiangChaYingXiangZhanBi(trMap.get("13"));
+					tt.setJiaChaYingXiangJiaCha(trMap.get("14"));
+					tt.setJiaChaYingXiangJinE(trMap.get("15"));
+					tt.setJiaChaYingXiangZhanBi(trMap.get("16"));		
+					mapper.insert(tt);
+				}else{
+					T161003 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setWuZiMingChen(trMap.get("1"));
+					tt.setGuiGeXingHao(trMap.get("2"));
+					tt.setDanWei(trMap.get("3"));
+					tt.setYuSuanZhiShuLiang(trMap.get("4"));
+					tt.setYuSuanZhiDanJia(trMap.get("5"));
+					tt.setYuSuanZhiJinE(trMap.get("6"));
+					tt.setShiJiZhiShuLiang(trMap.get("7"));
+					tt.setShiJiZhiDanJia(trMap.get("8"));
+					tt.setShiJiZhiJinE(trMap.get("9"));
+					tt.setYingKui(trMap.get("10"));
+					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
+					tt.setLiangChaYingXiangJinE(trMap.get("12"));
+					tt.setLiangChaYingXiangZhanBi(trMap.get("13"));
+					tt.setJiaChaYingXiangJiaCha(trMap.get("14"));
+					tt.setJiaChaYingXiangJinE(trMap.get("15"));
+					tt.setJiaChaYingXiangZhanBi(trMap.get("16"));		
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		case "162_002":{
+			System.out.println("162_002");
+			T162002Mapper mapper = sqlSession.getMapper(T162002Mapper.class);
+			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
+				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
+				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
+				String tr_id=trMap.get("tr_id");
+				if(tr_id==null||tr_id.equals("")){
+					T162002 tt=new T162002();
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanZaoJia(trMap.get("3"));
+					tt.setYuSuanChengBen(trMap.get("4"));
+					tt.setYingKuiEDu(trMap.get("5"));
+					tt.setLiRunDianBiaoJi(trMap.get("6"));
+					tt.setBeiZhu(trMap.get("7"));
+					mapper.insert(tt);
+				}else{
+					T162002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
+					tt.setXuHao(trMap.get("0"));
+					tt.setChengBenXiangMu(trMap.get("1"));
+					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
+					tt.setYuSuanZaoJia(trMap.get("3"));
+					tt.setYuSuanChengBen(trMap.get("4"));
+					tt.setYingKuiEDu(trMap.get("5"));
+					tt.setLiRunDianBiaoJi(trMap.get("6"));
+					tt.setBeiZhu(trMap.get("7"));
+					mapper.updateByPrimaryKey(tt);
+				}
+			}
+			break;				
+		}
+		default:{				
+			saveAsText(ptable_id, ptableCtx);
+		}
+		}
+
+
+	}
+
+
+
 
 	public List<String> getTableForExcel(String tem_excelType) {
 		List<String> subTable = new ArrayList<String>();
-		MaskHandle hh=new MaskHandle();
-		return hh.getExcelSubTableType(tem_excelType);
+
+		return maskCTL.getExcelSubTableType(tem_excelType);
 	}
 
 	public void createExcelSubTable(int excel_id, String excelType)
@@ -477,7 +1467,32 @@ public class TableServ {
 		response.getWriter().write(ss);
 		return;
 	}
+	/*
+	@RequestMapping("getTableTypeList")
+	public void table6_1(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String pexcel_id= request.getParameter("excel_id");
 
+		WtableMapper mapper = sqlSession.getMapper(WtableMapper.class);
+		WtableExample ee=new WtableExample();
+		ee.or().andExcelIdEqualTo(Integer.parseInt(pexcel_id));	
+		List<Wtable>  lee=mapper.selectByExample(ee);
+
+		String ss="[";
+		for(Wtable it:lee){
+			ss+="{"
+					+"\"table_id\":\""+String.valueOf(it.getId())+"\","
+					+"\"tableType\":\""+it.getTabletype()+"\","
+					+"},";
+		}
+		ss+="]";
+
+
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		response.getWriter().write(ss);
+		return;
+	}
+	 */
 	@RequestMapping("getTable")
 	public void table7(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -507,29 +1522,7 @@ public class TableServ {
 				",\"shen_pi_ren_yue_\":\""+"\""+
 				",\"shen_pi_ren_ri_\":\""+"\"";
 
-
-
-
-
-
-
-
-		WtableTitleMapper titlemapper = sqlSession.getMapper(WtableTitleMapper.class);
-		WtableTitleExample titleEE=new WtableTitleExample();
-		titleEE.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
-		List<WtableTitle> titleLee=titlemapper.selectByExample(titleEE);
-		String titleCtx="";
-		for(WtableTitle kk:titleLee){
-			titleCtx+="{\"tr_id\":\""+kk.getId()
-					+"\",\"tr_order\":\""+kk.getTrOrder()
-					+"\",\"title\":\""+kk.getTitle()
-					+"\",\"level\":\""+kk.getLevel()
-					+"\"},";
-		}
-
-
 		String ss="[";
-		ss+=titleCtx;//"{\"tr_id\":\"\",\"tr_order\":\"4\",\"title\":\"萨顶\",\"level\":\"1\"},";
 		switch(ptableType){
 		case "151_002":{
 			System.out.println("151002");
@@ -542,7 +1535,7 @@ public class TableServ {
 			for(T151002 it : lee) {
 				String tr_data="["	
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -567,7 +1560,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLeiJiShu())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -591,9 +1584,8 @@ public class TableServ {
 						+"\""+String.valueOf(it.getYuSuanChengBen())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
-
 
 			break;				
 		}
@@ -619,7 +1611,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getCeSuanHeJi())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -643,7 +1635,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getYuSuanChengBen())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -667,7 +1659,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getYuSuanChengBen())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -695,7 +1687,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLeiJiShuQiTa())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -719,7 +1711,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getChengBenJiangDiLv())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -749,7 +1741,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getZhuangTai())+"\","
 
 					+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -781,7 +1773,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getShengYuChengBenYuCeShuJieChao())+"\","
 						+"\""+String.valueOf(it.getShiJiYuJiChengBen())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -815,7 +1807,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getShengYuChengBenYuCeShuJieChao())+"\","
 						+"\""+String.valueOf(it.getShiJiYuJiChengBen())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -844,7 +1836,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getWeiWanYuKongShuYuCeDanJia())+"\","
 						+"\""+String.valueOf(it.getWeiWanYuKongShuYuKongDanJia())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -872,7 +1864,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLeiJiShuJiangDiLv())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -896,7 +1888,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getShiJiChengBen())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -926,7 +1918,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getSuoShuChengBenXiangMu())+"\","
 						+"\""+String.valueOf(it.getShiYongBuWei())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -958,7 +1950,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getShiJiChengBenHeJia())+"\","
 						+"\""+String.valueOf(it.getSuoShuChengBenXiangMu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -987,7 +1979,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLeiJiShuShiJiJiaQuanPingJunZhi())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -1017,7 +2009,7 @@ public class TableServ {
 
 
 					+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -1050,7 +2042,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getJiaChaYingXiangJiaCha())+"\","
 						+"\""+String.valueOf(it.getJiaChaYingXiangJinE())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -1085,7 +2077,7 @@ public class TableServ {
 						+"\""+String.valueOf(it.getJiaChaYingXiangZhanBi())+"\","
 
 					+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
@@ -1110,11 +2102,28 @@ public class TableServ {
 						+"\""+String.valueOf(it.getLiRunDianBiaoJi())+"\","
 						+"\""+String.valueOf(it.getBeiZhu())+"\","
 						+"]";
-				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"tr_data\":"+tr_data+"},";	
+				ss+="{\"tr_id\":\""+String.valueOf(it.getId())+"\",\"tr_order\":\""+String.valueOf(it.getTrOrder())+"\",\"trType\":\""+String.valueOf(it.getTrType())+"\",\"tr_data\":"+tr_data+"},";	
 			}
 
 
 			break;				
+		}
+		default:{
+			System.out.println("TXT存储");
+			TableContentMapper t_mapper = sqlSession.getMapper(TableContentMapper.class);
+			TableContentExample ee=new TableContentExample();
+			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
+			List<TableContent> lee=t_mapper.selectByExample(ee);
+			if(lee.size()>0){
+//				System.out.println(lee.get(0).getId());
+//				System.out.println(lee.get(0).getTableId());
+//				System.out.println(lee.get(0).getContent());
+				String cc=lee.get(0).getContent();
+				response.setHeader("Content-type", "text/html;charset=UTF-8");
+				response.getWriter().write(cc);
+				return;
+
+			}
 		}
 		}
 
@@ -1128,20 +2137,16 @@ public class TableServ {
 		return;
 	}
 
+
 	@RequestMapping("deleteTr")
 	public void table8(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String id= request.getParameter("id");
 		String tableType= request.getParameter("tableType");
 		String istitle= request.getParameter("istitle");
-		/*
-			System.out.println("id:"+id);
-			System.out.println("tableType:"+tableType);
-			System.out.println("isTitle:"+istitle);
-		 */
+
 		if(istitle!=null&&istitle.equals("istitle")){
-			WtableTitleMapper mapper = sqlSession.getMapper(WtableTitleMapper.class);
-			mapper.deleteByPrimaryKey(Integer.parseInt(id));
+
 		}else{
 			System.out.println("删除普通行");	
 
@@ -1285,965 +2290,14 @@ public class TableServ {
 	public void table9(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		//st:8080/simpleMVC/excel/saveTable.action?
-		int ptable_id= Integer.parseInt(request.getParameter("id"));
+		Integer ptable_id= Integer.parseInt(request.getParameter("id"));
 		String ptableType= request.getParameter("tableType");
 		String ptableCtx= request.getParameter("tableCtx");
 		String ptableInfo= request.getParameter("tableInfo");
-		String ptableTitle= request.getParameter("tableTitle");
 
-		//System.out.println("XXXXXXXXXXXXXXXXXXX");
-		//System.out.println(ptableCtx);
-		////////////////////////////////////////
-		//存储title
-		JSONObject tabletitleInfoJson;
-		tabletitleInfoJson = JSON.parseObject(ptableTitle);
-		Map<String, Object> tabletitleItemMap= JSONObject.toJavaObject(tabletitleInfoJson, Map.class);
-		WtableTitleMapper titlemapper = sqlSession.getMapper(WtableTitleMapper.class);
+		this.saveTableTitle(ptable_id,  ptableInfo);
+		this.saveTableByType(ptable_id, ptableType, ptableCtx);
 
-		for (Map.Entry<String, Object> entry : tabletitleItemMap.entrySet()) {
-			//System.out.println("##############");
-			//System.out.println(entry.getKey());
-			Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-			System.out.println(trMap.toString());
-			if(trMap.get("tr_id").trim().length()!=0){
-				System.out.println(trMap.get("tr_id").trim());
-				WtableTitle titleXX=titlemapper.selectByPrimaryKey(Integer.parseInt(trMap.get("tr_id").trim()));
-				titleXX.setTableId(ptable_id);
-				titleXX.setTitle(trMap.get("title").trim());
-				//级别不可以改
-				//titleXX.setLevel(trMap.get("level").trim());
-				titleXX.setTrOrder(Integer.parseInt(entry.getKey()));
-				titlemapper.updateByPrimaryKey(titleXX);
-			}else{
-				WtableTitle titleXX=new WtableTitle();
-				titleXX.setTableId(ptable_id);
-				titleXX.setTitle(trMap.get("title").trim());
-				titleXX.setLevel(trMap.get("level").trim());
-				titleXX.setTrOrder(Integer.parseInt(entry.getKey()));	
-				titlemapper.insert(titleXX);
-			}
-		}
-		////////////////////////////////////////
-		JSONObject tableInfoJson;
-		tableInfoJson = JSON.parseObject(ptableInfo);  
-		Map<String, String> tableItemMap= JSONObject.toJavaObject(tableInfoJson, Map.class);
-		WtableMapper tmapper = sqlSession.getMapper(WtableMapper.class);
-
-		//先查询
-		Wtable ttable = tmapper.selectByPrimaryKey(ptable_id);
-		//然后更新
-		ttable.setXiangMuMingChen(tableItemMap.get("xiang_mu_ming_chen_"));
-		ttable.setBiaoDanBianHao(tableItemMap.get("biao_dan_bian_hao_"));
-		String tongJiRiQi=tableItemMap.get("tong_ji_ri_qi_nian_")
-				+tableItemMap.get("tong_ji_ri_qi_yue_")
-				+tableItemMap.get("tong_ji_ri_qi_ri_");
-		ttable.setTongJiRiQi(tongJiRiQi);
-		ttable.setTongJiYueFen(tongJiRiQi);
-		ttable.setDanWei(tableItemMap.get("dan_wei_"));
-
-
-		ttable.setBianZhiRen(tableItemMap.get("bian_zhi_ren_"));		
-		String bianZhiRiQi=tableItemMap.get("bian_zhi_ren_nian_")
-				+tableItemMap.get("bian_zhi_ren_yue_")
-				+tableItemMap.get("bian_zhi_ren_ri_");
-		ttable.setBianZhiRiQi(bianZhiRiQi);
-
-
-
-		ttable.setShenHeRen(tableItemMap.get("shen_he_ren_"));
-		String shenHeRiQi=tableItemMap.get("shen_he_ren_nian_")
-				+tableItemMap.get("shen_he_ren_yue_")
-				+tableItemMap.get("shen_he_ren_ri_");
-		ttable.setShenHeRiQi(shenHeRiQi);
-
-
-		ttable.setShenPiRen(tableItemMap.get("shen_he_ren_ri_"));
-		String shenPiRiQi=tableItemMap.get("shen_pi_ren_nian_")
-				+tableItemMap.get("shen_pi_ren_yue_")
-				+tableItemMap.get("shen_pi_ren_ri_");
-		ttable.setShenPiRiQi(shenPiRiQi);
-
-		tmapper.updateByPrimaryKey(ttable);
-
-
-		//存储每一行
-		JSONObject json;
-		Map<String, Object> itemMap;
-		json = JSON.parseObject(ptableCtx);  
-		itemMap= JSONObject.toJavaObject(json, Map.class);
-
-		switch(ptableType){
-		case "151_002":{
-			System.out.println("151_002");
-			T151002Mapper mapper = sqlSession.getMapper(T151002Mapper.class);
-
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T151002 tt=new T151002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					mapper.insert(tt);
-				}
-				/*
-				else{
-					T151002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-
-				}
-				 */
-			}
-			break;
-		}
-		case "152_002":{
-			T152002Mapper mapper = sqlSession.getMapper(T152002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T152002 tt=new T152002(); 
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setChuShiYuSuanChengBen(trMap.get("3"));
-					tt.setDiaoZhengHouYuSuanChengBen(trMap.get("4"));
-					tt.setBenQiShu(trMap.get("5"));
-					tt.setLeiJiShu(trMap.get("6"));
-					tt.setBeiZhu(trMap.get("7"));
-					mapper.insert(tt);
-				}else{
-					T152002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setChuShiYuSuanChengBen(trMap.get("3"));
-					tt.setDiaoZhengHouYuSuanChengBen(trMap.get("4"));
-					tt.setBenQiShu(trMap.get("5"));
-					tt.setLeiJiShu(trMap.get("6"));
-					tt.setBeiZhu(trMap.get("7"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;
-		}
-		case "152_004":{
-			System.out.println("152_004");
-			T152004Mapper mapper = sqlSession.getMapper(T152004Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T152004 tt=new T152004();
-					tt.setTableId(ptable_id);
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setDanJia(trMap.get("3"));
-					tt.setJiSuanJiShu(trMap.get("4"));
-					tt.setYuSuanChengBen(trMap.get("5"));
-					tt.setBeiZhu(trMap.get("6"));
-					mapper.insert(tt);
-				}else{
-					T152004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setDanJia(trMap.get("3"));
-					tt.setJiSuanJiShu(trMap.get("4"));
-					tt.setYuSuanChengBen(trMap.get("5"));
-					tt.setBeiZhu(trMap.get("6"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-
-
-		case "152_005":{
-			System.out.println("152_005");
-			T152005Mapper mapper = sqlSession.getMapper(T152005Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T152005 tt=new T152005();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianHao(trMap.get("0"));
-					tt.setCaiLiaoMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setShuLiang(trMap.get("4"));
-					tt.setTouBiaoDanJia(trMap.get("5"));
-					tt.setTouBiaoHeJi(trMap.get("6"));
-					tt.setCeSuanDanJia(trMap.get("7"));
-					tt.setCeSuanHeJi(trMap.get("8"));
-					tt.setBeiZhu(trMap.get("9"));
-					mapper.insert(tt);
-				}else{
-					T152005 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianHao(trMap.get("0"));
-					tt.setCaiLiaoMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setShuLiang(trMap.get("4"));
-					tt.setTouBiaoDanJia(trMap.get("5"));
-					tt.setTouBiaoHeJi(trMap.get("6"));
-					tt.setCeSuanDanJia(trMap.get("7"));
-					tt.setCeSuanHeJi(trMap.get("8"));
-					tt.setBeiZhu(trMap.get("9"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "152_006":{
-			System.out.println("152_006");
-			T152006Mapper mapper = sqlSession.getMapper(T152006Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T152006 tt=new T152006();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setDanJia(trMap.get("3"));
-					tt.setJiSuanJiShu(trMap.get("4"));
-					tt.setYuSuanChengBen(trMap.get("5"));
-					tt.setBeiZhu(trMap.get("6"));
-					mapper.insert(tt);
-				}else{
-					T152006 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setDanJia(trMap.get("3"));
-					tt.setJiSuanJiShu(trMap.get("4"));
-					tt.setYuSuanChengBen(trMap.get("5"));
-					tt.setBeiZhu(trMap.get("6"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "152_007":{
-			System.out.println("152_007");
-			T152007Mapper mapper = sqlSession.getMapper(T152007Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T152007 tt=new T152007();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setDanJia(trMap.get("3"));
-					tt.setJiSuanJiShu(trMap.get("4"));
-					tt.setYuSuanChengBen(trMap.get("5"));
-					tt.setBeiZhu(trMap.get("6"));
-					mapper.insert(tt);
-				}else{
-					T152007 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setDanJia(trMap.get("3"));
-					tt.setJiSuanJiShu(trMap.get("4"));
-					tt.setYuSuanChengBen(trMap.get("5"));
-					tt.setBeiZhu(trMap.get("6"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "153_002":{
-			System.out.println("153_002");
-			T153002Mapper mapper = sqlSession.getMapper(T153002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T153002 tt=new T153002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setBenQiShuDiaoZhengE(trMap.get("2"));
-					tt.setBenQiShuShuLiang(trMap.get("3"));
-					tt.setBenQiShuJiaGe(trMap.get("4"));
-					tt.setBenQiShuQiTa(trMap.get("5"));
-					tt.setLeiJiShuDiaoZhengE(trMap.get("6"));
-					tt.setLeiJiShuShuLiang(trMap.get("7"));
-					tt.setLeiJiShuJiaGe(trMap.get("8"));
-					tt.setLeiJiShuQiTa(trMap.get("9"));
-					tt.setBeiZhu(trMap.get("10"));
-					mapper.insert(tt);
-				}else{
-					T153002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setBenQiShuDiaoZhengE(trMap.get("2"));
-					tt.setBenQiShuShuLiang(trMap.get("3"));
-					tt.setBenQiShuJiaGe(trMap.get("4"));
-					tt.setBenQiShuQiTa(trMap.get("5"));
-					tt.setLeiJiShuDiaoZhengE(trMap.get("6"));
-					tt.setLeiJiShuShuLiang(trMap.get("7"));
-					tt.setLeiJiShuJiaGe(trMap.get("8"));
-					tt.setLeiJiShuQiTa(trMap.get("9"));
-					tt.setBeiZhu(trMap.get("10"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "154_002":{
-			System.out.println("154_002");
-			T154002Mapper mapper = sqlSession.getMapper(T154002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T154002 tt=new T154002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanChengBen(trMap.get("3"));
-					tt.setJiHuaChengBen(trMap.get("4"));
-					tt.setChengBenJiangDiLv(trMap.get("5"));
-					tt.setBeiZhu(trMap.get("6"));
-					mapper.insert(tt);
-				}else{
-					T154002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanChengBen(trMap.get("3"));
-					tt.setJiHuaChengBen(trMap.get("4"));
-					tt.setChengBenJiangDiLv(trMap.get("5"));
-					tt.setBeiZhu(trMap.get("6"));
-					mapper.updateByPrimaryKey(tt);
-
-				}
-			}
-			break;				
-		}
-
-		case "155_002":{
-			System.out.println("155_002");
-			T155002Mapper mapper = sqlSession.getMapper(T155002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T155002 tt=new T155002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-
-					tt.setBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanChengBen(trMap.get("3"));
-					tt.setJiHuaChengBen(trMap.get("4"));
-					tt.setShiJiYuJiChengBen(trMap.get("5"));
-					tt.setYuSuanShiJiJinE(trMap.get("6"));
-					tt.setYuSuanShiJiBiLi(trMap.get("7"));
-					tt.setJiHuaShiJiJinE(trMap.get("8"));
-					tt.setJiHuaShiJiBiLi(trMap.get("9"));
-					tt.setZhuangTai(trMap.get("10"));
-
-					mapper.insert(tt);
-				}else{
-					T155002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanChengBen(trMap.get("3"));
-					tt.setJiHuaChengBen(trMap.get("4"));
-					tt.setShiJiYuJiChengBen(trMap.get("5"));
-					tt.setYuSuanShiJiJinE(trMap.get("6"));
-					tt.setYuSuanShiJiBiLi(trMap.get("7"));
-					tt.setJiHuaShiJiJinE(trMap.get("8"));
-					tt.setJiHuaShiJiBiLi(trMap.get("9"));
-					tt.setZhuangTai(trMap.get("10"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-
-		case "155_004":{
-			System.out.println("155_004");
-			T155004Mapper mapper = sqlSession.getMapper(T155004Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T155004 tt=new T155004();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setYuSuanChengBen(trMap.get("2"));
-					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
-					tt.setZuLinShiJianZongYuSuanShiJian(trMap.get("4"));
-					tt.setZuLinShiJianYiFaShengShiJian(trMap.get("5"));
-					tt.setZuLinShiJianYuSuanShengYuShiJian(trMap.get("6"));
-					tt.setZuLinShiJianHuaiXuYaoShiJian(trMap.get("7"));
-					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
-					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
-					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
-					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
-					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
-					tt.setShiJiYuJiChengBen(trMap.get("13"));
-					mapper.insert(tt);
-				}else{
-					T155004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setYuSuanChengBen(trMap.get("2"));
-					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
-					tt.setZuLinShiJianZongYuSuanShiJian(trMap.get("4"));
-					tt.setZuLinShiJianYiFaShengShiJian(trMap.get("5"));
-					tt.setZuLinShiJianYuSuanShengYuShiJian(trMap.get("6"));
-					tt.setZuLinShiJianHuaiXuYaoShiJian(trMap.get("7"));
-					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
-					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
-					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
-					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
-					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
-					tt.setShiJiYuJiChengBen(trMap.get("13"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "155_005":{
-			System.out.println("155_005");
-			T155005Mapper mapper = sqlSession.getMapper(T155005Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T155005 tt=new T155005();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianHao(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setYuSuanChengBen(trMap.get("2"));
-					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
-					tt.setChengBenShiJianZongYuSuanShiJian(trMap.get("4"));
-					tt.setChengBenShiJianYiFaShengShiJian(trMap.get("5"));
-					tt.setChengBenShiJianYuSuanShengYuShiJian(trMap.get("6"));
-					tt.setChengBenShiJianHuaiXuYaoShiJian(trMap.get("7"));
-					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
-					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
-					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
-					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
-					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
-					tt.setShiJiYuJiChengBen(trMap.get("13"));
-					mapper.insert(tt);
-				}else{
-					T155005 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianHao(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setYuSuanChengBen(trMap.get("2"));
-					tt.setZhiQiMoYiFaShengChengBen(trMap.get("3"));
-					tt.setChengBenShiJianZongYuSuanShiJian(trMap.get("4"));
-					tt.setChengBenShiJianYiFaShengShiJian(trMap.get("5"));
-					tt.setChengBenShiJianYuSuanShengYuShiJian(trMap.get("6"));
-					tt.setChengBenShiJianHuaiXuYaoShiJian(trMap.get("7"));
-					tt.setShengYuChengBenYuKongShuYueDuYuKongShu(trMap.get("8"));
-					tt.setShengYuChengBenYuKongShuZongYuKongShu(trMap.get("9"));
-					tt.setShengYuChengBenYuCeShuYueDuYuCeShu(trMap.get("10"));
-					tt.setShengYuChengBenYuCeShuZongYuCeShu(trMap.get("11"));
-					tt.setShengYuChengBenYuCeShuJieChao(trMap.get("12"));
-					tt.setShiJiYuJiChengBen(trMap.get("13"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "156_002":{
-			System.out.println("156_002");
-			T156002Mapper mapper = sqlSession.getMapper(T156002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T156002 tt=new T156002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setZongYuSuanShuShuLiang(trMap.get("4"));
-					tt.setZongYuSuanShuDanJia(trMap.get("5"));
-					tt.setZongYuSuanShuJinE(trMap.get("6"));
-					tt.setYiWanCaiGouShuShuLiang(trMap.get("7"));
-					tt.setYiWanCaiGouShuJinE(trMap.get("8"));
-					tt.setWeiWanYuKongShuShengYuLiang(trMap.get("9"));
-					tt.setWeiWanYuKongShuYuCeDanJia(trMap.get("10"));
-					tt.setWeiWanYuKongShuYuKongDanJia(trMap.get("11"));
-
-					mapper.insert(tt);
-				}else{
-					T156002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setZongYuSuanShuShuLiang(trMap.get("4"));
-					tt.setZongYuSuanShuDanJia(trMap.get("5"));
-					tt.setZongYuSuanShuJinE(trMap.get("6"));
-					tt.setYiWanCaiGouShuShuLiang(trMap.get("7"));
-					tt.setYiWanCaiGouShuJinE(trMap.get("8"));
-					tt.setWeiWanYuKongShuShengYuLiang(trMap.get("9"));
-					tt.setWeiWanYuKongShuYuCeDanJia(trMap.get("10"));
-					tt.setWeiWanYuKongShuYuKongDanJia(trMap.get("11"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "157_002":{
-			System.out.println("157_002");
-			T157002Mapper mapper = sqlSession.getMapper(T157002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T157002 tt=new T157002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setBenQiShuYuSuanChengBen(trMap.get("2"));
-					tt.setBenQiShuShiJiChengBen(trMap.get("3"));
-					tt.setBenQiShuJiangDiE(trMap.get("4"));
-					tt.setBenQiShuJiangDiLv(trMap.get("5"));
-					tt.setLeiJiShuYuSuanChengBen(trMap.get("6"));
-					tt.setLeiJiShuShiJiChengBen(trMap.get("7"));
-					tt.setLeiJiShuJiangDiE(trMap.get("8"));
-					tt.setLeiJiShuJiangDiLv(trMap.get("9"));
-					tt.setBeiZhu(trMap.get("10"));
-					mapper.insert(tt);
-				}else{
-					T157002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setBenQiShuYuSuanChengBen(trMap.get("2"));
-					tt.setBenQiShuShiJiChengBen(trMap.get("3"));
-					tt.setBenQiShuJiangDiE(trMap.get("4"));
-					tt.setBenQiShuJiangDiLv(trMap.get("5"));
-					tt.setLeiJiShuYuSuanChengBen(trMap.get("6"));
-					tt.setLeiJiShuShiJiChengBen(trMap.get("7"));
-					tt.setLeiJiShuJiangDiE(trMap.get("8"));
-					tt.setLeiJiShuJiangDiLv(trMap.get("9"));
-					tt.setBeiZhu(trMap.get("10"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-
-		case "158_002":{
-			System.out.println("158_002");
-			T158002Mapper mapper = sqlSession.getMapper(T158002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T158002 tt=new T158002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanChengBen(trMap.get("3"));
-					tt.setShiJiChengBen(trMap.get("4"));
-					tt.setBeiZhu(trMap.get("5"));
-					mapper.insert(tt);
-				}else{
-					T158002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setChengBenBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanChengBen(trMap.get("3"));
-					tt.setShiJiChengBen(trMap.get("4"));
-					tt.setBeiZhu(trMap.get("5"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "158_003":{
-			System.out.println("158_003");
-			T158003Mapper mapper = sqlSession.getMapper(T158003Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T158003 tt=new T158003();
-					tt.setTableId(ptable_id);
-
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setBenYueYuSuanChengBenYuSuanDanJia(trMap.get("4"));
-					tt.setBenYueYuSuanChengBenYuSuanYongLiang(trMap.get("5"));
-					tt.setBenYueYuSuanChengBenHeJia(trMap.get("6"));
-					tt.setSunHaoLv(trMap.get("7"));
-					tt.setBenYueShiJiChengBenCaiGouDanJia(trMap.get("8"));
-					tt.setBenYueShiJiChengBenShiJiYongLiang(trMap.get("9"));
-					tt.setBenYueShiJiChengBenHeJia(trMap.get("10"));
-					tt.setSuoShuChengBenXiangMu(trMap.get("11"));
-					tt.setShiYongBuWei(trMap.get("12"));
-					mapper.insert(tt);
-				}else{
-					T158003 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setBenYueYuSuanChengBenYuSuanDanJia(trMap.get("4"));
-					tt.setBenYueYuSuanChengBenYuSuanYongLiang(trMap.get("5"));
-					tt.setBenYueYuSuanChengBenHeJia(trMap.get("6"));
-					tt.setSunHaoLv(trMap.get("7"));
-					tt.setBenYueShiJiChengBenCaiGouDanJia(trMap.get("8"));
-					tt.setBenYueShiJiChengBenShiJiYongLiang(trMap.get("9"));
-					tt.setBenYueShiJiChengBenHeJia(trMap.get("10"));
-					tt.setSuoShuChengBenXiangMu(trMap.get("11"));
-					tt.setShiYongBuWei(trMap.get("12"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "158_004":{
-			System.out.println("158_004");
-			T158004Mapper mapper = sqlSession.getMapper(T158004Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T158004 tt=new T158004();
-					tt.setTableId(ptable_id);
-
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setZuLinDanJiaDanWei(trMap.get("3"));
-					tt.setZuLinDanJiaYuSuanShu(trMap.get("4"));
-					tt.setZuLinDanJiaShiJiShu(trMap.get("5"));
-					tt.setZuLinShuLiangDanWei(trMap.get("6"));
-					tt.setZuLinShuLiangYuSuanShu(trMap.get("7"));
-					tt.setZuLinShuLiangYuSuanShu(trMap.get("8"));
-					tt.setZuLinShiJianDanWei(trMap.get("11"));
-					tt.setZuLinShiJianYuSuanShu(trMap.get("12"));
-					tt.setZuLinShiJianShiJiShu(trMap.get("13"));
-					tt.setYuSuanChengBenHeJi(trMap.get("14"));
-					tt.setShiJiChengBenHeJia(trMap.get("15"));
-					tt.setSuoShuChengBenXiangMu(trMap.get("16"));
-					mapper.insert(tt);
-				}else{
-					T158004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setZuLinDanJiaDanWei(trMap.get("3"));
-					tt.setZuLinDanJiaYuSuanShu(trMap.get("4"));
-					tt.setZuLinDanJiaShiJiShu(trMap.get("5"));
-					tt.setZuLinShuLiangDanWei(trMap.get("6"));
-					tt.setZuLinShuLiangYuSuanShu(trMap.get("7"));
-					tt.setZuLinShuLiangYuSuanShu(trMap.get("8"));
-					tt.setZuLinShiJianDanWei(trMap.get("11"));
-					tt.setZuLinShiJianYuSuanShu(trMap.get("12"));
-					tt.setZuLinShiJianShiJiShu(trMap.get("13"));
-					tt.setYuSuanChengBenHeJi(trMap.get("14"));
-					tt.setShiJiChengBenHeJia(trMap.get("15"));
-					tt.setSuoShuChengBenXiangMu(trMap.get("16"));
-					mapper.updateByPrimaryKey(tt);
-
-				}
-			}
-			break;				
-		}
-		case "159_002":{
-			System.out.println("159_002");
-			T159002Mapper mapper = sqlSession.getMapper(T159002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T159002 tt=new T159002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setJiHuaXiangMu(trMap.get("1"));
-					tt.setChengBenJiangDiLvMuBiaoZhi(trMap.get("2"));
-					tt.setBenQiShuZongFen(trMap.get("3"));
-					tt.setBenQiShuDaBiao(trMap.get("4"));
-					tt.setBenQiShuWeiDaBiao(trMap.get("5"));
-					tt.setBenQiShuShiJiJiaQuanPingJunZhi(trMap.get("6"));
-					tt.setLeiJiShuZongFen(trMap.get("7"));
-					tt.setLeiJiShuDaBiao(trMap.get("8"));
-					tt.setLeiJiShuWeiDaBiao(trMap.get("9"));
-					tt.setLeiJiShuShiJiJiaQuanPingJunZhi(trMap.get("10"));
-					tt.setBeiZhu(trMap.get("11"));
-					mapper.insert(tt);
-				}else{
-					T159002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setJiHuaXiangMu(trMap.get("1"));
-					tt.setChengBenJiangDiLvMuBiaoZhi(trMap.get("2"));
-					tt.setBenQiShuZongFen(trMap.get("3"));
-					tt.setBenQiShuDaBiao(trMap.get("4"));
-					tt.setBenQiShuWeiDaBiao(trMap.get("5"));
-					tt.setBenQiShuShiJiJiaQuanPingJunZhi(trMap.get("6"));
-					tt.setLeiJiShuZongFen(trMap.get("7"));
-					tt.setLeiJiShuDaBiao(trMap.get("8"));
-					tt.setLeiJiShuWeiDaBiao(trMap.get("9"));
-					tt.setLeiJiShuShiJiJiaQuanPingJunZhi(trMap.get("10"));
-					tt.setBeiZhu(trMap.get("11"));
-					mapper.updateByPrimaryKey(tt);
-				}
-				break;				
-			}
-		}
-		case "160_002":{
-			System.out.println("160_002");
-			T160002Mapper mapper = sqlSession.getMapper(T160002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T160002 tt=new T160002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanChengBen(trMap.get("3"));
-					tt.setGuoChengChengBen(trMap.get("4"));
-					tt.setJieChaoJinE(trMap.get("5"));
-					tt.setJieChaoBiLi(trMap.get("6"));
-					tt.setJieChaoYinSuFenXiShuLiang(trMap.get("7"));
-					tt.setJieChaoYinSuFenXiJiaGe(trMap.get("8"));
-					tt.setJieChaoYinSuFenXiQiTa(trMap.get("9"));
-					tt.setZhuangTai(trMap.get("10"));
-					mapper.insert(tt);
-				}else{
-					T160002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setBianMa(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanChengBen(trMap.get("3"));
-					tt.setGuoChengChengBen(trMap.get("4"));
-					tt.setJieChaoJinE(trMap.get("5"));
-					tt.setJieChaoBiLi(trMap.get("6"));
-					tt.setJieChaoYinSuFenXiShuLiang(trMap.get("7"));
-					tt.setJieChaoYinSuFenXiJiaGe(trMap.get("8"));
-					tt.setJieChaoYinSuFenXiQiTa(trMap.get("9"));
-					tt.setZhuangTai(trMap.get("10"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-
-		case "161_002":{
-			System.out.println("161_002");
-			T161002Mapper mapper = sqlSession.getMapper(T161002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T161002 tt=new T161002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setYuSuanZhiShuLiang(trMap.get("4"));
-					tt.setYuSuanZhiDanJia(trMap.get("5"));
-					tt.setYuSuanZhiJinE(trMap.get("6"));
-					tt.setShiJiZhiShuLiang(trMap.get("7"));
-					tt.setShiJiZhiDanJia(trMap.get("8"));
-					tt.setShiJiZhiJinE(trMap.get("9"));
-					tt.setYingKui(trMap.get("10"));
-					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
-					tt.setLiangChaYingXiangJinE(trMap.get("12"));
-					tt.setJiaChaYingXiangJiaCha(trMap.get("13"));
-					tt.setJiaChaYingXiangJinE(trMap.get("14"));
-					mapper.insert(tt);
-				}else{
-					T161002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setYuSuanZhiShuLiang(trMap.get("4"));
-					tt.setYuSuanZhiDanJia(trMap.get("5"));
-					tt.setYuSuanZhiJinE(trMap.get("6"));
-					tt.setShiJiZhiShuLiang(trMap.get("7"));
-					tt.setShiJiZhiDanJia(trMap.get("8"));
-					tt.setShiJiZhiJinE(trMap.get("9"));
-					tt.setYingKui(trMap.get("10"));
-					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
-					tt.setLiangChaYingXiangJinE(trMap.get("12"));
-					tt.setJiaChaYingXiangJiaCha(trMap.get("13"));
-					tt.setJiaChaYingXiangJinE(trMap.get("14"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "161_003":{
-			System.out.println("161_003");
-			T161003Mapper mapper = sqlSession.getMapper(T161003Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T161003 tt=new T161003();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setYuSuanZhiShuLiang(trMap.get("4"));
-					tt.setYuSuanZhiDanJia(trMap.get("5"));
-					tt.setYuSuanZhiJinE(trMap.get("6"));
-					tt.setShiJiZhiShuLiang(trMap.get("7"));
-					tt.setShiJiZhiDanJia(trMap.get("8"));
-					tt.setShiJiZhiJinE(trMap.get("9"));
-					tt.setYingKui(trMap.get("10"));
-					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
-					tt.setLiangChaYingXiangJinE(trMap.get("12"));
-					tt.setLiangChaYingXiangZhanBi(trMap.get("13"));
-					tt.setJiaChaYingXiangJiaCha(trMap.get("14"));
-					tt.setJiaChaYingXiangJinE(trMap.get("15"));
-					tt.setJiaChaYingXiangZhanBi(trMap.get("16"));		
-					mapper.insert(tt);
-				}else{
-					T161003 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setWuZiMingChen(trMap.get("1"));
-					tt.setGuiGeXingHao(trMap.get("2"));
-					tt.setDanWei(trMap.get("3"));
-					tt.setYuSuanZhiShuLiang(trMap.get("4"));
-					tt.setYuSuanZhiDanJia(trMap.get("5"));
-					tt.setYuSuanZhiJinE(trMap.get("6"));
-					tt.setShiJiZhiShuLiang(trMap.get("7"));
-					tt.setShiJiZhiDanJia(trMap.get("8"));
-					tt.setShiJiZhiJinE(trMap.get("9"));
-					tt.setYingKui(trMap.get("10"));
-					tt.setLiangChaYingXiangLiangCha(trMap.get("11"));
-					tt.setLiangChaYingXiangJinE(trMap.get("12"));
-					tt.setLiangChaYingXiangZhanBi(trMap.get("13"));
-					tt.setJiaChaYingXiangJiaCha(trMap.get("14"));
-					tt.setJiaChaYingXiangJinE(trMap.get("15"));
-					tt.setJiaChaYingXiangZhanBi(trMap.get("16"));		
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		case "162_002":{
-			System.out.println("162_002");
-			T162002Mapper mapper = sqlSession.getMapper(T162002Mapper.class);
-			for (Map.Entry<String, Object> entry : itemMap.entrySet()) { 
-				System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue().getClass()); 
-				Map<String, String> trMap = JSONObject.toJavaObject((JSONObject)entry.getValue(), Map.class);
-				String tr_id=trMap.get("tr_id");
-				if(tr_id==null||tr_id.equals("")){
-					T162002 tt=new T162002();
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanZaoJia(trMap.get("3"));
-					tt.setYuSuanChengBen(trMap.get("4"));
-					tt.setYingKuiEDu(trMap.get("5"));
-					tt.setLiRunDianBiaoJi(trMap.get("6"));
-					tt.setBeiZhu(trMap.get("7"));
-					mapper.insert(tt);
-				}else{
-					T162002 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
-					tt.setTableId(ptable_id);
-					tt.setTrOrder(Integer.parseInt(entry.getKey()));
-					tt.setXuHao(trMap.get("0"));
-					tt.setChengBenXiangMu(trMap.get("1"));
-					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
-					tt.setYuSuanZaoJia(trMap.get("3"));
-					tt.setYuSuanChengBen(trMap.get("4"));
-					tt.setYingKuiEDu(trMap.get("5"));
-					tt.setLiRunDianBiaoJi(trMap.get("6"));
-					tt.setBeiZhu(trMap.get("7"));
-					mapper.updateByPrimaryKey(tt);
-				}
-			}
-			break;				
-		}
-		}
 
 
 		System.out.println(ptableCtx);
@@ -2252,6 +2306,617 @@ public class TableServ {
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write("[]");
 
+
+		return;
+	}
+
+	@RequestMapping("createExcelAndSaveTable")
+	public void table10(HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+		System.out.println("createExcelAndSaveTable");
+
+		String pgong_cheng_id= request.getParameter("gong_cheng_id"); 
+		String pexcelType= request.getParameter("excelType"); 
+		String ptableType= request.getParameter("tableType"); 
+		String ptableInfo= request.getParameter("tableInfo");
+		String ptableCtx= request.getParameter("tableCtx"); 
+
+		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
+		Wexcel record = new Wexcel();
+		record.setExceltype(pexcelType);
+		record.setGongChengId(Integer.parseInt(pgong_cheng_id));
+
+		record.setName(maskCTL.getExcelTypeName(pexcelType)+"(" + String.valueOf(mapper.countByExample(null) + 1)
+				+ ")");
+		java.sql.Date createDate = new java.sql.Date(
+				new java.util.Date().getTime());
+		record.setCreatedate(createDate);
+
+		mapper.insert(record);
+		System.out.println(record.getId());
+		Integer excel_id=record.getId();
+
+
+		List<String> subTable = getTableForExcel(pexcelType);
+		String ss="[";
+		for (String i : subTable) {
+			// 创建Usermapper对象，mybatis自动生成mapper代理对象
+			WtableMapper ttmapper = sqlSession.getMapper(WtableMapper.class);
+			Wtable tt = new Wtable();
+			tt.setTabletype(i);
+			tt.setExcelId(excel_id);
+			ttmapper.insert(tt);
+			Integer ptable_id=tt.getId();
+			System.out.println(i);
+			System.out.println(ptableType);
+			if(i.equals(ptableType)){
+				this.saveTableTitle(ptable_id,  ptableInfo);
+				this.saveTableByType(ptable_id, ptableType, ptableCtx);
+			}
+			ss+="{\"tableId\":\""+ptable_id+"\",\"tableType\":\""+i+"\"},";
+		}
+		ss+="]";
+
+		String ret="{\"excelId\":\""+excel_id+"\",\"excelType\":\""+pexcelType +"\",\"table\":"+ss +"}";
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		response.getWriter().write(ret);
+		return;
+	}
+	public String func_emptyLiItem(
+			String title,
+			String template,
+			String excelType){
+		String img_empty="<img src=\"./images/file.png\" style=\"-moz-box-sizing: border-box; -webkit-box-sizing:border-box; border: 0; box-sizing: border-box;vertical-align: middle;\">";
+
+		return 	"<li emptyfile=\"true\" layout=\"click\" title=\""+title+"\" " +
+		"exceltype=\""+excelType+"\"" +
+		"template_tab=\""+template+"\" >" +
+		img_empty+"<span>"+title+"</span></li>";
+	}
+	public String func_liItem(
+			String excelId,
+			String exceltype,
+			String title,String gong_cheng_id){
+		String img_file="<img src=\"./images/file2.png\" style=\"-moz-box-sizing: border-box; -webkit-box-sizing:border-box; border: 0; box-sizing: border-box;vertical-align: middle;\">";
+		return "<li layout=\"click\" excel_id=\""+excelId+"\" title=\""+title+"\"" +
+		" exceltype=\""+exceltype+"\" gong_cheng_id=\""+gong_cheng_id+"\" " +
+		">"+img_file+"<span>"+title+"</span></li>";
+	}
+	public String func_allExcelTypeliItem(String pexcelType,String pgong_cheng_id){
+		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
+		WexcelExample ee=new WexcelExample();
+		ee.setOrderByClause("createdate");
+		ee.or().andExceltypeEqualTo(pexcelType).andGongChengIdEqualTo(Integer.parseInt(pgong_cheng_id));	
+		List<Wexcel> lee=mapper.selectByExample(ee);
+		String ss="";
+		System.out.println(pexcelType+"  lee.size():");
+		System.out.println(lee.size());
+		for(Wexcel it : lee) {
+			ss+=func_liItem(String.valueOf(it.getId()),
+					pexcelType,
+					it.getName(),
+					pgong_cheng_id);
+			System.out.println(it.getName());
+		}
+
+		return ss;
+	}
+
+	public String func_UlLiItem(
+			String title,
+			String[] innerStrArr){
+		if(innerStrArr.length==0){
+			return "";
+		}
+		if(innerStrArr.length==1){
+			return innerStrArr[0];
+		}
+		String innerStr="";
+		for(String ss: innerStrArr){
+			innerStr+=ss;
+		}
+		String img_folder="<img src=\"./images/folder.png\" style=\"-moz-box-sizing: border-box; -webkit-box-sizing:border-box; border: 0; box-sizing: border-box;vertical-align: middle;\">";
+		return "<li id=\"\" title=\""+title+"\" >" +
+		img_folder+	"<span>"+title+"</span>"+
+		"<ul>"+
+		innerStr+
+		"</ul></li>";
+	}
+	public String getExcelItem(String excelType,String gong_cheng_id){
+		String template="";
+		String title=maskCTL.getExcelTypeName(String.valueOf(Integer.parseInt(excelType)));
+		return func_emptyLiItem(title, template, excelType)+
+				func_allExcelTypeliItem(excelType, gong_cheng_id);
+
+	}
+
+	@RequestMapping("get_ooMenu")
+	public void func11(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String modelId=request.getParameter("modelId");
+		System.out.println(modelId);
+		String ss;
+		String gong_cheng_id="1";
+		ss="<ul>";
+
+
+		switch(modelId){
+		case "o_p":{
+			ss+=func_UlLiItem("机构设置",new String[] {
+					getExcelItem("0", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("人员配备",new String[] {
+					getExcelItem("1", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("任务部署",new String[] {
+					getExcelItem("2", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("权责分配",new String[] {
+					getExcelItem("3", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("策划编制",new String[] {
+					getExcelItem("4", gong_cheng_id)
+			});
+			break;
+		}
+		case "a_o":{
+			ss+=func_UlLiItem("工作计划",new String[] {
+					getExcelItem("5", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("文件草拟",new String[] {
+					getExcelItem("6", gong_cheng_id),
+					getExcelItem("7", gong_cheng_id),
+					getExcelItem("8", gong_cheng_id),
+					getExcelItem("9", gong_cheng_id),
+					getExcelItem("10", gong_cheng_id),
+					getExcelItem("11", gong_cheng_id),
+					getExcelItem("12", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("文件收发",new String[] {
+					getExcelItem("13", gong_cheng_id),
+					getExcelItem("14", gong_cheng_id),
+					getExcelItem("15", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("员工考勤",new String[] {
+					getExcelItem("16", gong_cheng_id),
+					getExcelItem("17", gong_cheng_id),
+					getExcelItem("18", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("印鉴使用",new String[] {
+					getExcelItem("19", gong_cheng_id),
+					getExcelItem("20", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("办公用品",new String[] {
+					getExcelItem("21", gong_cheng_id),
+					getExcelItem("22", gong_cheng_id),
+					getExcelItem("23", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("图书借阅",new String[] {
+					getExcelItem("24", gong_cheng_id),
+					getExcelItem("25", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("车辆使用",new String[] {
+					getExcelItem("26", gong_cheng_id),
+					getExcelItem("27", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("资产管理",new String[] {
+					getExcelItem("28", gong_cheng_id)
+			});
+			break;
+		}
+		case "b_p":{
+			ss+=func_UlLiItem("招标准备",new String[] {
+					getExcelItem("29", gong_cheng_id),
+					getExcelItem("30", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("招标公告",new String[] {
+					getExcelItem("31", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("报名资审",new String[] {
+					getExcelItem("32", gong_cheng_id),
+					getExcelItem("33", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("文件领取",new String[] {
+					getExcelItem("34", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("投标报价",new String[] {
+					getExcelItem("35", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("开评定标",new String[] {
+					getExcelItem("36", gong_cheng_id),
+					getExcelItem("37", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("中标通知",new String[] {
+					getExcelItem("38", gong_cheng_id)
+			});
+			break;
+		}
+		case "c_b":{
+			ss+=func_UlLiItem("合同签订 ",new String[] {
+					getExcelItem("39", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("合同交底",new String[] {
+					getExcelItem("40", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("合同变更",new String[] {
+					getExcelItem("41", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("合同台账",new String[] {
+					getExcelItem("42", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("供方名册",new String[] {
+					getExcelItem("43", gong_cheng_id)
+			});
+			break;
+		}
+		case "p_t":{
+			ss+=func_UlLiItem("技术准备",new String[] {
+					getExcelItem("44", gong_cheng_id),
+					getExcelItem("45", gong_cheng_id),
+					getExcelItem("46", gong_cheng_id),
+					getExcelItem("47", gong_cheng_id),
+					getExcelItem("48", gong_cheng_id),
+					getExcelItem("49", gong_cheng_id),
+					getExcelItem("50", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("资源需求",new String[] {
+					getExcelItem("51", gong_cheng_id),
+					getExcelItem("52", gong_cheng_id),
+					getExcelItem("53", gong_cheng_id),
+					getExcelItem("54", gong_cheng_id),
+					getExcelItem("55", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("生产组织",new String[] {
+					getExcelItem("56", gong_cheng_id),
+					getExcelItem("57", gong_cheng_id),
+					getExcelItem("58", gong_cheng_id),
+					getExcelItem("59", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("进度控制",new String[] {
+					getExcelItem("60", gong_cheng_id),
+					getExcelItem("61", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("质量控制",new String[] {
+					getExcelItem("62", gong_cheng_id),
+					getExcelItem("63", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("安全控制",new String[] {
+					getExcelItem("64", gong_cheng_id),
+					getExcelItem("65", gong_cheng_id),
+					getExcelItem("66", gong_cheng_id),
+					getExcelItem("67", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("环境控制",new String[] {
+					getExcelItem("68", gong_cheng_id),
+					getExcelItem("69", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("监测装置",new String[] {
+					getExcelItem("70", gong_cheng_id),
+					getExcelItem("71", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("施工日志",new String[] {
+					getExcelItem("72", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("生产月报",new String[] {
+					getExcelItem("73", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("管理台账",new String[] {
+					getExcelItem("74", gong_cheng_id),
+					getExcelItem("75", gong_cheng_id),
+					getExcelItem("76", gong_cheng_id)
+			});
+			break;
+		}
+		case "s_m":{
+			ss+=func_UlLiItem("进场计划",new String[] {
+					getExcelItem("77", gong_cheng_id),
+					getExcelItem("78", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("进场登记",new String[] {
+					getExcelItem("79", gong_cheng_id),
+					getExcelItem("80", gong_cheng_id),
+					getExcelItem("81", gong_cheng_id),
+					getExcelItem("82", gong_cheng_id),
+					getExcelItem("83", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("人员注册",new String[] {
+					getExcelItem("84", gong_cheng_id),
+					getExcelItem("85", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("入场教育",new String[] {
+					getExcelItem("86", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("劳务考勤",new String[] {
+					getExcelItem("87", gong_cheng_id),
+					getExcelItem("88", gong_cheng_id),
+					getExcelItem("89", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("工资发放",new String[] {
+					getExcelItem("90", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("维保计划",new String[] {
+					getExcelItem("91", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("运行记录",new String[] {
+					getExcelItem("92", gong_cheng_id),
+					getExcelItem("93", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("维保记录",new String[] {
+					getExcelItem("94", gong_cheng_id),
+					getExcelItem("95", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("事故报告",new String[] {
+					getExcelItem("96", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("使用评价",new String[] {
+					getExcelItem("97", gong_cheng_id),
+					getExcelItem("98", gong_cheng_id),
+					getExcelItem("99", gong_cheng_id)
+			});
+			break;
+		}
+		case "m_e":{
+			ss+=func_UlLiItem("物资供应",new String[] {
+					getExcelItem("100", gong_cheng_id),
+					getExcelItem("101", gong_cheng_id),
+					getExcelItem("102", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("进场计划",new String[] {
+					getExcelItem("103", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("进场通知",new String[] {
+					getExcelItem("104", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("验收入库",new String[] {
+					getExcelItem("105", gong_cheng_id),
+					getExcelItem("106", gong_cheng_id),
+					getExcelItem("107", gong_cheng_id),
+					getExcelItem("108", gong_cheng_id),
+					getExcelItem("109", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("领用出库",new String[] {
+					getExcelItem("110", gong_cheng_id),
+					getExcelItem("111", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("贮存保管",new String[] {
+					getExcelItem("112", gong_cheng_id),
+					getExcelItem("113", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("库存盘点",new String[] {
+					getExcelItem("114", gong_cheng_id),
+					getExcelItem("115", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("检验报验",new String[] {
+					getExcelItem("116", gong_cheng_id),
+					getExcelItem("117", gong_cheng_id),
+					getExcelItem("118", gong_cheng_id),
+					getExcelItem("119", gong_cheng_id),
+					getExcelItem("120", gong_cheng_id),
+			});
+			ss+=func_UlLiItem("废料处置",new String[] {
+					getExcelItem("121", gong_cheng_id),
+					getExcelItem("122", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("账目报表",new String[] {
+
+					getExcelItem("123", gong_cheng_id),
+					getExcelItem("124", gong_cheng_id),
+					getExcelItem("125", gong_cheng_id),
+					getExcelItem("126", gong_cheng_id),
+					getExcelItem("127", gong_cheng_id),
+			});
+			break;
+		}
+		case "e_m":{////
+			ss+=func_UlLiItem("计划编制",new String[] {
+					getExcelItem("128", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("取样通知",new String[] {
+					getExcelItem("129", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("试样制取",new String[] {
+					getExcelItem("130", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("试样养护",new String[] {
+					getExcelItem("131", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("试样送检",new String[] {
+					getExcelItem("132", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("检验报告",new String[] {
+					getExcelItem("133", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("工程资料",new String[] {
+					getExcelItem("134", gong_cheng_id),
+					getExcelItem("135", gong_cheng_id),
+					getExcelItem("136", gong_cheng_id)
+			});
+			break;
+		}
+		case "b_c":{
+			ss+=func_UlLiItem("工程计量",new String[] {
+					getExcelItem("137", gong_cheng_id),
+					getExcelItem("138", gong_cheng_id),
+					getExcelItem("139", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("工程计价",new String[] {
+					getExcelItem("140", gong_cheng_id),
+					getExcelItem("141", gong_cheng_id),
+					getExcelItem("142", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("分供结算",new String[] {
+					getExcelItem("143", gong_cheng_id),
+					getExcelItem("144", gong_cheng_id),
+					getExcelItem("145", gong_cheng_id),
+					getExcelItem("146", gong_cheng_id),
+					getExcelItem("147", gong_cheng_id),
+					getExcelItem("148", gong_cheng_id),
+					getExcelItem("149", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("总包结算",new String[] {
+					getExcelItem("150", gong_cheng_id),
+					//这里跳
+					getExcelItem("163", gong_cheng_id)
+			});
+			break;
+		}
+		case "v_c":{
+			ss+=func_UlLiItem("现场签证",new String[] {
+					getExcelItem("164", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("变更索赔",new String[] {
+					getExcelItem("165", gong_cheng_id),
+					getExcelItem("166", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("收支记录",new String[] {
+					getExcelItem("167", gong_cheng_id)
+			});
+			break;
+		}
+		case "c_p":{
+			ss+=func_UlLiItem("成本责任",new String[] {
+					getExcelItem("151", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("成本测算",new String[] {
+					getExcelItem("152", gong_cheng_id),
+					getExcelItem("153", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("成本计划",new String[] {
+					getExcelItem("154", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("成本控制",new String[] {
+					getExcelItem("155", gong_cheng_id),
+					getExcelItem("156", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("成本核算",new String[] {
+					getExcelItem("157", gong_cheng_id),
+					getExcelItem("158", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("成本分析",new String[] {
+					getExcelItem("159", gong_cheng_id),
+					getExcelItem("160", gong_cheng_id),
+					getExcelItem("161", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("利润预测",new String[] {
+					getExcelItem("162", gong_cheng_id)
+			});
+			break;
+		}
+		case "o_m":{
+			ss+=func_UlLiItem("资金计划",new String[] {
+					getExcelItem("168", gong_cheng_id),
+					getExcelItem("169", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("进度报量",new String[] {
+					getExcelItem("170", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("资金回收",new String[] {
+					getExcelItem("171", gong_cheng_id),
+					getExcelItem("172", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("确认进度",new String[] {
+					getExcelItem("173", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("资金支付",new String[] {
+					getExcelItem("174", gong_cheng_id),
+					getExcelItem("175", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("资金往来",new String[] {
+					getExcelItem("176", gong_cheng_id)
+			});
+			break;
+		}
+		case "e_e":{
+			ss+=func_UlLiItem("考核",new String[] {
+					getExcelItem("177", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("激励",new String[] {
+					getExcelItem("178", gong_cheng_id)
+			});
+			break;
+		}
+		case "c_m":{
+			ss+=func_UlLiItem("项目解体",new String[] {
+					getExcelItem("179", gong_cheng_id),
+					getExcelItem("180", gong_cheng_id),
+					getExcelItem("181", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("工程移交",new String[] {
+					getExcelItem("182", gong_cheng_id),
+					getExcelItem("183", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("资料移交",new String[] {
+					getExcelItem("184", gong_cheng_id),
+					getExcelItem("185", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("项目总结",new String[] {
+					getExcelItem("186", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("工程回访",new String[] {
+					getExcelItem("187", gong_cheng_id),
+					getExcelItem("188", gong_cheng_id),
+					getExcelItem("189", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("业主投诉",new String[] {
+					getExcelItem("190", gong_cheng_id)
+			});
+			ss+=func_UlLiItem("工程维保",new String[] {
+					getExcelItem("191", gong_cheng_id),
+					getExcelItem("192", gong_cheng_id)
+			});
+			break;
+		}
+		}
+
+		ss+="</ul>";
+
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		response.getWriter().write(ss);
+		return;
+	}
+	@RequestMapping("get_excelTypeTemplate")
+	public void func12(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String excelType=request.getParameter("excelType");
+		String ss=maskCTL.getTemplateTab(excelType);
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		response.getWriter().write(ss);
+		return;
+	}
+	@RequestMapping("renameExcelById")
+	public void func13(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		Integer excelId=Integer.parseInt(request.getParameter("excelId"));
+		String newName=request.getParameter("newName");
+		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
+		Wexcel record = mapper.selectByPrimaryKey(excelId);
+		if(newName.trim().length()!=0){
+			record.setName(newName);
+		}
+		mapper.updateByPrimaryKey(record);
+
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		response.getWriter().write("success");
+		return;
+	}
+
+	public void saveAsText(Integer tableId,String content)throws Exception {
+		TableContentMapper mapper = sqlSession.getMapper(TableContentMapper.class);
+		TableContentExample ee=new TableContentExample();
+		ee.or().andTableIdEqualTo(tableId);
+		System.out.println(content);
+		List<TableContent> lee=mapper.selectByExample(ee);
+		if(lee.size()==0){
+			TableContent record=new TableContent();
+			record.setTableId(tableId);
+			record.setContent(content.trim());
+			mapper.insert(record);
+		}else{
+			TableContent record=lee.get(0);
+			record.setTableId(tableId);
+			record.setContent(content.trim());
+			mapper.updateByPrimaryKey(record);
+		}
 
 		return;
 	}

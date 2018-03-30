@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="table_id" property="tableId" jdbcType="INTEGER" />
     <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="tr_type" property="trType" jdbcType="VARCHAR" />
     <result column="cheng_ben_bian_hao_" property="chengBenBianHao" jdbcType="VARCHAR" />
     <result column="cheng_ben_xiang_mu_" property="chengBenXiangMu" jdbcType="VARCHAR" />
     <result column="yu_suan_cheng_ben_" property="yuSuanChengBen" jdbcType="VARCHAR" />
@@ -79,7 +80,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, table_id, tr_order, cheng_ben_bian_hao_, cheng_ben_xiang_mu_, yu_suan_cheng_ben_, 
+    id, table_id, tr_order, tr_type, cheng_ben_bian_hao_, cheng_ben_xiang_mu_, yu_suan_cheng_ben_, 
     zhi_qi_mo_yi_fa_sheng_cheng_ben_, cheng_ben_shi_jian_zong_yu_suan_shi_jian_, cheng_ben_shi_jian_yi_fa_sheng_shi_jian_, 
     cheng_ben_shi_jian_yu_suan_sheng_yu_shi_jian_, cheng_ben_shi_jian_huai_xu_yao_shi_jian_, 
     sheng_yu_cheng_ben_yu_kong_shu_yue_du_yu_kong_shu_, sheng_yu_cheng_ben_yu_kong_shu_zong_yu_kong_shu_, 
@@ -118,21 +119,23 @@
   </delete>
   <insert id="insert" parameterType="model.po.T155005" >
     insert into t155_005 (id, table_id, tr_order, 
-      cheng_ben_bian_hao_, cheng_ben_xiang_mu_, yu_suan_cheng_ben_, 
-      zhi_qi_mo_yi_fa_sheng_cheng_ben_, cheng_ben_shi_jian_zong_yu_suan_shi_jian_, 
-      cheng_ben_shi_jian_yi_fa_sheng_shi_jian_, cheng_ben_shi_jian_yu_suan_sheng_yu_shi_jian_, 
-      cheng_ben_shi_jian_huai_xu_yao_shi_jian_, sheng_yu_cheng_ben_yu_kong_shu_yue_du_yu_kong_shu_, 
-      sheng_yu_cheng_ben_yu_kong_shu_zong_yu_kong_shu_, sheng_yu_cheng_ben_yu_ce_shu_yue_du_yu_ce_shu_, 
-      sheng_yu_cheng_ben_yu_ce_shu_zong_yu_ce_shu_, sheng_yu_cheng_ben_yu_ce_shu_jie_chao_, 
-      shi_ji_yu_ji_cheng_ben_)
+      tr_type, cheng_ben_bian_hao_, cheng_ben_xiang_mu_, 
+      yu_suan_cheng_ben_, zhi_qi_mo_yi_fa_sheng_cheng_ben_, 
+      cheng_ben_shi_jian_zong_yu_suan_shi_jian_, cheng_ben_shi_jian_yi_fa_sheng_shi_jian_, 
+      cheng_ben_shi_jian_yu_suan_sheng_yu_shi_jian_, cheng_ben_shi_jian_huai_xu_yao_shi_jian_, 
+      sheng_yu_cheng_ben_yu_kong_shu_yue_du_yu_kong_shu_, sheng_yu_cheng_ben_yu_kong_shu_zong_yu_kong_shu_, 
+      sheng_yu_cheng_ben_yu_ce_shu_yue_du_yu_ce_shu_, sheng_yu_cheng_ben_yu_ce_shu_zong_yu_ce_shu_, 
+      sheng_yu_cheng_ben_yu_ce_shu_jie_chao_, shi_ji_yu_ji_cheng_ben_
+      )
     values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
-      #{chengBenBianHao,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, #{yuSuanChengBen,jdbcType=VARCHAR}, 
-      #{zhiQiMoYiFaShengChengBen,jdbcType=VARCHAR}, #{chengBenShiJianZongYuSuanShiJian,jdbcType=VARCHAR}, 
-      #{chengBenShiJianYiFaShengShiJian,jdbcType=VARCHAR}, #{chengBenShiJianYuSuanShengYuShiJian,jdbcType=VARCHAR}, 
-      #{chengBenShiJianHuaiXuYaoShiJian,jdbcType=VARCHAR}, #{shengYuChengBenYuKongShuYueDuYuKongShu,jdbcType=VARCHAR}, 
-      #{shengYuChengBenYuKongShuZongYuKongShu,jdbcType=VARCHAR}, #{shengYuChengBenYuCeShuYueDuYuCeShu,jdbcType=VARCHAR}, 
-      #{shengYuChengBenYuCeShuZongYuCeShu,jdbcType=VARCHAR}, #{shengYuChengBenYuCeShuJieChao,jdbcType=VARCHAR}, 
-      #{shiJiYuJiChengBen,jdbcType=VARCHAR})
+      #{trType,jdbcType=VARCHAR}, #{chengBenBianHao,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, 
+      #{yuSuanChengBen,jdbcType=VARCHAR}, #{zhiQiMoYiFaShengChengBen,jdbcType=VARCHAR}, 
+      #{chengBenShiJianZongYuSuanShiJian,jdbcType=VARCHAR}, #{chengBenShiJianYiFaShengShiJian,jdbcType=VARCHAR}, 
+      #{chengBenShiJianYuSuanShengYuShiJian,jdbcType=VARCHAR}, #{chengBenShiJianHuaiXuYaoShiJian,jdbcType=VARCHAR}, 
+      #{shengYuChengBenYuKongShuYueDuYuKongShu,jdbcType=VARCHAR}, #{shengYuChengBenYuKongShuZongYuKongShu,jdbcType=VARCHAR}, 
+      #{shengYuChengBenYuCeShuYueDuYuCeShu,jdbcType=VARCHAR}, #{shengYuChengBenYuCeShuZongYuCeShu,jdbcType=VARCHAR}, 
+      #{shengYuChengBenYuCeShuJieChao,jdbcType=VARCHAR}, #{shiJiYuJiChengBen,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="model.po.T155005" >
     insert into t155_005
@@ -145,6 +148,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order,
+      </if>
+      <if test="trType != null" >
+        tr_type,
       </if>
       <if test="chengBenBianHao != null" >
         cheng_ben_bian_hao_,
@@ -198,6 +204,9 @@
       </if>
       <if test="trOrder != null" >
         #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        #{trType,jdbcType=VARCHAR},
       </if>
       <if test="chengBenBianHao != null" >
         #{chengBenBianHao,jdbcType=VARCHAR},
@@ -261,6 +270,9 @@
       <if test="record.trOrder != null" >
         tr_order = #{record.trOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.trType != null" >
+        tr_type = #{record.trType,jdbcType=VARCHAR},
+      </if>
       <if test="record.chengBenBianHao != null" >
         cheng_ben_bian_hao_ = #{record.chengBenBianHao,jdbcType=VARCHAR},
       </if>
@@ -313,6 +325,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       table_id = #{record.tableId,jdbcType=INTEGER},
       tr_order = #{record.trOrder,jdbcType=INTEGER},
+      tr_type = #{record.trType,jdbcType=VARCHAR},
       cheng_ben_bian_hao_ = #{record.chengBenBianHao,jdbcType=VARCHAR},
       cheng_ben_xiang_mu_ = #{record.chengBenXiangMu,jdbcType=VARCHAR},
       yu_suan_cheng_ben_ = #{record.yuSuanChengBen,jdbcType=VARCHAR},
@@ -339,6 +352,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        tr_type = #{trType,jdbcType=VARCHAR},
       </if>
       <if test="chengBenBianHao != null" >
         cheng_ben_bian_hao_ = #{chengBenBianHao,jdbcType=VARCHAR},
@@ -389,6 +405,7 @@
     update t155_005
     set table_id = #{tableId,jdbcType=INTEGER},
       tr_order = #{trOrder,jdbcType=INTEGER},
+      tr_type = #{trType,jdbcType=VARCHAR},
       cheng_ben_bian_hao_ = #{chengBenBianHao,jdbcType=VARCHAR},
       cheng_ben_xiang_mu_ = #{chengBenXiangMu,jdbcType=VARCHAR},
       yu_suan_cheng_ben_ = #{yuSuanChengBen,jdbcType=VARCHAR},

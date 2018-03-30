@@ -284,6 +284,76 @@ public class T161003Example {
             return (Criteria) this;
         }
 
+        public Criteria andTrTypeIsNull() {
+            addCriterion("tr_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeIsNotNull() {
+            addCriterion("tr_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeEqualTo(String value) {
+            addCriterion("tr_type =", value, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeNotEqualTo(String value) {
+            addCriterion("tr_type <>", value, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeGreaterThan(String value) {
+            addCriterion("tr_type >", value, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("tr_type >=", value, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeLessThan(String value) {
+            addCriterion("tr_type <", value, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeLessThanOrEqualTo(String value) {
+            addCriterion("tr_type <=", value, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeLike(String value) {
+            addCriterion("tr_type like", value, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeNotLike(String value) {
+            addCriterion("tr_type not like", value, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeIn(List<String> values) {
+            addCriterion("tr_type in", values, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeNotIn(List<String> values) {
+            addCriterion("tr_type not in", values, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeBetween(String value1, String value2) {
+            addCriterion("tr_type between", value1, value2, "trType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTrTypeNotBetween(String value1, String value2) {
+            addCriterion("tr_type not between", value1, value2, "trType");
+            return (Criteria) this;
+        }
+
         public Criteria andXuHaoIsNull() {
             addCriterion("xu_hao_ is null");
             return (Criteria) this;

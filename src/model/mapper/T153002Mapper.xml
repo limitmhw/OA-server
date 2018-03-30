@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="table_id" property="tableId" jdbcType="INTEGER" />
     <result column="tr_order" property="trOrder" jdbcType="INTEGER" />
+    <result column="tr_type" property="trType" jdbcType="VARCHAR" />
     <result column="cheng_ben_bian_ma_" property="chengBenBianMa" jdbcType="VARCHAR" />
     <result column="cheng_ben_xiang_mu_" property="chengBenXiangMu" jdbcType="VARCHAR" />
     <result column="ben_qi_shu_diao_zheng_e_" property="benQiShuDiaoZhengE" jdbcType="VARCHAR" />
@@ -76,7 +77,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, table_id, tr_order, cheng_ben_bian_ma_, cheng_ben_xiang_mu_, ben_qi_shu_diao_zheng_e_, 
+    id, table_id, tr_order, tr_type, cheng_ben_bian_ma_, cheng_ben_xiang_mu_, ben_qi_shu_diao_zheng_e_, 
     ben_qi_shu_shu_liang_, ben_qi_shu_jia_ge_, ben_qi_shu_qi_ta_, lei_ji_shu_diao_zheng_e_, 
     lei_ji_shu_shu_liang_, lei_ji_shu_jia_ge_, lei_ji_shu_qi_ta_, bei_zhu_
   </sql>
@@ -112,15 +113,17 @@
   </delete>
   <insert id="insert" parameterType="model.po.T153002" >
     insert into t153_002 (id, table_id, tr_order, 
-      cheng_ben_bian_ma_, cheng_ben_xiang_mu_, ben_qi_shu_diao_zheng_e_, 
-      ben_qi_shu_shu_liang_, ben_qi_shu_jia_ge_, ben_qi_shu_qi_ta_, 
-      lei_ji_shu_diao_zheng_e_, lei_ji_shu_shu_liang_, lei_ji_shu_jia_ge_, 
-      lei_ji_shu_qi_ta_, bei_zhu_)
+      tr_type, cheng_ben_bian_ma_, cheng_ben_xiang_mu_, 
+      ben_qi_shu_diao_zheng_e_, ben_qi_shu_shu_liang_, ben_qi_shu_jia_ge_, 
+      ben_qi_shu_qi_ta_, lei_ji_shu_diao_zheng_e_, lei_ji_shu_shu_liang_, 
+      lei_ji_shu_jia_ge_, lei_ji_shu_qi_ta_, bei_zhu_
+      )
     values (#{id,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{trOrder,jdbcType=INTEGER}, 
-      #{chengBenBianMa,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, #{benQiShuDiaoZhengE,jdbcType=VARCHAR}, 
-      #{benQiShuShuLiang,jdbcType=VARCHAR}, #{benQiShuJiaGe,jdbcType=VARCHAR}, #{benQiShuQiTa,jdbcType=VARCHAR}, 
-      #{leiJiShuDiaoZhengE,jdbcType=VARCHAR}, #{leiJiShuShuLiang,jdbcType=VARCHAR}, #{leiJiShuJiaGe,jdbcType=VARCHAR}, 
-      #{leiJiShuQiTa,jdbcType=VARCHAR}, #{beiZhu,jdbcType=VARCHAR})
+      #{trType,jdbcType=VARCHAR}, #{chengBenBianMa,jdbcType=VARCHAR}, #{chengBenXiangMu,jdbcType=VARCHAR}, 
+      #{benQiShuDiaoZhengE,jdbcType=VARCHAR}, #{benQiShuShuLiang,jdbcType=VARCHAR}, #{benQiShuJiaGe,jdbcType=VARCHAR}, 
+      #{benQiShuQiTa,jdbcType=VARCHAR}, #{leiJiShuDiaoZhengE,jdbcType=VARCHAR}, #{leiJiShuShuLiang,jdbcType=VARCHAR}, 
+      #{leiJiShuJiaGe,jdbcType=VARCHAR}, #{leiJiShuQiTa,jdbcType=VARCHAR}, #{beiZhu,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="model.po.T153002" >
     insert into t153_002
@@ -133,6 +136,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order,
+      </if>
+      <if test="trType != null" >
+        tr_type,
       </if>
       <if test="chengBenBianMa != null" >
         cheng_ben_bian_ma_,
@@ -177,6 +183,9 @@
       </if>
       <if test="trOrder != null" >
         #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        #{trType,jdbcType=VARCHAR},
       </if>
       <if test="chengBenBianMa != null" >
         #{chengBenBianMa,jdbcType=VARCHAR},
@@ -231,6 +240,9 @@
       <if test="record.trOrder != null" >
         tr_order = #{record.trOrder,jdbcType=INTEGER},
       </if>
+      <if test="record.trType != null" >
+        tr_type = #{record.trType,jdbcType=VARCHAR},
+      </if>
       <if test="record.chengBenBianMa != null" >
         cheng_ben_bian_ma_ = #{record.chengBenBianMa,jdbcType=VARCHAR},
       </if>
@@ -274,6 +286,7 @@
     set id = #{record.id,jdbcType=INTEGER},
       table_id = #{record.tableId,jdbcType=INTEGER},
       tr_order = #{record.trOrder,jdbcType=INTEGER},
+      tr_type = #{record.trType,jdbcType=VARCHAR},
       cheng_ben_bian_ma_ = #{record.chengBenBianMa,jdbcType=VARCHAR},
       cheng_ben_xiang_mu_ = #{record.chengBenXiangMu,jdbcType=VARCHAR},
       ben_qi_shu_diao_zheng_e_ = #{record.benQiShuDiaoZhengE,jdbcType=VARCHAR},
@@ -297,6 +310,9 @@
       </if>
       <if test="trOrder != null" >
         tr_order = #{trOrder,jdbcType=INTEGER},
+      </if>
+      <if test="trType != null" >
+        tr_type = #{trType,jdbcType=VARCHAR},
       </if>
       <if test="chengBenBianMa != null" >
         cheng_ben_bian_ma_ = #{chengBenBianMa,jdbcType=VARCHAR},
@@ -338,6 +354,7 @@
     update t153_002
     set table_id = #{tableId,jdbcType=INTEGER},
       tr_order = #{trOrder,jdbcType=INTEGER},
+      tr_type = #{trType,jdbcType=VARCHAR},
       cheng_ben_bian_ma_ = #{chengBenBianMa,jdbcType=VARCHAR},
       cheng_ben_xiang_mu_ = #{chengBenXiangMu,jdbcType=VARCHAR},
       ben_qi_shu_diao_zheng_e_ = #{benQiShuDiaoZhengE,jdbcType=VARCHAR},
