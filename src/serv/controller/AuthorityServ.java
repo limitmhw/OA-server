@@ -42,7 +42,6 @@ public class AuthorityServ extends BaseCtl {
 
 	public String getCMask(Integer proId,Integer yongHuZuId){
 		String cmask="";
-
 		EauthorityMapper mapper = sqlSession.getMapper(EauthorityMapper.class);
 		EauthorityExample ee=new EauthorityExample();
 		ee.or().andGongChengIdEqualTo(proId).andYongHuZuIdEqualTo(yongHuZuId);
@@ -53,7 +52,6 @@ public class AuthorityServ extends BaseCtl {
 		}else{
 			cmask=lee.get(0).getMask();
 		}
-
 		return cmask;
 	}
 	public String createAuthorityByMap(Map<String,String> mm){
@@ -199,3 +197,5 @@ public class AuthorityServ extends BaseCtl {
 	}
 	
 }
+
+

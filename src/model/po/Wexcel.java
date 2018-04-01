@@ -13,6 +13,8 @@ public class Wexcel {
 
     private Date createdate;
 
+    private String excelstatus;
+
     public Integer getId() {
         return id;
     }
@@ -53,11 +55,11 @@ public class Wexcel {
         this.createdate = createdate;
     }
 
-	@Override
-	public String toString() {
-		return "Wexcel [id=" + id + ", name=" + name + ", gongChengId="
-				+ gongChengId + ", exceltype=" + exceltype + ", createdate="
-				+ createdate + "]";
-	}
+    public String getExcelstatus() {
+        return excelstatus;
+    }
 
+    public void setExcelstatus(String excelstatus) {
+        this.excelstatus = excelstatus == null ? null : excelstatus.trim();
+    }
 }

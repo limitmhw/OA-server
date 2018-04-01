@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import model.mapper.*;
 import model.po.*;
 
@@ -62,7 +64,13 @@ public class YongHuServ extends BaseCtl {
 		String ret="0";
 		if(lee.size()==1){
 			if(lee.get(0).getMiMa().equals(pwd)){
-				ret="{\"uname\":"+lee.get(0).getYongHuMing()+",\"mask\":\""+lee.get(0).getQuanXian()+"\"}";
+				//这里登录处理SESSION
+				 HttpSession session = request.getSession();
+				 session.setAttribute("yongHuZuId", lee.get(0).getId());
+				
+				
+				
+				ret="{\"uname\":\""+lee.get(0).getYongHuMing()+"\",\"mask\":\""+lee.get(0).getQuanXian()+"\"}";
 			}else{
 				//密码错误，在前端提示表现为：用户名或者密码错误
 				System.out.println(pwd);

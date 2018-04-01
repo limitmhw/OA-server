@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import model.mapper.*;
 import model.po.*;
 
@@ -1022,7 +1024,24 @@ public class TableServ extends BaseCtl {
 	}
 
 
+	public Integer createNewExcel(String pexcelType,String pgong_cheng_id){
+		// /////////////////////////////////
+		// 创建Usermapper对象，mybatis自动生成mapper代理对象
+		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
+		Wexcel record = new Wexcel();
+		record.setExceltype(pexcelType);
+		record.setGongChengId(Integer.parseInt(pgong_cheng_id));
+		record.setExcelstatus("WEITIJIAO");
+		record.setName(maskCTL.getExcelTypeName(pexcelType)+"(" + String.valueOf(mapper.countByExample(null) + 1)
+				+ ")");
+		java.sql.Date createDate = new java.sql.Date(
+				new java.util.Date().getTime());
+		record.setCreatedate(createDate);
+		mapper.insert(record);
+		System.out.println(record.getId());
+		return record.getId();
 
+	}
 
 	public List<String> getTableForExcel(String tem_excelType) {
 		List<String> subTable = new ArrayList<String>();
@@ -1056,21 +1075,9 @@ public class TableServ extends BaseCtl {
 		// http://localhost:8080/simpleMVC/excel/createExcel.action?excelType=xxxx&gong_cheng_id=1222
 		String pexcelType = request.getParameter("excelType");
 		String pgong_cheng_id = request.getParameter("gong_cheng_id");
-		// /////////////////////////////////
-		// 创建Usermapper对象，mybatis自动生成mapper代理对象
-		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
-		Wexcel record = new Wexcel();
-		record.setExceltype(pexcelType);
-		record.setGongChengId(Integer.parseInt(pgong_cheng_id));
-		record.setName("新建表单(" + String.valueOf(mapper.countByExample(null) + 1)
-				+ ")");
-		java.sql.Date createDate = new java.sql.Date(
-				new java.util.Date().getTime());
-		record.setCreatedate(createDate);
 
-		mapper.insert(record);
-		System.out.println(record.getId());
-		createExcelSubTable(record.getId(), pexcelType);
+		Integer excel_id=createNewExcel( pexcelType, pgong_cheng_id);
+		createExcelSubTable(excel_id, pexcelType);
 		return;
 	}
 
@@ -2115,9 +2122,9 @@ public class TableServ extends BaseCtl {
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<TableContent> lee=t_mapper.selectByExample(ee);
 			if(lee.size()>0){
-//				System.out.println(lee.get(0).getId());
-//				System.out.println(lee.get(0).getTableId());
-//				System.out.println(lee.get(0).getContent());
+				//				System.out.println(lee.get(0).getId());
+				//				System.out.println(lee.get(0).getTableId());
+				//				System.out.println(lee.get(0).getContent());
 				String cc=lee.get(0).getContent();
 				response.setHeader("Content-type", "text/html;charset=UTF-8");
 				response.getWriter().write(cc);
@@ -2294,19 +2301,13 @@ public class TableServ extends BaseCtl {
 		String ptableType= request.getParameter("tableType");
 		String ptableCtx= request.getParameter("tableCtx");
 		String ptableInfo= request.getParameter("tableInfo");
-
 		this.saveTableTitle(ptable_id,  ptableInfo);
 		this.saveTableByType(ptable_id, ptableType, ptableCtx);
-
-
-
 		System.out.println(ptableCtx);
 		System.out.println(ptableType+ptableCtx);
 		System.out.println(ptable_id);
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write("[]");
-
-
 		return;
 	}
 
@@ -2320,23 +2321,8 @@ public class TableServ extends BaseCtl {
 		String ptableType= request.getParameter("tableType"); 
 		String ptableInfo= request.getParameter("tableInfo");
 		String ptableCtx= request.getParameter("tableCtx"); 
-
-		WexcelMapper mapper = sqlSession.getMapper(WexcelMapper.class);
-		Wexcel record = new Wexcel();
-		record.setExceltype(pexcelType);
-		record.setGongChengId(Integer.parseInt(pgong_cheng_id));
-
-		record.setName(maskCTL.getExcelTypeName(pexcelType)+"(" + String.valueOf(mapper.countByExample(null) + 1)
-				+ ")");
-		java.sql.Date createDate = new java.sql.Date(
-				new java.util.Date().getTime());
-		record.setCreatedate(createDate);
-
-		mapper.insert(record);
-		System.out.println(record.getId());
-		Integer excel_id=record.getId();
-
-
+	
+		Integer excel_id=createNewExcel( pexcelType, pgong_cheng_id);
 		List<String> subTable = getTableForExcel(pexcelType);
 		String ss="[";
 		for (String i : subTable) {
@@ -2404,12 +2390,20 @@ public class TableServ extends BaseCtl {
 
 	public String func_UlLiItem(
 			String title,
-			String[] innerStrArr){
-		if(innerStrArr.length==0){
+			String[] ooStrArr){
+
+		List<String> innerStrArr=new ArrayList<>();
+		//过滤空字符串
+		for(String it:ooStrArr){
+			if(it.trim().length()!=0){
+				innerStrArr.add(it);
+			}
+		}
+		if(innerStrArr.size()==0){
 			return "";
 		}
-		if(innerStrArr.length==1){
-			return innerStrArr[0];
+		if(innerStrArr.size()==1){
+			return innerStrArr.get(0);
 		}
 		String innerStr="";
 		for(String ss: innerStrArr){
@@ -2422,11 +2416,19 @@ public class TableServ extends BaseCtl {
 		innerStr+
 		"</ul></li>";
 	}
-	public String getExcelItem(String excelType,String gong_cheng_id){
+	public String getExcelItem(String userCmask,String excelType,String gong_cheng_id){
+		//这里判断权限
 		String template="";
-		String title=maskCTL.getExcelTypeName(String.valueOf(Integer.parseInt(excelType)));
-		return func_emptyLiItem(title, template, excelType)+
-				func_allExcelTypeliItem(excelType, gong_cheng_id);
+		String[] titleAndMask=maskCTL.getExcelTypeNameAndMask(String.valueOf(Integer.parseInt(excelType)));
+		String title=titleAndMask[0];
+		String gatewayMask=titleAndMask[1];
+
+		if(maskCTL.isExist(userCmask,gatewayMask)){
+			return func_emptyLiItem(title, template, excelType)+
+					func_allExcelTypeliItem(excelType, gong_cheng_id);
+		}
+		return "";
+
 
 	}
 
@@ -2437,432 +2439,457 @@ public class TableServ extends BaseCtl {
 		System.out.println(modelId);
 		String ss;
 		String gong_cheng_id="1";
+
+
+
+
+
+		Integer yongHuZuId=(Integer)request.getSession().getAttribute("yongHuZuId");
+		yongHuZuId=23;
+		//这里写23要不然会报错，因为没有为登录用户分配
+		String userCmask=this.getCMask(Integer.parseInt(gong_cheng_id)
+				,yongHuZuId);
+		if(userCmask.length()<5){
+			return;
+		}
+		/*
+		userCmask="1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111"+
+				"1111111111111111111111111";
+		 */
 		ss="<ul>";
-
-
 		switch(modelId){
 		case "o_p":{
 			ss+=func_UlLiItem("机构设置",new String[] {
-					getExcelItem("0", gong_cheng_id)
+					getExcelItem(userCmask,"0", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("人员配备",new String[] {
-					getExcelItem("1", gong_cheng_id)
+					getExcelItem(userCmask,"1", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("任务部署",new String[] {
-					getExcelItem("2", gong_cheng_id)
+					getExcelItem(userCmask,"2", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("权责分配",new String[] {
-					getExcelItem("3", gong_cheng_id)
+					getExcelItem(userCmask,"3", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("策划编制",new String[] {
-					getExcelItem("4", gong_cheng_id)
+					getExcelItem(userCmask,"4", gong_cheng_id)
 			});
 			break;
 		}
 		case "a_o":{
 			ss+=func_UlLiItem("工作计划",new String[] {
-					getExcelItem("5", gong_cheng_id)
+					getExcelItem(userCmask,"5", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("文件草拟",new String[] {
-					getExcelItem("6", gong_cheng_id),
-					getExcelItem("7", gong_cheng_id),
-					getExcelItem("8", gong_cheng_id),
-					getExcelItem("9", gong_cheng_id),
-					getExcelItem("10", gong_cheng_id),
-					getExcelItem("11", gong_cheng_id),
-					getExcelItem("12", gong_cheng_id)
+					getExcelItem(userCmask,"6", gong_cheng_id),
+					getExcelItem(userCmask,"7", gong_cheng_id),
+					getExcelItem(userCmask,"8", gong_cheng_id),
+					getExcelItem(userCmask,"9", gong_cheng_id),
+					getExcelItem(userCmask,"10", gong_cheng_id),
+					getExcelItem(userCmask,"11", gong_cheng_id),
+					getExcelItem(userCmask,"12", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("文件收发",new String[] {
-					getExcelItem("13", gong_cheng_id),
-					getExcelItem("14", gong_cheng_id),
-					getExcelItem("15", gong_cheng_id)
+					getExcelItem(userCmask,"13", gong_cheng_id),
+					getExcelItem(userCmask,"14", gong_cheng_id),
+					getExcelItem(userCmask,"15", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("员工考勤",new String[] {
-					getExcelItem("16", gong_cheng_id),
-					getExcelItem("17", gong_cheng_id),
-					getExcelItem("18", gong_cheng_id)
+					getExcelItem(userCmask,"16", gong_cheng_id),
+					getExcelItem(userCmask,"17", gong_cheng_id),
+					getExcelItem(userCmask,"18", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("印鉴使用",new String[] {
-					getExcelItem("19", gong_cheng_id),
-					getExcelItem("20", gong_cheng_id)
+					getExcelItem(userCmask,"19", gong_cheng_id),
+					getExcelItem(userCmask,"20", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("办公用品",new String[] {
-					getExcelItem("21", gong_cheng_id),
-					getExcelItem("22", gong_cheng_id),
-					getExcelItem("23", gong_cheng_id)
+					getExcelItem(userCmask,"21", gong_cheng_id),
+					getExcelItem(userCmask,"22", gong_cheng_id),
+					getExcelItem(userCmask,"23", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("图书借阅",new String[] {
-					getExcelItem("24", gong_cheng_id),
-					getExcelItem("25", gong_cheng_id)
+					getExcelItem(userCmask,"24", gong_cheng_id),
+					getExcelItem(userCmask,"25", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("车辆使用",new String[] {
-					getExcelItem("26", gong_cheng_id),
-					getExcelItem("27", gong_cheng_id)
+					getExcelItem(userCmask,"26", gong_cheng_id),
+					getExcelItem(userCmask,"27", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("资产管理",new String[] {
-					getExcelItem("28", gong_cheng_id)
+					getExcelItem(userCmask,"28", gong_cheng_id)
 			});
 			break;
 		}
 		case "b_p":{
 			ss+=func_UlLiItem("招标准备",new String[] {
-					getExcelItem("29", gong_cheng_id),
-					getExcelItem("30", gong_cheng_id)
+					getExcelItem(userCmask,"29", gong_cheng_id),
+					getExcelItem(userCmask,"30", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("招标公告",new String[] {
-					getExcelItem("31", gong_cheng_id)
+					getExcelItem(userCmask,"31", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("报名资审",new String[] {
-					getExcelItem("32", gong_cheng_id),
-					getExcelItem("33", gong_cheng_id)
+					getExcelItem(userCmask,"32", gong_cheng_id),
+					getExcelItem(userCmask,"33", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("文件领取",new String[] {
-					getExcelItem("34", gong_cheng_id)
+					getExcelItem(userCmask,"34", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("投标报价",new String[] {
-					getExcelItem("35", gong_cheng_id)
+					getExcelItem(userCmask,"35", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("开评定标",new String[] {
-					getExcelItem("36", gong_cheng_id),
-					getExcelItem("37", gong_cheng_id)
+					getExcelItem(userCmask,"36", gong_cheng_id),
+					getExcelItem(userCmask,"37", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("中标通知",new String[] {
-					getExcelItem("38", gong_cheng_id)
+					getExcelItem(userCmask,"38", gong_cheng_id)
 			});
 			break;
 		}
 		case "c_b":{
 			ss+=func_UlLiItem("合同签订 ",new String[] {
-					getExcelItem("39", gong_cheng_id)
+					getExcelItem(userCmask,"39", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("合同交底",new String[] {
-					getExcelItem("40", gong_cheng_id)
+					getExcelItem(userCmask,"40", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("合同变更",new String[] {
-					getExcelItem("41", gong_cheng_id)
+					getExcelItem(userCmask,"41", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("合同台账",new String[] {
-					getExcelItem("42", gong_cheng_id)
+					getExcelItem(userCmask,"42", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("供方名册",new String[] {
-					getExcelItem("43", gong_cheng_id)
+					getExcelItem(userCmask,"43", gong_cheng_id)
 			});
 			break;
 		}
 		case "p_t":{
 			ss+=func_UlLiItem("技术准备",new String[] {
-					getExcelItem("44", gong_cheng_id),
-					getExcelItem("45", gong_cheng_id),
-					getExcelItem("46", gong_cheng_id),
-					getExcelItem("47", gong_cheng_id),
-					getExcelItem("48", gong_cheng_id),
-					getExcelItem("49", gong_cheng_id),
-					getExcelItem("50", gong_cheng_id)
+					getExcelItem(userCmask,"44", gong_cheng_id),
+					getExcelItem(userCmask,"45", gong_cheng_id),
+					getExcelItem(userCmask,"46", gong_cheng_id),
+					getExcelItem(userCmask,"47", gong_cheng_id),
+					getExcelItem(userCmask,"48", gong_cheng_id),
+					getExcelItem(userCmask,"49", gong_cheng_id),
+					getExcelItem(userCmask,"50", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("资源需求",new String[] {
-					getExcelItem("51", gong_cheng_id),
-					getExcelItem("52", gong_cheng_id),
-					getExcelItem("53", gong_cheng_id),
-					getExcelItem("54", gong_cheng_id),
-					getExcelItem("55", gong_cheng_id)
+					getExcelItem(userCmask,"51", gong_cheng_id),
+					getExcelItem(userCmask,"52", gong_cheng_id),
+					getExcelItem(userCmask,"53", gong_cheng_id),
+					getExcelItem(userCmask,"54", gong_cheng_id),
+					getExcelItem(userCmask,"55", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("生产组织",new String[] {
-					getExcelItem("56", gong_cheng_id),
-					getExcelItem("57", gong_cheng_id),
-					getExcelItem("58", gong_cheng_id),
-					getExcelItem("59", gong_cheng_id)
+					getExcelItem(userCmask,"56", gong_cheng_id),
+					getExcelItem(userCmask,"57", gong_cheng_id),
+					getExcelItem(userCmask,"58", gong_cheng_id),
+					getExcelItem(userCmask,"59", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("进度控制",new String[] {
-					getExcelItem("60", gong_cheng_id),
-					getExcelItem("61", gong_cheng_id)
+					getExcelItem(userCmask,"60", gong_cheng_id),
+					getExcelItem(userCmask,"61", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("质量控制",new String[] {
-					getExcelItem("62", gong_cheng_id),
-					getExcelItem("63", gong_cheng_id)
+					getExcelItem(userCmask,"62", gong_cheng_id),
+					getExcelItem(userCmask,"63", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("安全控制",new String[] {
-					getExcelItem("64", gong_cheng_id),
-					getExcelItem("65", gong_cheng_id),
-					getExcelItem("66", gong_cheng_id),
-					getExcelItem("67", gong_cheng_id)
+					getExcelItem(userCmask,"64", gong_cheng_id),
+					getExcelItem(userCmask,"65", gong_cheng_id),
+					getExcelItem(userCmask,"66", gong_cheng_id),
+					getExcelItem(userCmask,"67", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("环境控制",new String[] {
-					getExcelItem("68", gong_cheng_id),
-					getExcelItem("69", gong_cheng_id)
+					getExcelItem(userCmask,"68", gong_cheng_id),
+					getExcelItem(userCmask,"69", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("监测装置",new String[] {
-					getExcelItem("70", gong_cheng_id),
-					getExcelItem("71", gong_cheng_id)
+					getExcelItem(userCmask,"70", gong_cheng_id),
+					getExcelItem(userCmask,"71", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("施工日志",new String[] {
-					getExcelItem("72", gong_cheng_id)
+					getExcelItem(userCmask,"72", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("生产月报",new String[] {
-					getExcelItem("73", gong_cheng_id)
+					getExcelItem(userCmask,"73", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("管理台账",new String[] {
-					getExcelItem("74", gong_cheng_id),
-					getExcelItem("75", gong_cheng_id),
-					getExcelItem("76", gong_cheng_id)
+					getExcelItem(userCmask,"74", gong_cheng_id),
+					getExcelItem(userCmask,"75", gong_cheng_id),
+					getExcelItem(userCmask,"76", gong_cheng_id)
 			});
 			break;
 		}
 		case "s_m":{
 			ss+=func_UlLiItem("进场计划",new String[] {
-					getExcelItem("77", gong_cheng_id),
-					getExcelItem("78", gong_cheng_id)
+					getExcelItem(userCmask,"77", gong_cheng_id),
+					getExcelItem(userCmask,"78", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("进场登记",new String[] {
-					getExcelItem("79", gong_cheng_id),
-					getExcelItem("80", gong_cheng_id),
-					getExcelItem("81", gong_cheng_id),
-					getExcelItem("82", gong_cheng_id),
-					getExcelItem("83", gong_cheng_id)
+					getExcelItem(userCmask,"79", gong_cheng_id),
+					getExcelItem(userCmask,"80", gong_cheng_id),
+					getExcelItem(userCmask,"81", gong_cheng_id),
+					getExcelItem(userCmask,"82", gong_cheng_id),
+					getExcelItem(userCmask,"83", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("人员注册",new String[] {
-					getExcelItem("84", gong_cheng_id),
-					getExcelItem("85", gong_cheng_id)
+					getExcelItem(userCmask,"84", gong_cheng_id),
+					getExcelItem(userCmask,"85", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("入场教育",new String[] {
-					getExcelItem("86", gong_cheng_id)
+					getExcelItem(userCmask,"86", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("劳务考勤",new String[] {
-					getExcelItem("87", gong_cheng_id),
-					getExcelItem("88", gong_cheng_id),
-					getExcelItem("89", gong_cheng_id)
+					getExcelItem(userCmask,"87", gong_cheng_id),
+					getExcelItem(userCmask,"88", gong_cheng_id),
+					getExcelItem(userCmask,"89", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("工资发放",new String[] {
-					getExcelItem("90", gong_cheng_id)
+					getExcelItem(userCmask,"90", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("维保计划",new String[] {
-					getExcelItem("91", gong_cheng_id)
+					getExcelItem(userCmask,"91", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("运行记录",new String[] {
-					getExcelItem("92", gong_cheng_id),
-					getExcelItem("93", gong_cheng_id)
+					getExcelItem(userCmask,"92", gong_cheng_id),
+					getExcelItem(userCmask,"93", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("维保记录",new String[] {
-					getExcelItem("94", gong_cheng_id),
-					getExcelItem("95", gong_cheng_id)
+					getExcelItem(userCmask,"94", gong_cheng_id),
+					getExcelItem(userCmask,"95", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("事故报告",new String[] {
-					getExcelItem("96", gong_cheng_id)
+					getExcelItem(userCmask,"96", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("使用评价",new String[] {
-					getExcelItem("97", gong_cheng_id),
-					getExcelItem("98", gong_cheng_id),
-					getExcelItem("99", gong_cheng_id)
+					getExcelItem(userCmask,"97", gong_cheng_id),
+					getExcelItem(userCmask,"98", gong_cheng_id),
+					getExcelItem(userCmask,"99", gong_cheng_id)
 			});
 			break;
 		}
 		case "m_e":{
 			ss+=func_UlLiItem("物资供应",new String[] {
-					getExcelItem("100", gong_cheng_id),
-					getExcelItem("101", gong_cheng_id),
-					getExcelItem("102", gong_cheng_id)
+					getExcelItem(userCmask,"100", gong_cheng_id),
+					getExcelItem(userCmask,"101", gong_cheng_id),
+					getExcelItem(userCmask,"102", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("进场计划",new String[] {
-					getExcelItem("103", gong_cheng_id)
+					getExcelItem(userCmask,"103", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("进场通知",new String[] {
-					getExcelItem("104", gong_cheng_id)
+					getExcelItem(userCmask,"104", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("验收入库",new String[] {
-					getExcelItem("105", gong_cheng_id),
-					getExcelItem("106", gong_cheng_id),
-					getExcelItem("107", gong_cheng_id),
-					getExcelItem("108", gong_cheng_id),
-					getExcelItem("109", gong_cheng_id)
+					getExcelItem(userCmask,"105", gong_cheng_id),
+					getExcelItem(userCmask,"106", gong_cheng_id),
+					getExcelItem(userCmask,"107", gong_cheng_id),
+					getExcelItem(userCmask,"108", gong_cheng_id),
+					getExcelItem(userCmask,"109", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("领用出库",new String[] {
-					getExcelItem("110", gong_cheng_id),
-					getExcelItem("111", gong_cheng_id)
+					getExcelItem(userCmask,"110", gong_cheng_id),
+					getExcelItem(userCmask,"111", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("贮存保管",new String[] {
-					getExcelItem("112", gong_cheng_id),
-					getExcelItem("113", gong_cheng_id)
+					getExcelItem(userCmask,"112", gong_cheng_id),
+					getExcelItem(userCmask,"113", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("库存盘点",new String[] {
-					getExcelItem("114", gong_cheng_id),
-					getExcelItem("115", gong_cheng_id)
+					getExcelItem(userCmask,"114", gong_cheng_id),
+					getExcelItem(userCmask,"115", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("检验报验",new String[] {
-					getExcelItem("116", gong_cheng_id),
-					getExcelItem("117", gong_cheng_id),
-					getExcelItem("118", gong_cheng_id),
-					getExcelItem("119", gong_cheng_id),
-					getExcelItem("120", gong_cheng_id),
+					getExcelItem(userCmask,"116", gong_cheng_id),
+					getExcelItem(userCmask,"117", gong_cheng_id),
+					getExcelItem(userCmask,"118", gong_cheng_id),
+					getExcelItem(userCmask,"119", gong_cheng_id),
+					getExcelItem(userCmask,"120", gong_cheng_id),
 			});
 			ss+=func_UlLiItem("废料处置",new String[] {
-					getExcelItem("121", gong_cheng_id),
-					getExcelItem("122", gong_cheng_id)
+					getExcelItem(userCmask,"121", gong_cheng_id),
+					getExcelItem(userCmask,"122", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("账目报表",new String[] {
 
-					getExcelItem("123", gong_cheng_id),
-					getExcelItem("124", gong_cheng_id),
-					getExcelItem("125", gong_cheng_id),
-					getExcelItem("126", gong_cheng_id),
-					getExcelItem("127", gong_cheng_id),
+					getExcelItem(userCmask,"123", gong_cheng_id),
+					getExcelItem(userCmask,"124", gong_cheng_id),
+					getExcelItem(userCmask,"125", gong_cheng_id),
+					getExcelItem(userCmask,"126", gong_cheng_id),
+					getExcelItem(userCmask,"127", gong_cheng_id),
 			});
 			break;
 		}
 		case "e_m":{////
 			ss+=func_UlLiItem("计划编制",new String[] {
-					getExcelItem("128", gong_cheng_id)
+					getExcelItem(userCmask,"128", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("取样通知",new String[] {
-					getExcelItem("129", gong_cheng_id)
+					getExcelItem(userCmask,"129", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("试样制取",new String[] {
-					getExcelItem("130", gong_cheng_id)
+					getExcelItem(userCmask,"130", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("试样养护",new String[] {
-					getExcelItem("131", gong_cheng_id)
+					getExcelItem(userCmask,"131", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("试样送检",new String[] {
-					getExcelItem("132", gong_cheng_id)
+					getExcelItem(userCmask,"132", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("检验报告",new String[] {
-					getExcelItem("133", gong_cheng_id)
+					getExcelItem(userCmask,"133", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("工程资料",new String[] {
-					getExcelItem("134", gong_cheng_id),
-					getExcelItem("135", gong_cheng_id),
-					getExcelItem("136", gong_cheng_id)
+					getExcelItem(userCmask,"134", gong_cheng_id),
+					getExcelItem(userCmask,"135", gong_cheng_id),
+					getExcelItem(userCmask,"136", gong_cheng_id)
 			});
 			break;
 		}
 		case "b_c":{
 			ss+=func_UlLiItem("工程计量",new String[] {
-					getExcelItem("137", gong_cheng_id),
-					getExcelItem("138", gong_cheng_id),
-					getExcelItem("139", gong_cheng_id)
+					getExcelItem(userCmask,"137", gong_cheng_id),
+					getExcelItem(userCmask,"138", gong_cheng_id),
+					getExcelItem(userCmask,"139", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("工程计价",new String[] {
-					getExcelItem("140", gong_cheng_id),
-					getExcelItem("141", gong_cheng_id),
-					getExcelItem("142", gong_cheng_id)
+					getExcelItem(userCmask,"140", gong_cheng_id),
+					getExcelItem(userCmask,"141", gong_cheng_id),
+					getExcelItem(userCmask,"142", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("分供结算",new String[] {
-					getExcelItem("143", gong_cheng_id),
-					getExcelItem("144", gong_cheng_id),
-					getExcelItem("145", gong_cheng_id),
-					getExcelItem("146", gong_cheng_id),
-					getExcelItem("147", gong_cheng_id),
-					getExcelItem("148", gong_cheng_id),
-					getExcelItem("149", gong_cheng_id)
+					getExcelItem(userCmask,"143", gong_cheng_id),
+					getExcelItem(userCmask,"144", gong_cheng_id),
+					getExcelItem(userCmask,"145", gong_cheng_id),
+					getExcelItem(userCmask,"146", gong_cheng_id),
+					getExcelItem(userCmask,"147", gong_cheng_id),
+					getExcelItem(userCmask,"148", gong_cheng_id),
+					getExcelItem(userCmask,"149", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("总包结算",new String[] {
-					getExcelItem("150", gong_cheng_id),
+					getExcelItem(userCmask,"150", gong_cheng_id),
 					//这里跳
-					getExcelItem("163", gong_cheng_id)
+					getExcelItem(userCmask,"163", gong_cheng_id)
 			});
 			break;
 		}
 		case "v_c":{
 			ss+=func_UlLiItem("现场签证",new String[] {
-					getExcelItem("164", gong_cheng_id)
+					getExcelItem(userCmask,"164", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("变更索赔",new String[] {
-					getExcelItem("165", gong_cheng_id),
-					getExcelItem("166", gong_cheng_id)
+					getExcelItem(userCmask,"165", gong_cheng_id),
+					getExcelItem(userCmask,"166", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("收支记录",new String[] {
-					getExcelItem("167", gong_cheng_id)
+					getExcelItem(userCmask,"167", gong_cheng_id)
 			});
 			break;
 		}
 		case "c_p":{
 			ss+=func_UlLiItem("成本责任",new String[] {
-					getExcelItem("151", gong_cheng_id)
+					getExcelItem(userCmask,"151", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("成本测算",new String[] {
-					getExcelItem("152", gong_cheng_id),
-					getExcelItem("153", gong_cheng_id)
+					getExcelItem(userCmask,"152", gong_cheng_id),
+					getExcelItem(userCmask,"153", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("成本计划",new String[] {
-					getExcelItem("154", gong_cheng_id)
+					getExcelItem(userCmask,"154", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("成本控制",new String[] {
-					getExcelItem("155", gong_cheng_id),
-					getExcelItem("156", gong_cheng_id)
+					getExcelItem(userCmask,"155", gong_cheng_id),
+					getExcelItem(userCmask,"156", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("成本核算",new String[] {
-					getExcelItem("157", gong_cheng_id),
-					getExcelItem("158", gong_cheng_id)
+					getExcelItem(userCmask,"157", gong_cheng_id),
+					getExcelItem(userCmask,"158", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("成本分析",new String[] {
-					getExcelItem("159", gong_cheng_id),
-					getExcelItem("160", gong_cheng_id),
-					getExcelItem("161", gong_cheng_id)
+					getExcelItem(userCmask,"159", gong_cheng_id),
+					getExcelItem(userCmask,"160", gong_cheng_id),
+					getExcelItem(userCmask,"161", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("利润预测",new String[] {
-					getExcelItem("162", gong_cheng_id)
+					getExcelItem(userCmask,"162", gong_cheng_id)
 			});
 			break;
 		}
 		case "o_m":{
 			ss+=func_UlLiItem("资金计划",new String[] {
-					getExcelItem("168", gong_cheng_id),
-					getExcelItem("169", gong_cheng_id)
+					getExcelItem(userCmask,"168", gong_cheng_id),
+					getExcelItem(userCmask,"169", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("进度报量",new String[] {
-					getExcelItem("170", gong_cheng_id)
+					getExcelItem(userCmask,"170", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("资金回收",new String[] {
-					getExcelItem("171", gong_cheng_id),
-					getExcelItem("172", gong_cheng_id)
+					getExcelItem(userCmask,"171", gong_cheng_id),
+					getExcelItem(userCmask,"172", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("确认进度",new String[] {
-					getExcelItem("173", gong_cheng_id)
+					getExcelItem(userCmask,"173", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("资金支付",new String[] {
-					getExcelItem("174", gong_cheng_id),
-					getExcelItem("175", gong_cheng_id)
+					getExcelItem(userCmask,"174", gong_cheng_id),
+					getExcelItem(userCmask,"175", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("资金往来",new String[] {
-					getExcelItem("176", gong_cheng_id)
+					getExcelItem(userCmask,"176", gong_cheng_id)
 			});
 			break;
 		}
 		case "e_e":{
 			ss+=func_UlLiItem("考核",new String[] {
-					getExcelItem("177", gong_cheng_id)
+					getExcelItem(userCmask,"177", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("激励",new String[] {
-					getExcelItem("178", gong_cheng_id)
+					getExcelItem(userCmask,"178", gong_cheng_id)
 			});
 			break;
 		}
 		case "c_m":{
 			ss+=func_UlLiItem("项目解体",new String[] {
-					getExcelItem("179", gong_cheng_id),
-					getExcelItem("180", gong_cheng_id),
-					getExcelItem("181", gong_cheng_id)
+					getExcelItem(userCmask,"179", gong_cheng_id),
+					getExcelItem(userCmask,"180", gong_cheng_id),
+					getExcelItem(userCmask,"181", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("工程移交",new String[] {
-					getExcelItem("182", gong_cheng_id),
-					getExcelItem("183", gong_cheng_id)
+					getExcelItem(userCmask,"182", gong_cheng_id),
+					getExcelItem(userCmask,"183", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("资料移交",new String[] {
-					getExcelItem("184", gong_cheng_id),
-					getExcelItem("185", gong_cheng_id)
+					getExcelItem(userCmask,"184", gong_cheng_id),
+					getExcelItem(userCmask,"185", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("项目总结",new String[] {
-					getExcelItem("186", gong_cheng_id)
+					getExcelItem(userCmask,"186", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("工程回访",new String[] {
-					getExcelItem("187", gong_cheng_id),
-					getExcelItem("188", gong_cheng_id),
-					getExcelItem("189", gong_cheng_id)
+					getExcelItem(userCmask,"187", gong_cheng_id),
+					getExcelItem(userCmask,"188", gong_cheng_id),
+					getExcelItem(userCmask,"189", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("业主投诉",new String[] {
-					getExcelItem("190", gong_cheng_id)
+					getExcelItem(userCmask,"190", gong_cheng_id)
 			});
 			ss+=func_UlLiItem("工程维保",new String[] {
-					getExcelItem("191", gong_cheng_id),
-					getExcelItem("192", gong_cheng_id)
+					getExcelItem(userCmask,"191", gong_cheng_id),
+					getExcelItem(userCmask,"192", gong_cheng_id)
 			});
 			break;
 		}
@@ -2921,3 +2948,14 @@ public class TableServ extends BaseCtl {
 		return;
 	}
 }
+
+
+/**
+//excel表对应状态
+WEITIJIAO//未提交
+ZHUBAN//主办
+PINGSHEN//评审
+SHENHE//审核
+SHENPI//审批
+YITONGGUO//已通过
+ */

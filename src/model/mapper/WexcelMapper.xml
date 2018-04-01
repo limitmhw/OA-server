@@ -7,6 +7,7 @@
     <result column="gong_cheng_id" property="gongChengId" jdbcType="INTEGER" />
     <result column="excelType" property="exceltype" jdbcType="VARCHAR" />
     <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="excelStatus" property="excelstatus" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, gong_cheng_id, excelType, createDate
+    id, name, gong_cheng_id, excelType, createDate, excelStatus
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="model.po.WexcelExample" >
     select
@@ -100,18 +101,17 @@
     </if>
   </delete>
   <insert id="insert" parameterType="model.po.Wexcel" >
-    <selectKey keyProperty="id" resultType="int">  
-            select LAST_INSERT_ID()  
-    </selectKey> 
-    insert into wexcel (id, name, gong_cheng_id, 
-      excelType, createDate)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gongChengId,jdbcType=INTEGER}, 
-      #{exceltype,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="model.po.Wexcel" >
      <selectKey keyProperty="id" resultType="int">  
             select LAST_INSERT_ID()  
     </selectKey> 
+    insert into wexcel (id, name, gong_cheng_id, 
+      excelType, createDate, excelStatus
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gongChengId,jdbcType=INTEGER}, 
+      #{exceltype,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{excelstatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="model.po.Wexcel" >
     insert into wexcel
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -129,6 +129,9 @@
       <if test="createdate != null" >
         createDate,
       </if>
+      <if test="excelstatus != null" >
+        excelStatus,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -145,6 +148,9 @@
       </if>
       <if test="createdate != null" >
         #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="excelstatus != null" >
+        #{excelstatus,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -172,6 +178,9 @@
       <if test="record.createdate != null" >
         createDate = #{record.createdate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.excelstatus != null" >
+        excelStatus = #{record.excelstatus,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -183,7 +192,8 @@
       name = #{record.name,jdbcType=VARCHAR},
       gong_cheng_id = #{record.gongChengId,jdbcType=INTEGER},
       excelType = #{record.exceltype,jdbcType=VARCHAR},
-      createDate = #{record.createdate,jdbcType=TIMESTAMP}
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      excelStatus = #{record.excelstatus,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -203,6 +213,9 @@
       <if test="createdate != null" >
         createDate = #{createdate,jdbcType=TIMESTAMP},
       </if>
+      <if test="excelstatus != null" >
+        excelStatus = #{excelstatus,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -211,7 +224,8 @@
     set name = #{name,jdbcType=VARCHAR},
       gong_cheng_id = #{gongChengId,jdbcType=INTEGER},
       excelType = #{exceltype,jdbcType=VARCHAR},
-      createDate = #{createdate,jdbcType=TIMESTAMP}
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      excelStatus = #{excelstatus,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

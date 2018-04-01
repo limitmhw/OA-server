@@ -424,6 +424,76 @@ public class WexcelExample {
             addCriterion("createDate not between", value1, value2, "createdate");
             return (Criteria) this;
         }
+
+        public Criteria andExcelstatusIsNull() {
+            addCriterion("excelStatus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusIsNotNull() {
+            addCriterion("excelStatus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusEqualTo(String value) {
+            addCriterion("excelStatus =", value, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusNotEqualTo(String value) {
+            addCriterion("excelStatus <>", value, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusGreaterThan(String value) {
+            addCriterion("excelStatus >", value, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusGreaterThanOrEqualTo(String value) {
+            addCriterion("excelStatus >=", value, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusLessThan(String value) {
+            addCriterion("excelStatus <", value, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusLessThanOrEqualTo(String value) {
+            addCriterion("excelStatus <=", value, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusLike(String value) {
+            addCriterion("excelStatus like", value, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusNotLike(String value) {
+            addCriterion("excelStatus not like", value, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusIn(List<String> values) {
+            addCriterion("excelStatus in", values, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusNotIn(List<String> values) {
+            addCriterion("excelStatus not in", values, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusBetween(String value1, String value2) {
+            addCriterion("excelStatus between", value1, value2, "excelstatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andExcelstatusNotBetween(String value1, String value2) {
+            addCriterion("excelStatus not between", value1, value2, "excelstatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

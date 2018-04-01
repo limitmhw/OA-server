@@ -112,12 +112,22 @@ public class MaskHandle {
 		return true;
 	}
 	public String toStringMask(int v){
+		//通过顺序号生成Mask
 		String ret="";
 		for(int i=0;i<v;i++){
 			ret+="0";
 		}
 		ret+="1";
 		return ret;
+	}
+	int getAuthorityIDByExcelType(String excelType){
+		//根据excelType获取令牌ID，其实就是顺序号，然后根据令牌ID生成对应的门牌mask;
+		for(int i=0;i<tableOrder.length;i++){
+			if(excelType.trim().equals(tableOrder[i][2].trim())){
+				return i;
+			}
+		}
+		return -1;
 	}
 	public List< String > getValueFromMap(Map<String,String> mm){
 		List< String > at = new ArrayList< String >();
@@ -232,10 +242,21 @@ public class MaskHandle {
 	
 	public String getExcelTypeName(String excelType){
 		for(String[] it:this.tableOrder){
-			if(it[2].equals(excelType)){
+			if(it[2].equals(excelType.trim())){
 				return it[1];
 			}
 		}
 		return null;
 	}
+
+	public String[] getExcelTypeNameAndMask(String excelType){
+	
+		for(int i=0;i<this.tableOrder.length;i++){
+			if(this.tableOrder[i][2].equals(excelType.trim())){
+				return new String[]{this.tableOrder[i][1],this.toStringMask(i)};//it[1];
+			}
+		}
+		return null;
+	}
+
 }
