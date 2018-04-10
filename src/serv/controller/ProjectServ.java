@@ -14,6 +14,7 @@ import javassist.bytecode.Descriptor.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -632,6 +633,17 @@ public class ProjectServ extends BaseCtl {
 		ret+="]";
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write(ret);
+	}
+	
+	@RequestMapping("switchProject")
+	public void func12(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		System.out.println("switchProject");
+		String pro_id= request.getParameter("pro_id");
+		request.getSession().setAttribute("pro_id",pro_id.trim());
+		request.getSession().setAttribute("gong_cheng_id",pro_id.trim());
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		response.getWriter().write("success");
 
 	}
 }

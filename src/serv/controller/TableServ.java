@@ -26,7 +26,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-
 @Controller
 @RequestMapping("/excel")
 public class TableServ extends BaseCtl {
@@ -177,6 +176,8 @@ public class TableServ extends BaseCtl {
 				if(tr_id==null||tr_id.equals("")){
 					T152004 tt=new T152004();
 					tt.setTableId(ptable_id);
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
 					tt.setChengBenBianMa(trMap.get("0"));
 					tt.setChengBenXiangMu(trMap.get("1"));
 					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
@@ -187,6 +188,8 @@ public class TableServ extends BaseCtl {
 					mapper.insert(tt);
 				}else{
 					T152004 tt =mapper.selectByPrimaryKey(Integer.parseInt(tr_id));
+					tt.setTrOrder(Integer.parseInt(entry.getKey()));
+					tt.setTrType(trMap.get("trType"));
 					tt.setChengBenBianMa(trMap.get("0"));
 					tt.setChengBenXiangMu(trMap.get("1"));
 					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
@@ -411,7 +414,6 @@ public class TableServ extends BaseCtl {
 					tt.setTableId(ptable_id);
 					tt.setTrOrder(Integer.parseInt(entry.getKey()));
 					tt.setTrType(trMap.get("trType"));
-
 					tt.setBianMa(trMap.get("0"));
 					tt.setChengBenXiangMu(trMap.get("1"));
 					tt.setNaRongFanWeiMiaoShu(trMap.get("2"));
@@ -1072,7 +1074,6 @@ public class TableServ extends BaseCtl {
 	@RequestMapping("/createExcel")
 	public void table(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		// http://localhost:8080/simpleMVC/excel/createExcel.action?excelType=xxxx&gong_cheng_id=1222
 		String pexcelType = request.getParameter("excelType");
 		String pgong_cheng_id = request.getParameter("gong_cheng_id");
 
@@ -1555,7 +1556,10 @@ public class TableServ extends BaseCtl {
 			ee.setOrderByClause("tr_order");
 			ee.or().andTableIdEqualTo(Integer.parseInt(ptable_id));
 			List<T152002> lee=t_mapper.selectByExample(ee);
-
+			TableRef im=new TableRef();
+			ss+=im.getDataFrom152_456To2(Integer.parseInt(ptable_id));
+			System.out.println("getDataFrom152_456To2:");
+			System.out.println(im.getDataFrom152_456To2(Integer.parseInt(ptable_id)));
 			for(T152002 it : lee) {
 				String tr_data="["
 						+"\""+String.valueOf(it.getBianMa())+"\","

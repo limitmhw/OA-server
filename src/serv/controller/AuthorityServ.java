@@ -196,6 +196,14 @@ public class AuthorityServ extends BaseCtl {
 		return;
 	}
 	
+	@RequestMapping("get_people_and_table_init")
+	public void func7(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		
+		String ret=maskCTL.getPeopleAndTableInit();
+		response.setHeader("Content-type", "text/html;charset=UTF-8");
+		response.getWriter().write(ret);
+	}
 }
 
 
