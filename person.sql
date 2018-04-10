@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-03-20 17:13:10
+Date: 2018-04-10 16:03:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `eauthority` (
   `yong_hu_zu_id` int(11) DEFAULT NULL,
   `mask` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of eauthority
@@ -35,10 +35,11 @@ INSERT INTO `eauthority` VALUES ('11', '1', '20', '00000000010000000000000000000
 INSERT INTO `eauthority` VALUES ('12', '1', '19', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001001000000000000000000000000000000000');
 INSERT INTO `eauthority` VALUES ('13', '1', '17', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000000000000000000000000000000000000');
 INSERT INTO `eauthority` VALUES ('14', '1', '22', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000000000000000000000000000000000000');
-INSERT INTO `eauthority` VALUES ('15', '1', '23', '0000111101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011110111110111110000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('15', '1', '23', '0001111101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000111110111111111110000000000000000000000000');
 INSERT INTO `eauthority` VALUES ('16', '1', '25', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000000000000000000000000000000000000');
 INSERT INTO `eauthority` VALUES ('17', '1', '13', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001000100000000000000000000000000000000');
 INSERT INTO `eauthority` VALUES ('18', '1', '14', '0000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011001101000000000000000000000000000000000');
+INSERT INTO `eauthority` VALUES ('19', '1', '18', '0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000');
 
 -- ----------------------------
 -- Table structure for gong_cheng_
@@ -145,8 +146,8 @@ CREATE TABLE `gong_si_xin_xi_` (
 -- ----------------------------
 -- Records of gong_si_xin_xi_
 -- ----------------------------
-INSERT INTO `gong_si_xin_xi_` VALUES ('3', '张西洋大事发生', '第三方', '打卡机啊哈计划反倒是看好就', '电话即可', '撒阿士大夫撒旦', '大多数', '第三方第三方', '大爱的', '大赛科技离开第三方拉的屎就离开来看待来看待了解肯定是经理撒大家了肯定撒立刻就发来看撒娇的', '阿达地方', '啊发大水', '的撒范德萨', '大厦', '士大夫', '打发', '第三方发奥术大师', '打发啊', '打发地方看见啊', '第三方的', '的撒范德萨', '第三方 ', '第三方阿萨德', '第三方 大的时间浩丰科技阿萨德', '大发啊 ', '0');
-INSERT INTO `gong_si_xin_xi_` VALUES ('6', '多范德萨阿', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨', '第三方', '1');
+INSERT INTO `gong_si_xin_xi_` VALUES ('3', '测试的主公司', '第三方', '打卡机啊哈计划反倒是看好就', '电话即可', '撒阿士大夫撒旦', '大多数', '第三方第三方', '大爱的', '大赛科技离开第三方拉的屎就离开来看待来看待了解肯定是经理撒大家了肯定撒立刻就发来看撒娇的', '阿达地方', '啊发大水', '的撒范德萨', '大厦', '士大夫', '打发', '第三方发奥术大师', '打发啊', '打发地方看见啊', '第三方的', '的撒范德萨', '第三方 ', '第三方阿萨德', '第三方 大的时间浩丰科技阿萨德', '大发啊 ', '0');
+INSERT INTO `gong_si_xin_xi_` VALUES ('6', '多范德萨阿哦', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨', '第三方', '1');
 INSERT INTO `gong_si_xin_xi_` VALUES ('7', '是打发的所发生的大', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀什开机', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨2323', '第三方', '1');
 INSERT INTO `gong_si_xin_xi_` VALUES ('8', '打飞机哈副科代发', '大家看撒谎尽快答复哈市监控返回ad数据库', '加底色监控返回就喀什开机', '就肯定会撒即可fhd道具卡监控的看', '经典款发货卡接收到回复', '抠脚大汉安居客', '就大煞风景', '抠脚大汉阿克纠纷', '尽快回到家奥斯卡', '就可获得撒即可发等级考试发挥', '京东卡和会计法', '健康的恢复', '大家阿富汗', '电视剧看撒谎', '大家爱护', '大家看看', '多久发货', '登记卡复活肯定就是', '接电话阿贾克斯', '电视剧看好付款后', '登记卡复活', '登记卡复活 ', '的范德萨', '第三方', '1');
 INSERT INTO `gong_si_xin_xi_` VALUES ('9', '倒海翻江爱福克斯', '加的撒谎就', '极大很快就回家看电视哈空间的', '囧的呼唤', '就的撒会尽快', '简单化开机', '就好打击', '就的还快', '尽快的哈风健康的时间看到计划', '加大富豪监控', '记到哈', '加的撒谎端口', '结婚的风', '记到哈', '京东卡和', '加快递费卡接收到回复发', '的话华东师范', '回复就开始的恢复健康东三环 ', '接收到回复', '角度看伤口就开始东方红', '绝对是咖啡还款', '科技活动', '跨境电商可好看', '打发士大夫', '1');
@@ -172,6 +173,26 @@ CREATE TABLE `person` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for process_status
+-- ----------------------------
+DROP TABLE IF EXISTS `process_status`;
+CREATE TABLE `process_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `gong_cheng_id` int(11) DEFAULT NULL,
+  `yong_hu_id` int(11) DEFAULT NULL,
+  `excelType` varchar(255) DEFAULT NULL,
+  `excelStatus` varchar(255) DEFAULT NULL,
+  `zhi_wu_` varchar(255) DEFAULT NULL,
+  `gang_wei_` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of process_status
+-- ----------------------------
+INSERT INTO `process_status` VALUES ('1', '1', null, null, null, null, null);
+
+-- ----------------------------
 -- Table structure for t151_002
 -- ----------------------------
 DROP TABLE IF EXISTS `t151_002`;
@@ -179,6 +200,7 @@ CREATE TABLE `t151_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `ji_hua_xiang_mu_` varchar(255) DEFAULT NULL,
   `cheng_ben_jiang_di_lv_` varchar(255) DEFAULT NULL,
   `cheng_ben_ze_ren_ren_` varchar(255) DEFAULT NULL,
@@ -197,6 +219,7 @@ CREATE TABLE `t152_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -206,15 +229,11 @@ CREATE TABLE `t152_002` (
   `lei_ji_shu_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=162 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_002
 -- ----------------------------
-INSERT INTO `t152_002` VALUES ('63', '468', '3', '', '啊实打实', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('64', '468', '1', '', '撒大声地所', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('65', '468', '0', '', '萨达所大所多', '', '', '', '', '', '');
-INSERT INTO `t152_002` VALUES ('66', '474', '0', '', '是多少', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t152_004
@@ -224,6 +243,7 @@ CREATE TABLE `t152_004` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `cheng_ben_bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -232,11 +252,20 @@ CREATE TABLE `t152_004` (
   `yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_004
 -- ----------------------------
+INSERT INTO `t152_004` VALUES ('31', '1090', '0', null, '1', '分包', '', '', '', '', '');
+INSERT INTO `t152_004` VALUES ('32', '1090', '1', 'TITLELEVEL1', '1', '封包', '', '', '', '', '');
+INSERT INTO `t152_004` VALUES ('33', '1090', '2', null, '', '萨达', '', '', '', '', '');
+INSERT INTO `t152_004` VALUES ('34', '1090', '3', null, '', '啊实打实', '', '', '', '', '');
+INSERT INTO `t152_004` VALUES ('35', '1090', '8', null, '', 'asdsa', '', '', '', '', '');
+INSERT INTO `t152_004` VALUES ('36', '1090', '7', null, '', '阿斯顿撒多', '', '', '', '', '');
+INSERT INTO `t152_004` VALUES ('37', '1090', '5', null, '', '阿斯顿撒', '', '', '', '', '');
+INSERT INTO `t152_004` VALUES ('38', '1090', '4', 'TITLELEVEL2', '2', '啊实打实', '', '', '', '', '');
+INSERT INTO `t152_004` VALUES ('39', '1090', '6', 'TITLELEVEL2', '2', '阿斯顿撒', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t152_005
@@ -246,6 +275,7 @@ CREATE TABLE `t152_005` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `bian_hao_` varchar(255) DEFAULT NULL,
   `cai_liao_ming_chen_` varchar(255) DEFAULT NULL,
   `gui_ge_xing_hao_` varchar(255) DEFAULT NULL,
@@ -257,11 +287,17 @@ CREATE TABLE `t152_005` (
   `ce_suan_he_ji_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_005
 -- ----------------------------
+INSERT INTO `t152_005` VALUES ('10', '1091', '5', null, '', '啊实打实', '', '', '', '', '', '', '', '');
+INSERT INTO `t152_005` VALUES ('11', '1091', '3', null, '', '打发打发', '', '', '', '', '', '', '', '');
+INSERT INTO `t152_005` VALUES ('12', '1091', '0', null, '', '是多少', '', '', '', '', '', '', '', '');
+INSERT INTO `t152_005` VALUES ('13', '1091', '4', 'TITLELEVEL1', '4', '打发打发', '', '', '', '', '', '', '', '');
+INSERT INTO `t152_005` VALUES ('14', '1091', '2', 'TITLELEVEL1', '2', '是多少', '', '', '', '', '', '', '', '');
+INSERT INTO `t152_005` VALUES ('15', '1091', '1', 'TITLELEVEL2', '5', '是多少', '', '', '', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t152_006
@@ -271,6 +307,7 @@ CREATE TABLE `t152_006` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `cheng_ben_bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -279,11 +316,18 @@ CREATE TABLE `t152_006` (
   `yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_006
 -- ----------------------------
+INSERT INTO `t152_006` VALUES ('2', '1092', '3', null, '', '阿萨', '', '', '', '', '');
+INSERT INTO `t152_006` VALUES ('3', '1092', '2', null, '', '', '真潇洒', '', '', '', '');
+INSERT INTO `t152_006` VALUES ('4', '1092', '0', null, '', '阿萨', '休息休息', '', '', '', '');
+INSERT INTO `t152_006` VALUES ('5', '1092', '1', 'TITLELEVEL1', '2', '阿萨', '休息休息', '', '', '', '');
+INSERT INTO `t152_006` VALUES ('6', '1092', '4', 'TITLELEVEL2', '4', '阿萨', '', '', '', '', '');
+INSERT INTO `t152_006` VALUES ('7', '1092', '6', 'TITLELEVEL1', '8', '呜呜呜呜', '', '', '', '', '');
+INSERT INTO `t152_006` VALUES ('8', '1092', '5', null, '嘻嘻嘻', '嘻嘻嘻', '', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t152_007
@@ -293,6 +337,7 @@ CREATE TABLE `t152_007` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `cheng_ben_bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -301,11 +346,25 @@ CREATE TABLE `t152_007` (
   `yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t152_007
 -- ----------------------------
+INSERT INTO `t152_007` VALUES ('51', '1093', '3', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('52', '1093', '2', null, '', '啊实打实', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('53', '1093', '10', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('54', '1093', '1', null, '', '啊实打实多', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('55', '1093', '0', null, '', '大', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('56', '1093', '7', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('57', '1093', '6', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('58', '1093', '5', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('59', '1093', '4', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('60', '1093', '9', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('61', '1093', '8', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('62', '1093', '13', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('63', '1093', '11', null, '', '', '', '', '元/㎡', '', '㎡');
+INSERT INTO `t152_007` VALUES ('64', '1093', '12', null, '', '', '', '', '元/㎡', '', '㎡');
 
 -- ----------------------------
 -- Table structure for t153_002
@@ -315,6 +374,7 @@ CREATE TABLE `t153_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `cheng_ben_bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `ben_qi_shu_diao_zheng_e_` varchar(255) DEFAULT NULL,
@@ -327,7 +387,7 @@ CREATE TABLE `t153_002` (
   `lei_ji_shu_qi_ta_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t153_002
@@ -341,6 +401,7 @@ CREATE TABLE `t154_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `cheng_ben_bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -349,13 +410,11 @@ CREATE TABLE `t154_002` (
   `cheng_ben_jiang_di_lv_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t154_002
 -- ----------------------------
-INSERT INTO `t154_002` VALUES ('64', '480', '1', '', '', '萨达所大所多', '', '', '', '');
-INSERT INTO `t154_002` VALUES ('65', '480', '0', '', '', '撒大声地所', '', '', '', '');
 
 -- ----------------------------
 -- Table structure for t155_002
@@ -365,6 +424,7 @@ CREATE TABLE `t155_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -377,7 +437,7 @@ CREATE TABLE `t155_002` (
   `ji_hua_shi_ji_bi_li_` varchar(255) DEFAULT NULL,
   `zhuang_tai_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t155_002
@@ -391,6 +451,7 @@ CREATE TABLE `t155_004` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `cheng_ben_bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
@@ -406,7 +467,7 @@ CREATE TABLE `t155_004` (
   `sheng_yu_cheng_ben_yu_ce_shu_jie_chao_` varchar(255) DEFAULT NULL,
   `shi_ji_yu_ji_cheng_ben_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t155_004
@@ -420,6 +481,7 @@ CREATE TABLE `t155_005` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `cheng_ben_bian_hao_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
@@ -435,7 +497,7 @@ CREATE TABLE `t155_005` (
   `sheng_yu_cheng_ben_yu_ce_shu_jie_chao_` varchar(255) DEFAULT NULL,
   `shi_ji_yu_ji_cheng_ben_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t155_005
@@ -449,6 +511,7 @@ CREATE TABLE `t156_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `xu_hao_` varchar(255) DEFAULT NULL,
   `wu_zi_ming_chen_` varchar(255) DEFAULT NULL,
   `gui_ge_xing_hao_` varchar(255) DEFAULT NULL,
@@ -476,6 +539,7 @@ CREATE TABLE `t157_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `ben_qi_shu_yu_suan_cheng_ben_` varchar(255) DEFAULT NULL,
@@ -488,7 +552,7 @@ CREATE TABLE `t157_002` (
   `lei_ji_shu_jiang_di_lv_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t157_002
@@ -502,6 +566,7 @@ CREATE TABLE `t158_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `cheng_ben_bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -509,7 +574,7 @@ CREATE TABLE `t158_002` (
   `shi_ji_cheng_ben_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t158_002
@@ -523,6 +588,7 @@ CREATE TABLE `t158_003` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `xu_hao_` varchar(255) DEFAULT NULL,
   `wu_zi_ming_chen_` varchar(255) DEFAULT NULL,
   `gui_ge_xing_hao_` varchar(255) DEFAULT NULL,
@@ -551,6 +617,7 @@ CREATE TABLE `t158_004` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `xu_hao_` varchar(255) DEFAULT NULL,
   `wu_zi_ming_chen_` varchar(255) DEFAULT NULL,
   `gui_ge_xing_hao_` varchar(255) DEFAULT NULL,
@@ -581,6 +648,7 @@ CREATE TABLE `t159_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `xu_hao_` varchar(255) DEFAULT NULL,
   `ji_hua_xiang_mu_` varchar(255) DEFAULT NULL,
   `cheng_ben_jiang_di_lv_mu_biao_zhi_` varchar(255) DEFAULT NULL,
@@ -594,7 +662,7 @@ CREATE TABLE `t159_002` (
   `lei_ji_shu_shi_ji_jia_quan_ping_jun_zhi_` varchar(255) DEFAULT NULL,
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t159_002
@@ -608,6 +676,7 @@ CREATE TABLE `t160_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `bian_ma_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -621,7 +690,7 @@ CREATE TABLE `t160_002` (
   `jie_chao_yin_su_fen_xi_qi_ta_` varchar(255) DEFAULT NULL,
   `zhuang_tai_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t160_002
@@ -635,6 +704,7 @@ CREATE TABLE `t161_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `xu_hao_` varchar(255) DEFAULT NULL,
   `wu_zi_ming_chen_` varchar(255) DEFAULT NULL,
   `gui_ge_xing_hao_` varchar(255) DEFAULT NULL,
@@ -665,6 +735,7 @@ CREATE TABLE `t161_003` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `xu_hao_` varchar(255) DEFAULT NULL,
   `wu_zi_ming_chen_` varchar(255) DEFAULT NULL,
   `gui_ge_xing_hao_` varchar(255) DEFAULT NULL,
@@ -697,6 +768,7 @@ CREATE TABLE `t162_002` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) DEFAULT NULL,
   `tr_order` int(11) DEFAULT NULL,
+  `tr_type` varchar(255) DEFAULT NULL,
   `xu_hao_` varchar(255) DEFAULT NULL,
   `cheng_ben_xiang_mu_` varchar(255) DEFAULT NULL,
   `na_rong_fan_wei_miao_shu_` varchar(255) DEFAULT NULL,
@@ -713,6 +785,22 @@ CREATE TABLE `t162_002` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for table_content
+-- ----------------------------
+DROP TABLE IF EXISTS `table_content`;
+CREATE TABLE `table_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `table_id` int(11) NOT NULL,
+  `content` longtext,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of table_content
+-- ----------------------------
+INSERT INTO `table_content` VALUES ('45', '1094', '<input iidata=\"xiang_mu_ming_chen_\" class=\"forinit\" type=\"hidden\" value=\"1121212121测试室\"><input iidata=\"biao_dan_bian_hao_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"tong_ji_ri_qi_nian_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"tong_ji_ri_qi_yue_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"dan_wei_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"bian_zhi_ren_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"bian_zhi_ren_nian_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"bian_zhi_ren_yue_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"bian_zhi_ren_ri_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"shen_he_ren_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"shen_he_ren_nian_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"shen_he_ren_yue_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"shen_he_ren_ri_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"shen_pi_ren_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"shen_pi_ren_nian_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"shen_pi_ren_yue_\" class=\"forinit\" type=\"hidden\" value=\"\"><input iidata=\"shen_pi_ren_ri_\" class=\"forinit\" type=\"hidden\" value=\"\"><center><div layout=\"page\" style=\"position: absolute; height: 1122px; width: 793px; padding-top: 33px; margin-top: 33px; margin-bottom: 100px; background-color: rgb(255, 255, 255); left: 165.5px;\"><center><table tabletype=\"spctx\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"553\" style=\"border-collapse:\n collapse;table-layout:fixed;width:415pt\">\n <colgroup><col width=\"70\" style=\"mso-ruby-visibility: none; mso-width-alt: 2240; mso-width-source: userset; width: 53pt;\">\n <col width=\"63\" style=\"mso-ruby-visibility: none; mso-width-alt: 2016; mso-width-source: userset; width: 47pt;\">\n <col width=\"420\" style=\"mso-ruby-visibility: none; mso-width-alt: 13440; mso-width-source: userset; width: 315pt;\">\n </colgroup><tbody><tr height=\"32\" style=\"mso-height-source:userset;height:24.0pt\">\n  <td height=\"32\" width=\"70\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 24.0pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap; width: 53pt;\"></td>\n  <td width=\"63\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap; width: 47pt;\"></td>\n  <td width=\"420\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap; width: 315pt;\"></td>\n </tr>\n <tr height=\"142\" style=\"mso-height-source:userset;height:106.5pt\">\n  <td height=\"142\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 106.5pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 隶书, monospace; font-size: 28.0pt; font-style: normal; font-weight: 700;  padding: 0px; text-align: center; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"59\" style=\"mso-height-source:userset;height:44.45pt\">\n  <td height=\"59\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 44.45pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 36.0pt; font-style: normal; font-weight: 700;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\">项目管理实施规划书<span style=\"mso-spacerun:yes\">&nbsp;&nbsp;&nbsp;</span></td>\n </tr>\n <tr height=\"36\" style=\"mso-height-source:userset;height:27.0pt\">\n  <td height=\"36\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 27.0pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 18.0pt; font-style: normal; font-weight: 400;padding: 0px; text-align: center; text-decoration: none; vertical-align: bottom; white-space: nowrap;\">\n\n  <div style=\"display: flex; justify-content: center; align-items: center;\">\n  <div style=\"\">（版本：</div>\n  <div contenteditable=\"true\" style=\"width:100px;height:36px;border:none\" name=\"ban_ben_\">颠三倒四</div>\n  <div style=\"\">)</div>\n  </div>\n \n  </td>\n </tr>\n <tr height=\"36\" style=\"mso-height-source:userset;height:27.0pt\">\n  <td height=\"36\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 27.0pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 黑体, monospace; font-size: 18.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: center; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"35\" style=\"mso-height-source:userset;height:26.25pt\">\n  <td height=\"35\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 26.25pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td style=\"border: none; color: windowtext; font-family: 宋体; font-size: 18.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td style=\"border: none; color: windowtext; font-family: \'Times New Roman\', serif; font-size: 18.0pt; font-style: normal; font-weight: 400; mso-background-source: auto; mso-font-charset: 0; mso-generic-font-family: auto; mso-ignore: padding; mso-number-format: General; mso-pattern: auto; mso-protection: locked visible; mso-rotate: 0; mso-style-parent: style0; padding: 0px; text-align: left; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"35\" style=\"mso-height-source:userset;height:26.25pt\">\n  <td height=\"35\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 26.25pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: left; text-decoration: none; vertical-align: bottom; white-space: nowrap;\">\n    <div style=\"display: flex; justify-content: left; align-items: center;\">\n  <div style=\"\">项目名称：</div>\n  <div contenteditable=\"true\" style=\"width:274px;height:40px;border:none\" name=\"xiang_mu_ming_chen_\"></div>\n  </div>\n\n  \n  </td>\n </tr>\n <tr height=\"25\" style=\"mso-height-source:userset;height:18.75pt\">\n  <td height=\"25\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 18.75pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: center; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"35\" style=\"mso-height-source:userset;height:26.25pt\">\n  <td height=\"35\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 26.25pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400; mso-background-source: auto; mso-font-charset: 134; mso-generic-font-family: auto; mso-ignore: colspan; mso-number-format: General; mso-pattern: auto; mso-protection: locked visible; mso-rotate: 0; mso-style-parent: style0; padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\">\n      <div style=\"display: flex; justify-content: left; align-items: center;\">\n  <div style=\"\">编制单位：</div>\n  <div contenteditable=\"true\" style=\"width:274px;height:40px;border:none\" name=\"bian_zhi_dan_wei_\"></div>\n  </div>\n </td></tr>\n <tr height=\"26\" style=\"mso-height-source:userset;height:19.5pt\">\n  <td height=\"26\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 19.5pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: center; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"35\" style=\"mso-height-source:userset;height:26.25pt\">\n  <td height=\"35\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 26.25pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400; mso-background-source: auto; mso-font-charset: 134; mso-generic-font-family: auto; mso-ignore: colspan; mso-number-format: General; mso-pattern: auto; mso-protection: locked visible; mso-rotate: 0; mso-style-parent: style0; padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\">\n    <div style=\"display: flex; justify-content: left; align-items: center;\">\n  <div style=\"\">审<span>&nbsp;&nbsp;</span>核：</div>\n  <div contenteditable=\"true\" style=\"width:274px;height:40px;border:none\" name=\"shen_he_1\"></div>\n  </div>\n  </td>\n </tr>\n <tr height=\"24\" style=\"mso-height-source:userset;height:18.0pt\">\n  <td height=\"24\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 18.0pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: center; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"35\" style=\"mso-height-source:userset;height:26.25pt\">\n  <td height=\"35\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 26.25pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400; mso-background-source: auto; mso-font-charset: 134; mso-generic-font-family: auto; mso-ignore: colspan; mso-number-format: General; mso-pattern: auto; mso-protection: locked visible; mso-rotate: 0; mso-style-parent: style0; padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\">\n  <div style=\"display: flex; justify-content: left; align-items: center;\">\n  <div style=\"\">审<span>&nbsp;&nbsp;</span>核：</div>\n  <div contenteditable=\"true\" style=\"width:274px;height:40px;border:none\" name=\"shen_he_2\"></div>\n  </div>\n  \n </td></tr>\n <tr height=\"21\" style=\"mso-height-source:userset;height:15.75pt\">\n  <td height=\"21\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 15.75pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: center; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"35\" style=\"mso-height-source:userset;height:26.25pt\">\n  <td height=\"35\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 26.25pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400; mso-background-source: auto; mso-font-charset: 134; mso-generic-font-family: auto; mso-ignore: colspan; mso-number-format: General; mso-pattern: auto; mso-protection: locked visible; mso-rotate: 0; mso-style-parent: style0; padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\">\n    <div style=\"display: flex; justify-content: left; align-items: center;\">\n  <div style=\"\">批<span>&nbsp;&nbsp;</span>准：</div>\n  <div contenteditable=\"true\" style=\"width:274px;height:40px;border:none\" name=\"pi_zhun_\"></div>\n  </div>\n  \n  </td>\n </tr>\n <tr height=\"22\" style=\"mso-height-source:userset;height:16.5pt\">\n  <td height=\"22\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 16.5pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400; padding: 0px; text-align: center; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"35\" style=\"mso-height-source:userset;height:26.25pt\">\n  <td height=\"35\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 26.25pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td colspan=\"2\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 20.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\">\n  \n      <div style=\"display: flex; justify-content: left; align-items: center;\">\n  <div style=\"\">生效日期：</div>\n  <div contenteditable=\"true\" style=\"width:274px;height:40px;border:none\" name=\"sheng_xiao_ri_qi_\"></div>\n  </div>\n  </td>\n </tr>\n <tr height=\"44\" style=\"mso-height-source:userset;height:33.0pt\">\n  <td height=\"44\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 33.0pt;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td style=\"border: none; color: windowtext; font-family: 宋体; font-size: 18.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n  <td style=\"border: none; color: windowtext; font-family: 宋体; font-size: 18.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"76\" style=\"height:57.0pt;mso-xlrowspan:4\">\n  <td height=\"76\" colspan=\"3\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400; height: 57.0pt; mso-background-source: auto; mso-font-charset: 134; mso-generic-font-family: auto; mso-ignore: colspan; mso-number-format: General; mso-pattern: auto; mso-protection: locked visible; mso-rotate: 0; mso-style-parent: style0; padding: 0px; text-align: general; text-decoration: none; vertical-align: bottom; white-space: nowrap;\"></td>\n </tr>\n <tr height=\"82\" style=\"mso-height-source:userset;height:61.9pt\">\n  <td colspan=\"3\" width=\"552\" style=\"border: none; color: windowtext; font-family: 宋体; font-size: 12.0pt; font-style: normal; font-weight: 400;  padding: 0px; text-align: general; text-decoration: none; vertical-align: middle; white-space: normal; width: 315pt;\"><!--此表手工填写,项目名称由前面的组织架构图填写完毕后自动生成.时间可自动生成可手工输入,确定后不可调整除非获得授权--></td>\n </tr>\n\n</tbody></table></center></div></center>');
+
+-- ----------------------------
 -- Table structure for wexcel
 -- ----------------------------
 DROP TABLE IF EXISTS `wexcel`;
@@ -722,15 +810,15 @@ CREATE TABLE `wexcel` (
   `gong_cheng_id` int(11) NOT NULL,
   `excelType` varchar(255) NOT NULL,
   `createDate` datetime DEFAULT NULL,
+  `excelStatus` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=224 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=291 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of wexcel
 -- ----------------------------
-INSERT INTO `wexcel` VALUES ('221', '工程成本测算表(1)', '1', '152', '2018-03-20 16:32:44');
-INSERT INTO `wexcel` VALUES ('222', '工程成本测算表(2)', '1', '152', '2018-03-20 16:32:51');
-INSERT INTO `wexcel` VALUES ('223', '工程成本计划表(3)', '1', '154', '2018-03-20 16:33:04');
+INSERT INTO `wexcel` VALUES ('289', '工程成本测算表(1)', '1', '152', '2018-04-06 20:29:14', 'WEITIJIAO');
+INSERT INTO `wexcel` VALUES ('290', '项目实施策划书(2)', '1', '4', '2018-04-07 10:04:30', 'WEITIJIAO');
 
 -- ----------------------------
 -- Table structure for wtable
@@ -755,25 +843,42 @@ CREATE TABLE `wtable` (
   `shen_he_ri_qi_` varchar(255) DEFAULT NULL,
   `shen_pi_ri_qi_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=482 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=1119 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of wtable
 -- ----------------------------
-INSERT INTO `wtable` VALUES ('468', '152_002', null, '221', '嘻嘻嘻', '', null, null, 'null', 'null', '', '', '', '', '', '', '');
-INSERT INTO `wtable` VALUES ('469', '152_003', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('470', '152_004', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('471', '152_005', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('472', '152_006', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('473', '152_007', null, '221', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('474', '152_002', null, '222', '', '', null, null, 'null', 'null', '', '', '', '', '', '', '');
-INSERT INTO `wtable` VALUES ('475', '152_003', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('476', '152_004', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('477', '152_005', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('478', '152_006', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('479', '152_007', null, '222', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `wtable` VALUES ('480', '154_002', null, '223', '', '', null, null, 'null', 'null', '', '', '', '', '', '', '');
-INSERT INTO `wtable` VALUES ('481', '154_003', null, '223', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1088', '152_002', null, '289', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1089', '152_003', null, '289', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1090', '152_004', null, '289', '', '1121212121测试室', null, null, 'null', 'null', '', '', '', '', '', '', '');
+INSERT INTO `wtable` VALUES ('1091', '152_005', null, '289', '', 'null', null, null, 'null', 'null', 'null', '', '', '', '', '', '');
+INSERT INTO `wtable` VALUES ('1092', '152_006', null, '289', 'null', 'null', null, null, 'null', 'null', 'null', 'null', 'null', '', 'null', 'null', 'null');
+INSERT INTO `wtable` VALUES ('1093', '152_007', null, '289', 'null', 'null', null, null, 'null', 'null', 'null', 'null', 'null', '', 'null', 'null', 'null');
+INSERT INTO `wtable` VALUES ('1094', '4_001', null, '290', '', '', null, null, 'null', 'null', '', '', '', '', '', '', '');
+INSERT INTO `wtable` VALUES ('1095', '4_002', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1096', '4_003', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1097', '4_004', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1098', '4_005', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1099', '4_006', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1100', '4_007', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1101', '4_008', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1102', '4_009', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1103', '4_010', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1104', '4_011', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1105', '4_012', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1106', '4_013', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1107', '4_014', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1108', '4_015', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1109', '4_016', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1110', '4_017', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1111', '4_018', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1112', '4_019', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1113', '4_020', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1114', '4_021', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1115', '4_022', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1116', '4_023', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1117', '4_024', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `wtable` VALUES ('1118', '4_025', null, '290', null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for wtable_authority
@@ -839,7 +944,7 @@ CREATE TABLE `wtable_title` (
   `title` varchar(255) DEFAULT NULL,
   `level` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of wtable_title
@@ -876,7 +981,7 @@ CREATE TABLE `xiang_mu_ren_yuan_zhu_ce_` (
   `dao_gang_shi_jian_` date DEFAULT NULL,
   `gang_wei_xing_zhi_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of xiang_mu_ren_yuan_zhu_ce_
@@ -890,6 +995,7 @@ INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('13', '13', '1', '岗位6', '大
 INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('14', '20', '1', '岗位7', '晓得', '投标', '2018-02-08', '4433');
 INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('15', '25', '1', '岗位8', '电视剧', '核算', '2018-02-07', '7677');
 INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('18', '21', '1', '岗位9', '大大', '核算', '2018-02-02', '大第三方');
+INSERT INTO `xiang_mu_ren_yuan_zhu_ce_` VALUES ('19', '18', '11', '岗位1', '核算', '行政', '2018-04-02', '打发第三方');
 
 -- ----------------------------
 -- Table structure for xiang_mu_xin_xi_
@@ -921,11 +1027,8 @@ CREATE TABLE `xiang_mu_xin_xi_` (
 -- Records of xiang_mu_xin_xi_
 -- ----------------------------
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('3', '测试项目', 'asdd', 'as', '1', '2', '4', '3', '2', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '万元', '万元', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('1', '测试项目', '', '', '', '', '', '', '', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '万元', '万元', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('7', '213', '是大法师的法', '第三方撒旦法师打发第三方', '爱的色放撒地方撒地方', '大法师打发打发', '的撒发生大所发生的', '是打发打发大是大非', '的撒范德萨发生的', '士大夫的撒发顺丰', '的萨芬撒打发的撒', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '222', '打发第三方', '万元', '士大夫士大夫', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('8', '11111dsfasdf', '222', 'dsfasdfs', 'fasdfsd', '', '', '', '', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '万元', '万元', '', '1');
+INSERT INTO `xiang_mu_xin_xi_` VALUES ('1', '测试项目', '', '465665', '', '', '', '', '', '', '', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '', '万元', '万元', '', '1');
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('9', '1121212121测试室', 'dfasdfds中', 'dsfsdfdas', 'dsfsadf', 'dsfsadfdas', '1121', '的好方法设计的回复即可收到货达到1测试测试是是', '达瓦', '', '', '2017-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
-INSERT INTO `xiang_mu_xin_xi_` VALUES ('10', 'adawddawsad', 'dsfads', 'asdsa', 'sd', 'asdasdas', 'asdas', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('11', '的看法还是劳动', '爱迪生多', '奥术大师多', '111', '奥术大师大阿迪王哇大无大无阿瓦达', '撒大声地', '阿瓦达无多哇大啊啊啊啊', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '1');
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('12', '测试项目', '', '但是士大夫撒旦发的说法是否萨达撒大多撒奥所所大所多', '', '是撒多撒大所多撒安达市大所多所啊撒大声地', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', '万元', '', '2');
 INSERT INTO `xiang_mu_xin_xi_` VALUES ('47', '数据的返回', '计算的和', '电视剧啊很费劲', '外资', 'djsahfjk打发', '阿萨德发多少', '啊实打实', '啊实打实', '啊实打实', '啊实打实', '1900-01-01 00:00:00', '1900-01-01 00:00:00', '112', '', '', '联合总承包，合作伙伴是张西洋', null);
@@ -986,7 +1089,7 @@ CREATE TABLE `yong_hu_` (
   `quan_xian_` int(11) DEFAULT '1' COMMENT '权限：0暂时表示超级管理员，1：基本用户；剩下的用二进制算',
   `zhu_ce_shi_jian_` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of yong_hu_
@@ -1004,6 +1107,8 @@ INSERT INTO `yong_hu_` VALUES ('23', null, null, '张三', '2', '但是', '倒�
 INSERT INTO `yong_hu_` VALUES ('24', null, null, '张大大', '1', '汉', '1786872163871263', '2018022004193080905z.png', '2018022004193080905f.png', '东方丽景阿萨德回复空间大三', '大富科技监控', '[15]', '2', '2', '3', '1', '2018-02-20 04:19:30');
 INSERT INTO `yong_hu_` VALUES ('25', null, null, '孟孟', '1', '蒙古', '764872376846', '2018022004222712892z.png', '2018022004222712892f.png', '我ad符合会计师电话费空间撒旦画', '大多数', '[]', '2', '16', '3', '1', '2018-02-20 04:22:27');
 INSERT INTO `yong_hu_` VALUES ('29', '1', '111111', null, null, null, null, null, null, null, null, null, null, null, null, '0', null);
+INSERT INTO `yong_hu_` VALUES ('31', null, null, '的快速', '难', '韩', '832748937', '2018040107352837435z.gif', '2018040107352837435f.gif', '打发士大夫撒大师傅', '12312312', '[16,17]', '2', '17', '3', '1', '2018-04-01 07:35:28');
+INSERT INTO `yong_hu_` VALUES ('32', null, null, '是的发生', '东', '第', '123123123', '2018040107391733351z.gif', '2018040107391733351f.gif', '阿萨德啊实打实大', '阿斯顿撒', '[18,19]', '2', '18', '6', '1', '2018-04-01 07:39:17');
 
 -- ----------------------------
 -- Table structure for yong_hu_biao_qian_
@@ -1015,7 +1120,7 @@ CREATE TABLE `yong_hu_biao_qian_` (
   `suo_shu_gong_si_` int(11) DEFAULT NULL COMMENT '这个标签属于哪个公司',
   `bei_zhu_` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of yong_hu_biao_qian_
@@ -1035,6 +1140,8 @@ INSERT INTO `yong_hu_biao_qian_` VALUES ('13', '的沙发斯蒂芬', '11', '第�
 INSERT INTO `yong_hu_biao_qian_` VALUES ('14', '的神色', '10', '啊的说法');
 INSERT INTO `yong_hu_biao_qian_` VALUES ('15', '测绘', '7', '打卡机法律手段会计分录');
 INSERT INTO `yong_hu_biao_qian_` VALUES ('16', '绘图', '3', '打算范德萨范德萨发的');
+INSERT INTO `yong_hu_biao_qian_` VALUES ('17', '啦啦', '3', '打瞌睡了士大夫撒旦');
+INSERT INTO `yong_hu_biao_qian_` VALUES ('18', '绘图', '6', '的沙发斯蒂芬');
 
 -- ----------------------------
 -- Table structure for yong_hu_zheng_shu_
@@ -1050,7 +1157,7 @@ CREATE TABLE `yong_hu_zheng_shu_` (
   `zheng_jian_zhao_` varchar(255) DEFAULT NULL COMMENT '证件照的名称，多张照片的时候可以用特殊符号隔开',
   `bei_zhu_` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`,`yong_hu_id_`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of yong_hu_zheng_shu_
@@ -1066,6 +1173,10 @@ INSERT INTO `yong_hu_zheng_shu_` VALUES ('12', '22', '绝地反击卡萨丁', '�
 INSERT INTO `yong_hu_zheng_shu_` VALUES ('13', '23', '独食难肥没多少', '大部分的', '电脑没办法的事', '带你飞', '20180212161307579380.png', null);
 INSERT INTO `yong_hu_zheng_shu_` VALUES ('14', '23', '第三方美三方', '你们的说法，萨达', '吗，独食难肥，但是', '啥大发多少', '20180212161307579381.png', null);
 INSERT INTO `yong_hu_zheng_shu_` VALUES ('15', '24', '空间的', '家第三方看到', '可是抵抗力发', '的撒发达', '20180220041930685650.png', null);
+INSERT INTO `yong_hu_zheng_shu_` VALUES ('16', '31', '阿达是范德萨', '撒旦法第三方', '的撒范德萨', '的说法是阿斯蒂芬', '20180401073528196130.gif', null);
+INSERT INTO `yong_hu_zheng_shu_` VALUES ('17', '31', '发生的发生', '阿斯顿发生大幅', '阿达是范德萨发', '第三发大水', '20180401073528196131.gif', null);
+INSERT INTO `yong_hu_zheng_shu_` VALUES ('18', '32', '第三方三房', '的撒发生', '的萨芬撒', '阿斯蒂芬大厦', '20180401073917414890.gif', null);
+INSERT INTO `yong_hu_zheng_shu_` VALUES ('19', '32', '萨达萨达', '撒打算的撒', '阿斯顿撒', '阿斯顿撒大', '20180401073917414891.gif', null);
 
 -- ----------------------------
 -- Table structure for yong_hu_zu_
