@@ -13,7 +13,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-public class BaseCtl {
+public class BaseCtl extends SystemConst {
 	//public  SqlSession sqlSession;
 	public static SqlSession sqlSession;
 
@@ -37,7 +37,7 @@ public class BaseCtl {
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		sqlSession = sqlSessionFactory.openSession();
 	}
-	
+
 	public String getCMask(Integer proId,Integer yongHuZuId){
 		String cmask="";
 		EauthorityMapper mapper = sqlSession.getMapper(EauthorityMapper.class);

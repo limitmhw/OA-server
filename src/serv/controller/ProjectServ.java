@@ -635,15 +635,40 @@ public class ProjectServ extends BaseCtl {
 		response.getWriter().write(ret);
 	}
 	
-	@RequestMapping("switchProject")
+	
+	
+	@RequestMapping("switchXiangMu")
 	public void func12(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		System.out.println("switchProject");
-		String pro_id= request.getParameter("pro_id");
-		request.getSession().setAttribute("pro_id",pro_id.trim());
-		request.getSession().setAttribute("gong_cheng_id",pro_id.trim());
+		//这里应该是项目的切换
+		
+		String xiang_mu_id= request.getParameter("xiang_mu_id");
+		System.out.println("switchProject:"+xiang_mu_id);
+		request.getSession().setAttribute("xiang_mu_id",xiang_mu_id.trim());
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.getWriter().write("success");
+
+	}
+	
+	@RequestMapping("getXMGCInfo")
+	public void func13(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		//这里应该是项目的切换
+		String xiang_mu_id= request.getParameter("xiang_mu_id");
+		GongChengMapper smapper= sqlSession.getMapper(GongChengMapper.class);
+		GongChengExample cc=new GongChengExample();
+		cc.setOrderByClause("id");
+		cc.or().andXiangMuIdEqualTo(Integer.parseInt(xiang_mu_id));
+		List<GongCheng> lee=smapper.selectByExample(cc);
+		String ret="[";
+		for(GongCheng it:lee){
+			ret+="{"+
+					"\"gong_cheng_id\":\""+it.getId()+"\","+
+					"\"gong_cheng_name\":\""+it.getDanXiangGongCheng()+"\""+
+				 "},";
+		}
+		ret+="]";
+		response.getWriter().write(ret);
 
 	}
 }
